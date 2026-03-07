@@ -14,10 +14,10 @@ body {
   top: 0;
   display: flex;
   align-items: center;       /* centraliza verticalmente */
-  justify-content: center;   /* centraliza horizontalmente o bloco */
+  justify-content: center;   /* centraliza horizontalmente */
   height: 80px;
-  background: #ffffff;
-  border-bottom: 1px solid #eee;
+  background: #000000;       /* barra totalmente preta */
+  border-bottom: none;       /* remove borda clara */
   z-index: 1000;
   gap: 30px;                 /* espaço entre menu, logo e carrinho */
 }
@@ -32,13 +32,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #ffffff;           /* cor branca para ficar visível na barra preta */
 }
 
 /* LOGO */
 .logo-container img.logo {
-  height: 35px; /* ajustável para ficar proporcional */
+  height: 35px; /* mesma altura do carrinho e menu */
   width: auto;
   display: block;
+  filter: brightness(0) invert(1); /* deixa a logo visível se for escura */
 }
 
 /* CARRINHO */
@@ -55,6 +57,7 @@ body {
 .cart-icon img {
   height: 35px;
   width: auto;
+  filter: brightness(0) invert(1); /* deixa o ícone visível em barra preta */
 }
 
 /* BANNER */
