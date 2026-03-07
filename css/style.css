@@ -40,7 +40,7 @@ body {
 }
 
 .logo {
-  height: 50px;
+  height: 60px;
 }
 
 .cart-icon {
@@ -54,13 +54,18 @@ body {
 }
 
 /* ---------------------------
-   CONTEÚDO
+   BANNER GIF
 --------------------------- */
 .banner img {
   width: 100%;
+  max-height: 400px;
+  object-fit: cover;
   display: block;
 }
 
+/* ---------------------------
+   CONTEÚDO
+--------------------------- */
 .produtos {
   padding: 120px 20px 20px; /* topo 120px para não ficar atrás do header */
 }
@@ -142,4 +147,4 @@ body {
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
-}
+   }
