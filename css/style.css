@@ -1,53 +1,26 @@
-/* TOPO FIXO PRETO */
-.topo {
-  position: sticky;
-  top: 0;
-  width: 100%;                /* ocupa toda a largura */
-  height: 80px;
-  background-color: #000000;  /* topo totalmente preto */
-  display: flex;
-  align-items: center;        /* centraliza verticalmente */
-  justify-content: center;    /* centraliza horizontalmente */
-  gap: 20px;                  /* espaçamento entre elementos */
-  z-index: 1000;
-  padding: 0 15px;
-  border-bottom: none;
+/* container da imagem */
+.logo-com-cart {
+  position: relative; /* necessário para posicionar o botão sobre a imagem */
+  display: inline-block;
 }
 
-/* MENU HAMBÚRGUER */
-.menu-icon {
-  font-size: 28px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  height: 35px;             
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;               /* branco sobre topo preto */
-}
-
-/* LOGO CENTRAL */
-.logo {
-  height: 70px;              /* maior para preencher visualmente */
+/* imagem do logo + carrinho */
+.logo-com-cart img.logo {
+  height: 70px; /* ajuste como quiser */
   width: auto;
   display: block;
 }
 
-/* CARRINHO */
-.cart-icon {
-  background: none;
+/* botão invisível sobre o carrinho */
+.cart-button {
+  position: absolute;
+  top: 0;      /* ajuste vertical da área do carrinho */
+  right: 0;    /* ajuste horizontal da área do carrinho */
+  width: 40px; /* largura do carrinho na imagem */
+  height: 35px; /* altura do carrinho na imagem */
+  background: transparent;
   border: none;
   cursor: pointer;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cart-icon img {
-  height: 35px;
-  width: auto;
 }
 
 /* GARANTIR QUE O TOPO FIQUE SOBRE O SITE */
