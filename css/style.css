@@ -27,10 +27,10 @@
 
 /* LOGO CENTRAL */
 .logo {
-  height: 65px;                      /* ajusta altura do logo */
+  height: 32px;                      /* ajusta altura do logo */
   width: auto;
   position: absolute;                /* centraliza horizontalmente na tela */
-  left: 50%;
+  left: 30%;
   transform: translateX(-50%);
 }
 
