@@ -1,53 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Tzad Store</title>
-
-<link rel="stylesheet" href="css/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tzad Store</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  
-<header class="topo">
 
-  <div class="menu-icon">
-    ☰
-  </div>
+  <!-- TOPO FIXO -->
+  <header class="topo">
+    <button class="menu-icon" aria-label="Menu">
+      ☰
+    </button>
 
-  <div class="logo-container">
-    <img src="img/logo.jpg" alt="Tzad Store" class="logo">
-  </div>
+    <div class="logo-container">
+      <a href="#">
+        <img src="img/logo.jpg" alt="Tzad Store" class="logo">
+      </a>
+    </div>
 
-  <div class="cart-icon">
-    <img src="img/carrinho.png" alt="Carrinho">
-  </div>
+    <button class="cart-icon" aria-label="Carrinho">
+      <img src="img/carrinho.png" alt="Carrinho">
+    </button>
+  </header>
 
-</header>
+  <!-- CONTEÚDO DE TESTE -->
+  <main>
+    <section style="height:2000px; padding-top:70px;">
+      <h1>Bem-vindo à Tzad Store</h1>
+      <p>Role para ver o topo fixo funcionando.</p>
+    </section>
+  </main>
 
-<section class="banner">
-
-<img src="img/banner.jpg">
-
-</section>
-
-<section class="produtos">
-
-<h2>Novidades</h2>
-
-<div class="grid-produtos">
-
-</div>
-
-</section>
-
-<script src="js/script.js"></script>
-
+  <script src="script.js"></script>
 </body>
-
 </html>
