@@ -26,7 +26,8 @@ background:#ffffff;
 .menu-icon {
   font-size: 28px;
   cursor: pointer;
-  flex-shrink: 0; /* não encolhe */
+  flex-shrink: 0;
+  color: #ffffff; /* ícone branco */
 }
 
 /* LOGO CENTRAL */
