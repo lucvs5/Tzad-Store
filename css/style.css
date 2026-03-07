@@ -30,7 +30,7 @@
   height: 32px;                      /* ajusta altura do logo */
   width: auto;
   position: absolute;                /* centraliza horizontalmente na tela */
-  left: 40%;
+  left: 50%;
   transform: translateX(-50%);
 }
 
