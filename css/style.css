@@ -50,8 +50,14 @@ body {
 
 /* LOGO */
 .logo-container img.logo {
-  height: 35px; /* mesma altura do carrinho e menu */
+  height: 35px; /* ajuste aqui para a altura que ficar visualmente correta */
   width: auto;
+}
+.topo {
+  display: flex;
+  align-items: center;  /* centraliza verticalmente menu, logo e carrinho */
+  justify-content: center; /* centraliza horizontalmente o bloco */
+  gap: 10px; /* espaçamento entre os itens */
 }
 
 /* CARRINHO */
