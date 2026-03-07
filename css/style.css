@@ -59,7 +59,8 @@ body {
    BANNER GIF
 --------------------------- */
 .banner {
-  margin-top: 80px; /* mesma altura do header */
+  margin: 0;
+  padding: 0;
 }
 
 .banner img {
