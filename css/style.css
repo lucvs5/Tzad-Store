@@ -64,7 +64,7 @@
 
 /* JANELA DE LOGIN */
 .login-window {
-  display: none;                  /* começa escondida */
+  display: none; /* muito importante */
   position: fixed;
   top: 100px;
   right: 50px;
@@ -104,13 +104,10 @@
 }
 
 .login-form {
+.login-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.login-form label {
-  font-weight: bold;
 }
 
 .login-form input {
@@ -119,7 +116,6 @@
   border-radius: 4px;
 }
 
-/* LINKS */
 .links {
   display: flex;
   justify-content: space-between;
@@ -131,7 +127,6 @@
   text-decoration: none;
 }
 
-/* BOTÃO LOGIN */
 .login-button {
   padding: 10px;
   background-color: #B8860B;
@@ -140,16 +135,4 @@
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
-}
-
-.login-button:hover {
-  background-color: #a17305;
-}
-  cursor: pointer;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-.login-button:hover {
-  background-color: #a17305;
 }
