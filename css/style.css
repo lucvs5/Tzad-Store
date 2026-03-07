@@ -3,12 +3,12 @@
   position: sticky;
   top: 0;
   width: 100%;
-  height: 80px;
-  background-color: #000;        /* topo preto */
+  height: 80px;                /* altura da barra */
+  background-color: #000;
   display: flex;
-  align-items: center;           /* centraliza verticalmente */
-  justify-content: center;       /* centraliza horizontalmente */
-  gap: 20px;                     /* espaço entre menu e imagem */
+  align-items: center;         /* centraliza verticalmente */
+  justify-content: center;     /* centraliza horizontalmente */
+  gap: 20px;
   padding: 0 15px;
   z-index: 1000;
 }
@@ -19,22 +19,22 @@
   cursor: pointer;
   background: none;
   border: none;
-  height: 35px;
+  height: 70px;               /* mesma altura da imagem do topo */
   display: flex;
-  align-items: center;
+  align-items: center;        /* centraliza verticalmente */
   justify-content: center;
   color: #fff;
 }
 
 /* CONTAINER TOPO.PNG */
 .logo-com-cart {
-  position: relative;   /* necessário para posicionar botão sobre a imagem */
+  position: relative;
   display: inline-block;
 }
 
 /* IMAGEM TOPO.PNG */
 .logo-com-cart img.topo-img {
-  height: 70px;        /* altura do topo */
+  max-height: 70px;           /* limita altura máxima para caber na barra */
   width: auto;
   display: block;
 }
@@ -42,10 +42,10 @@
 /* BOTÃO INVISÍVEL SOBRE O CARRINHO */
 .cart-button {
   position: absolute;
-  top: 0;           /* ajuste vertical da parte do carrinho */
-  right: 0;         /* alinhado à direita da imagem */
-  width: 40px;      /* largura do carrinho na imagem */
-  height: 35px;     /* altura do carrinho */
+  top: 0;
+  right: 0;
+  width: 40px;                /* largura do carrinho na imagem */
+  height: 35px;               /* altura da área clicável */
   background: transparent;
   border: none;
   cursor: pointer;
