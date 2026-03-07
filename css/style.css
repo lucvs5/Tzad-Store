@@ -41,7 +41,7 @@ body {
 
 .logo {
   height: 60px;
-  transform: scaleX(1.0); /* reduz largura em 8% */
+  transform: scaleX(0.50); /* reduz largura em 8% */
 }
 
 .cart-icon {
