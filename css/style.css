@@ -12,11 +12,11 @@ background:#ffffff;
 .topo {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* distribui menu + logo + carrinho */
-  height: 109px; /* altura da logo */
-  background: #ffffff;
-  border-bottom: 1px solid #eee;
-  padding: 0 10px; /* espaço mínimo nas laterais */
+  justify-content: space-between;
+  height: 50px;           /* altura da barra */
+  background: #000000;     /* barra preta */
+  border-bottom: 1px solid #222; /* opcional: leve separação */
+  padding: 0 10px;
   box-sizing: border-box;
   position: relative;
   z-index: 1000;
