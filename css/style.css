@@ -29,12 +29,13 @@
 .logo-container {
   display: flex;
   justify-content: center;
-  flex: 1;                         /* ocupa o espaço central */
+  flex: 1;                         /* ocupa espaço central */
 }
 
 .logo {
-  height: 60px;                     /* ajuste a altura do topo */
-  width: auto;
+  max-height: 60px;                /* limita altura para caber na barra */
+  width: auto;                      /* mantém proporção */
+  display: block;
 }
 
 /* CARRINHO */
