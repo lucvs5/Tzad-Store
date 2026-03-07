@@ -16,16 +16,5 @@ minimizeBtn.addEventListener("click", () => {
 });
 
 // -----------------------------
-// 2️⃣ TOPO FIXO COM SCROLL
-// -----------------------------
-const topo = document.querySelector('.topo');
-window.addEventListener('scroll', () => {
-    topo.style.transition = 'transform 0.3s ease';
-  } else {
-    topo.style.transform = 'translateY(0)';
-  }
-});
-
-// -----------------------------
 // 3️⃣ OUTROS EVENTOS (menu, carousel, etc.)
 // -----------------------------
