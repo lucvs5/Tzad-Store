@@ -1,145 +1,41 @@
-/* ---------------------------
-   RESET E BASE
---------------------------- */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+// -----------------------------
+// 1️⃣ JANELA DE LOGIN AO CLICAR NO CARRINHO
+// -----------------------------
+const loginWindow = document.getElementById("login-window");
+const cartBtn = document.querySelector(".cart-icon");
+const closeBtn = document.querySelector(".close-btn");
+const minimizeBtn = document.querySelector(".minimize-btn");
 
-body {
-  font-family: 'Playfair Display', Arial, sans-serif;
-  background: #fff;
-}
+// Abre a janela ao clicar no carrinho
+cartBtn.addEventListener("click", () => {
+  loginWindow.style.display = "block";
+});
 
-/* ---------------------------
-   TOPO FIXO
---------------------------- */
-.topo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  background-color: #000; /* topo preto */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  border-bottom: 1px solid #333;
-}
+// Fecha a janela
+closeBtn.addEventListener("click", () => {
+  loginWindow.style.display = "none";
+});
 
-.menu-icon {
-  position: absolute;
-  left: 20px;
-  font-size: 28px;
-  color: #B8860B;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
+// Minimiza a janela (apenas esconde o corpo)
+minimizeBtn.addEventListener("click", () => {
+  const body = loginWindow.querySelector(".login-body");
+  body.style.display = body.style.display === "none" ? "block" : "none";
+});
 
-.logo {
-  height: 60px;
-}
+// -----------------------------
+// 2️⃣ TOPO FIXO COM SCROLL
+// -----------------------------
+const topo = document.querySelector('.topo');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    topo.style.transform = 'translateY(-80px)';
+    topo.style.transition = 'transform 0.3s ease';
+  } else {
+    topo.style.transform = 'translateY(0)';
+  }
+});
 
-.cart-icon {
-  position: absolute;
-  right: 20px;
-  cursor: pointer;
-}
-
-.cart-icon img {
-  height: 40px; /* tamanho mais profissional */
-}
-
-/* ---------------------------
-   CONTEÚDO
---------------------------- */
-.banner img {
-  width: 100%;
-  display: block;
-}
-
-.produtos {
-  padding: 120px 20px 20px; /* topo 120px para não ficar atrás do header */
-}
-
-.grid-produtos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
-
-/* ---------------------------
-   JANELA DE LOGIN
---------------------------- */
-.login-window {
-  display: none; /* começa escondida */
-  position: fixed;
-  top: 100px;
-  right: 50px;
-  width: 350px;
-  background-color: #fff;
-  border: 2px solid #B8860B;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  z-index: 3000;
-  font-family: Arial, sans-serif;
-}
-
-.login-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #B8860B;
-  color: #fff;
-  padding: 10px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-}
-
-.login-header button {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.login-body {
-  padding: 20px;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.login-form input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.links {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-}
-
-.links a {
-  color: #B8860B;
-  text-decoration: none;
-}
-
-.login-button {
-  padding: 10px;
-  background-color: #B8860B;
-  border: none;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
-}
+// -----------------------------
+// 3️⃣ OUTROS EVENTOS (menu, carousel, etc.)
+// -----------------------------
+// Aqui você pode adicionar código adicional
