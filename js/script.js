@@ -20,8 +20,6 @@ minimizeBtn.addEventListener("click", () => {
 // -----------------------------
 const topo = document.querySelector('.topo');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    topo.style.transform = 'translateY(-80px)';
     topo.style.transition = 'transform 0.3s ease';
   } else {
     topo.style.transform = 'translateY(0)';
