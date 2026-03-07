@@ -41,8 +41,7 @@ body {
 
 .logo {
   height: 60px;
-   width: auto;       /* mantém proporção */
-  max-width: 92%;    /* reduz a largura total em 8% do container */
+  transform: scaleX(1.0); /* reduz largura em 8% */
 }
 
 .cart-icon {
