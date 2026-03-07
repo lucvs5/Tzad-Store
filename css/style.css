@@ -59,19 +59,3 @@ body {
   background: #ffffff;
   padding-top: 80px; /* evita conteúdo escondido atrás do topo fixo */
 }
-
-/* BANNER */
-.banner img {
-  width: 100%;
-}
-
-/* PRODUTOS */
-.produtos {
-  padding: 20px;
-}
-
-.grid-produtos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
