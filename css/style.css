@@ -6,8 +6,8 @@
   height: 80px;
   background-color: #000;        /* topo preto */
   display: flex;
-  align-items: center;           /* vertical */
-  justify-content: center;       /* tudo centralizado horizontalmente */
+  align-items: center;           /* centraliza verticalmente */
+  justify-content: center;       /* centraliza horizontalmente */
   gap: 20px;                     /* espaço entre menu e imagem */
   padding: 0 15px;
   z-index: 1000;
@@ -26,14 +26,14 @@
   color: #fff;
 }
 
-/* CONTAINER LOGO + CARRINHO */
+/* CONTAINER TOPO.PNG */
 .logo-com-cart {
   position: relative;   /* necessário para posicionar botão sobre a imagem */
   display: inline-block;
 }
 
-/* IMAGEM DO TOPO */
-.logo-com-cart img.logo {
+/* IMAGEM TOPO.PNG */
+.logo-com-cart img.topo-img {
   height: 70px;        /* altura do topo */
   width: auto;
   display: block;
@@ -44,8 +44,8 @@
   position: absolute;
   top: 0;           /* ajuste vertical da parte do carrinho */
   right: 0;         /* alinhado à direita da imagem */
-  width: 40px;      /* largura da área clicável do carrinho */
-  height: 35px;     /* altura da área do carrinho */
+  width: 40px;      /* largura do carrinho na imagem */
+  height: 35px;     /* altura do carrinho */
   background: transparent;
   border: none;
   cursor: pointer;
