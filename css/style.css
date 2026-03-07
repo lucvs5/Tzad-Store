@@ -15,24 +15,32 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px; /* altura da aba do topo */
+  height: 60px;
   background-color: #fff;
   display: flex;
-  align-items: center;           /* centraliza verticalmente */
-  justify-content: space-between; /* espaço entre menu, logo e carrinho */
-  padding: 0 15px;
+  justify-content: center; /* centraliza topo-container horizontalmente */
+  align-items: center;     /* centraliza verticalmente */
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* BOTÕES */
-.topo button {
+/* CONTAINER DOS ELEMENTOS */
+.topo-container {
+  display: flex;
+  align-items: center;     /* centraliza verticalmente */
+  justify-content: center; /* centraliza horizontalmente */
+  gap: 20px;               /* espaçamento entre menu, logo e carrinho */
+}
+
+/* BOTÕES (menu e carrinho) */
+.topo-container button {
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 35px; /* mesma altura do carrinho */
 }
 
 /* MENU HAMBÚRGUER */
@@ -42,7 +50,7 @@ body {
 
 /* LOGO */
 .logo-container img.logo {
-  height: 35px; /* mesma altura do menu e do carrinho */
+  height: 35px; /* mesma altura do carrinho e menu */
   width: auto;
 }
 
@@ -52,11 +60,20 @@ body {
   width: auto;
 }
 
-/* LINKS NO LOGO */
-.logo-container a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  .topo-container {
+    gap: 15px;
+  }
+
+  .menu-icon {
+    font-size: 26px;
+  }
+
+  .logo-container img.logo,
+  .cart-icon img {
+    height: 30px;
+  }
 }
 
 /* RESPONSIVO (opcional) */
