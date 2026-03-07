@@ -1,46 +1,74 @@
-*{
-box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#ffffff;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
 }
 
-.topo{
-position:sticky;
-top:0;
-display:flex;
-align-items:center;
-justify-content:center;
-height:80px;
-background:#ffffff;
-border-bottom:1px solid #eee;
-z-index:1000;
+/* TOPO FIXO */
+.topo {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;       /* centraliza verticalmente */
+  justify-content: center;   /* centraliza horizontalmente o bloco */
+  height: 80px;
+  background: #ffffff;
+  border-bottom: 1px solid #eee;
+  z-index: 1000;
+  gap: 30px;                 /* espaço entre menu, logo e carrinho */
 }
 
-.logo img{
-height:50px;
+/* MENU HAMBÚRGUER */
+.menu-icon {
+  font-size: 28px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  height: 35px;             /* mesma altura que carrinho e logo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.menu-icon{
-position:absolute;
-left:20px;
-font-size:28px;
-cursor:pointer;
+/* LOGO */
+.logo-container img.logo {
+  height: 35px; /* ajustável para ficar proporcional */
+  width: auto;
+  display: block;
 }
 
-.banner img{
-width:100%;
+/* CARRINHO */
+.cart-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 35px;             /* mesma altura que logo e menu */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.produtos{
-padding:20px;
+.cart-icon img {
+  height: 35px;
+  width: auto;
 }
 
-.grid-produtos{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
+/* BANNER */
+.banner img {
+  width: 100%;
+}
+
+/* PRODUTOS */
+.produtos {
+  padding: 20px;
+}
+
+.grid-produtos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
 }
