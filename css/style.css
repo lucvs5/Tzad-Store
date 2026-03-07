@@ -1,38 +1,51 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+/* TOPO FIXO PRETO */
+.topo {
+  position: sticky;               /* topo fixo */
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #000;         /* topo preto */
+  display: flex;
+  align-items: center;            /* centraliza verticalmente */
+  justify-content: space-between; /* hambúrguer à esquerda, logo central, carrinho à direita */
+  padding: 0 20px;
+  z-index: 1000;
+}
 
-<head>
+/* MENU HAMBÚRGUER */
+.menu-icon {
+  font-size: 32px;
+  color: #B8860B;                 /* dourado */
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
 
-<meta charset="UTF-8">
+/* LOGO CENTRAL */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  flex: 1;                         /* ocupa o espaço central */
+}
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+.logo {
+  height: 60px;                     /* ajuste a altura do topo */
+  width: auto;
+}
 
-<title>Tzad Store</title>
+/* CARRINHO */
+.cart-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 
-  <link rel="stylesheet" href="css/style.css">
-
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-  
-</head>
-
-<body>
-
-<header class="topo">
-
-<div class="menu">
-
-☰
-
-</div>
-
-<div class="topo">
-
-<img src="img/topo.png" alt="Rosa Áurea">
-
-</div>
-
-<div class="carrinho">
-
-<img src="img/carrinho.png" alt="Tzad Store">
-
-</div>
+.cart-icon img {
+  height: 35px;                     /* tamanho do carrinho */
+  width: auto;
+}
