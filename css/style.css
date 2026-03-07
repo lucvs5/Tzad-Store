@@ -27,7 +27,7 @@
 
 /* LOGO CENTRAL */
 .logo {
-  height: 32px;                      /* ajusta altura do logo */
+  height: 38px;                      /* ajusta altura do logo */
   width: auto;
   position: absolute;                /* centraliza horizontalmente na tela */
   left: 60%;
@@ -43,7 +43,7 @@
 }
 
 .cart-icon img {
-  height: 50px;                      /* aumenta o carrinho para ficar simétrico */
+  height: 60px;                      /* aumenta o carrinho para ficar simétrico */
   width: auto;
   display: block;
 }
