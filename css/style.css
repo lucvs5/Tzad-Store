@@ -1,14 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #ffffff;
-}
-
-/* TOPO FIXO */
+/* TOPO FIXO TOTALMENTE PRETO */
 .topo {
   position: sticky;
   top: 0;
@@ -16,10 +6,10 @@ body {
   align-items: center;       /* centraliza verticalmente */
   justify-content: center;   /* centraliza horizontalmente */
   height: 80px;
-  background: #000000;       /* barra totalmente preta */
-  border-bottom: none;       /* remove borda clara */
+  background-color: #000000; /* topo totalmente preto */
   z-index: 1000;
   gap: 30px;                 /* espaço entre menu, logo e carrinho */
+  border-bottom: none;
 }
 
 /* MENU HAMBÚRGUER */
@@ -28,19 +18,18 @@ body {
   cursor: pointer;
   background: none;
   border: none;
-  height: 35px;             /* mesma altura que carrinho e logo */
+  height: 35px;             
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;           /* cor branca para ficar visível na barra preta */
+  color: #ffffff;            /* texto branco */
 }
 
-/* LOGO */
+/* LOGO - aumento de 25% */
 .logo-container img.logo {
-  height: 35px; /* mesma altura do carrinho e menu */
+  height: 43.75px; /* 35px * 1,25 = 43.75px */
   width: auto;
   display: block;
-  filter: brightness(0) invert(1); /* deixa a logo visível se for escura */
 }
 
 /* CARRINHO */
@@ -48,16 +37,23 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  height: 35px;             /* mesma altura que logo e menu */
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .cart-icon img {
-  height: 35px;
+  height: 35px; /* mantém mesmo tamanho do menu */
   width: auto;
-  filter: brightness(0) invert(1); /* deixa o ícone visível em barra preta */
+}
+
+/* GARANTIR QUE O TOPO FIQUE SOBRE O SITE */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  padding-top: 80px; /* evita conteúdo escondido atrás do topo fixo */
 }
 
 /* BANNER */
