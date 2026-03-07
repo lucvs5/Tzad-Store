@@ -62,36 +62,47 @@
   z-index: 2000;
 }
 
-/* JANELA CENTRAL */
-.modal-content {
+/* JANELA DE LOGIN */
+.login-window {
+  display: none;                  /* começa escondida */
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  width: 350px;
   background-color: #fff;
-  padding: 30px 40px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  position: relative;
+  border: 2px solid #B8860B;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 3000;
+  font-family: Arial, sans-serif;
 }
 
-/* FECHAR MODAL */
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 28px;
+/* CABEÇALHO DA JANELA */
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #B8860B;
+  color: #fff;
+  padding: 10px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+/* BOTÕES DO CABEÇALHO */
+.login-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
   cursor: pointer;
 }
 
-/* TITULO */
-.modal-content h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-family: 'Playfair Display', serif;
+/* CONTEÚDO */
+.login-body {
+  padding: 20px;
 }
 
-/* FORMULÁRIO */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -103,9 +114,9 @@
 }
 
 .login-form input {
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 /* LINKS */
@@ -122,11 +133,18 @@
 
 /* BOTÃO LOGIN */
 .login-button {
-  padding: 12px;
+  padding: 10px;
   background-color: #B8860B;
   border: none;
   color: #fff;
   font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.login-button:hover {
+  background-color: #a17305;
+}
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
