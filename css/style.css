@@ -73,15 +73,49 @@ body {
 /* ---------------------------
    CONTEÚDO
 --------------------------- */
-.produtos {
-  background-color: #DAA520;
-  padding: 40px 20px;
+.produtos{
+  background-color:#DAA520;
+  padding:40px 20px;
 }
 
-.grid-produtos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+.cabecalho-produtos{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+/* garante textos um abaixo do outro */
+.textos-produtos{
+  display:flex;
+  flex-direction:column;
+}
+
+.textos-produtos h2{
+  font-size:28px;
+  margin:0;
+}
+
+.textos-produtos p{
+  font-size:16px;
+  margin:5px 0 0 0;
+  opacity:0.9;
+}
+
+/* redes sociais */
+.redes-produtos{
+  display:flex;
+  gap:12px;
+}
+
+.redes-produtos img{
+  width:28px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.redes-produtos img:hover{
+  transform:scale(1.1);
 }
 
 .colecao{
