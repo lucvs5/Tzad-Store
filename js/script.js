@@ -1,18 +1,27 @@
-// MODAL DE LOGIN AO CLICAR NO CARRINHO
-const modal = document.getElementById("cart-modal");
+// -----------------------------
+// JANELA DE LOGIN AO CLICAR NO CARRINHO
+// -----------------------------
+const loginWindow = document.getElementById("login-window");
 const cartBtn = document.querySelector(".cart-icon");
-const closeBtn = document.querySelector(".close-modal");
+const closeBtn = document.querySelector(".close-btn");
+const minimizeBtn = document.querySelector(".minimize-btn");
 
+// Abre a janela ao clicar no carrinho
 cartBtn.addEventListener("click", () => {
-  modal.style.display = "flex"; // mostra o modal
+  loginWindow.style.display = "block";
 });
 
+// Fecha a janela
 closeBtn.addEventListener("click", () => {
-  modal.style.display = "none"; // fecha o modal
+  loginWindow.style.display = "none";
 });
 
-window.addEventListener("click", (e) => {
-  if(e.target === modal){
-    modal.style.display = "none"; // fecha ao clicar fora
+// Minimiza a janela (apenas esconde o corpo)
+minimizeBtn.addEventListener("click", () => {
+  const body = loginWindow.querySelector(".login-body");
+  if (body.style.display === "none") {
+    body.style.display = "block";
+  } else {
+    body.style.display = "none";
   }
 });
