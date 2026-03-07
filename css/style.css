@@ -44,9 +44,12 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  background-color: #000;   /* fundo preto */
+  padding: 5px;             /* espaço interno para ficar bonito */
+  border-radius: 5px;       /* opcional: cantos arredondados */
 }
 
 .cart-icon img {
-  height: 35px;                     /* tamanho do carrinho */
+  height: 35px;             /* mantém o tamanho do carrinho */
   width: auto;
 }
