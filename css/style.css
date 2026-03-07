@@ -54,6 +54,13 @@ body {
 }
 
 /* ---------------------------
+   MAIN CONTENT (evita topo sobrepondo)
+--------------------------- */
+.main-content {
+  padding-top: 100px; /* espaço para topo fixo */
+}
+
+/* ---------------------------
    BANNER GIF
 --------------------------- */
 .banner img {
@@ -67,7 +74,7 @@ body {
    CONTEÚDO
 --------------------------- */
 .produtos {
-  padding: 120px 20px 20px; /* topo 120px para não ficar atrás do header */
+  padding: 20px;
 }
 
 .grid-produtos {
@@ -147,4 +154,4 @@ body {
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
-   }
+}
