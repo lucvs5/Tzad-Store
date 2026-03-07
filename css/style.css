@@ -30,8 +30,8 @@
   height: 38px;                      /* ajusta altura do logo */
   width: auto;
   position: absolute;                /* centraliza horizontalmente na tela */
-  left: 60%;
-  transform: translateX(-50%);
+  left: 58%;
+  transform: translateX(-40%);
 }
 
 /* CARRINHO */
