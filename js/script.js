@@ -1,14 +1,12 @@
-// Teste para saber se o JS carregou
-console.log("Tzad Store carregada");
+// EXEMPLO DE MENU TOGGLE (opcional)
+const menuBtn = document.querySelector('.menu-icon');
 
-// Topo que desce quando a página é rolada
-const topo = document.querySelector('.topo');
+menuBtn.addEventListener('click', () => {
+  alert('Menu clicado! Aqui você pode abrir o menu lateral ou dropdown.');
+});
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    topo.style.transform = 'translateY(-80px)'; // desce
-    topo.style.transition = 'transform 0.3s ease';
-  } else {
-    topo.style.transform = 'translateY(0)'; // volta ao topo
-  }
+const cartBtn = document.querySelector('.cart-icon');
+
+cartBtn.addEventListener('click', () => {
+  alert('Carrinho clicado! Aqui você pode abrir o carrinho.');
 });
