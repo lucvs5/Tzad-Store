@@ -9,26 +9,47 @@ background:#ffffff;
 }
 
 .topo{
-position:sticky;
-top:0;
-display:flex;
-align-items:center;
-justify-content:center;
-height:80px;
-background:#ffffff;
-border-bottom:1px solid #eee;
-z-index:1000;
+.topo {
+  position: relative; /* para que o menu e carrinho fiquem posicionados */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  background: #ffffff;
+  border-bottom: 1px solid #eee;
+  padding: 0 10px;
+  z-index: 1000;
 }
 
-.logo img{
-height:50px;
+/* MENU HAMBÚRGUER */
+.menu-icon {
+  position: absolute;
+  left: 10px;
+  font-size: 28px;
+  cursor: pointer;
 }
 
-.menu-icon{
-position:absolute;
-left:20px;
-font-size:28px;
-cursor:pointer;
+/* LOGO */
+.logo-container {
+  flex: 1; /* ocupa o máximo de espaço possível */
+  display: flex;
+  justify-content: center;
+}
+
+.logo-container img.logo {
+  max-width: 90%; /* ocupa quase toda largura, deixando espaço para botões */
+  height: 50px;
+}
+
+/* CARRINHO */
+.cart-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+.cart-icon img {
+  height: 35px;
 }
 
 .banner img{
