@@ -2,13 +2,13 @@
 .topo {
   position: sticky;
   top: 0;
-  width: 100%;
+  width: 100%;                /* ocupa toda a largura */
   height: 80px;
-  background-color: #000000; /* topo preto */
+  background-color: #000000;  /* topo totalmente preto */
   display: flex;
   align-items: center;        /* centraliza verticalmente */
   justify-content: center;    /* centraliza horizontalmente */
-  gap: 15px;                  /* espaçamento menor entre logo e carrinho */
+  gap: 20px;                  /* espaçamento entre elementos */
   z-index: 1000;
   padding: 0 15px;
   border-bottom: none;
@@ -20,16 +20,16 @@
   cursor: pointer;
   background: none;
   border: none;
-  height: 35px;
+  height: 35px;             
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff; /* texto branco */
+  color: #fff;               /* branco sobre topo preto */
 }
 
 /* LOGO CENTRAL */
-.logo-container img.logo {
-  height: 70px; /* logo maior */
+.logo {
+  height: 70px;              /* maior para preencher visualmente */
   width: auto;
   display: block;
 }
