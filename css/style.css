@@ -30,7 +30,7 @@
   height: 32px;                      /* ajusta altura do logo */
   width: auto;
   position: absolute;                /* centraliza horizontalmente na tela */
-  left: 30%;
+  left: 40%;
   transform: translateX(-50%);
 }
 
@@ -43,7 +43,7 @@
 }
 
 .cart-icon img {
-  height: 45px;                      /* aumenta o carrinho para ficar simétrico */
+  height: 50px;                      /* aumenta o carrinho para ficar simétrico */
   width: auto;
   display: block;
 }
