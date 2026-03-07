@@ -19,9 +19,25 @@ closeBtn.addEventListener("click", () => {
 // Minimiza a janela (apenas esconde o corpo)
 minimizeBtn.addEventListener("click", () => {
   const body = loginWindow.querySelector(".login-body");
-  if (body.style.display === "none") {
-    body.style.display = "block";
+  body.style.display = body.style.display === "none" ? "block" : "none";
+});
+
+// -----------------------------
+// TOPO FIXO COM SCROLL
+// -----------------------------
+const topo = document.querySelector('.topo');
+
+window.addEventListener('scroll', () => {
+  // exemplo de efeito: topo desce quando rola mais de 50px
+  if (window.scrollY > 50) {
+    topo.style.transform = 'translateY(-80px)';
+    topo.style.transition = 'transform 0.3s ease';
   } else {
-    body.style.display = "none";
+    topo.style.transform = 'translateY(0)';
   }
 });
+
+// -----------------------------
+// 3️⃣ OUTROS EVENTOS (se houver, como menu hambúrguer)
+// -----------------------------
+// Adicione aqui seu código do menu, carousel ou outras funcionalidades
