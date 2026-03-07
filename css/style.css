@@ -30,10 +30,10 @@ background:#ffffff;
 }
 
 /* LOGO CENTRAL */
-.logo-container {
-  flex-grow: 1; /* ocupa o máximo de espaço disponível */
-  display: flex;
-  justify-content: center; /* centraliza a logo */
+.logo-container img.logo {
+  height: 35px;       /* mesma altura do carrinho */
+  max-width: none;    /* deixa a largura proporcional à altura */
+  object-fit: contain; /* mantém proporção */
 }
 
 .logo-container img.logo {
