@@ -75,19 +75,3 @@ body {
     height: 30px;
   }
 }
-
-/* RESPONSIVO (opcional) */
-@media (max-width: 600px) {
-  .topo {
-    padding: 0 10px;
-  }
-
-  .menu-icon {
-    font-size: 26px;
-  }
-
-  .logo-container img.logo,
-  .cart-icon img {
-    height: 30px;
-  }
-}
