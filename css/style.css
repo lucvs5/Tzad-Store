@@ -10,6 +10,7 @@
 body {
   font-family: 'Playfair Display', Arial, sans-serif;
   background: #fff;
+  padding-top: 80px; /* altura do header */
 }
 
 /* ---------------------------
