@@ -1,14 +1,16 @@
-/* TOPO FIXO TOTALMENTE PRETO */
+/* TOPO FIXO PRETO */
 .topo {
   position: sticky;
   top: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #000000; /* topo preto */
   display: flex;
   align-items: center;       /* centraliza verticalmente */
   justify-content: center;   /* centraliza horizontalmente */
-  height: 80px;
-  background-color: #000000; /* topo totalmente preto */
-  z-index: 1000;
   gap: 30px;                 /* espaço entre menu, logo e carrinho */
+  z-index: 1000;
+  padding: 0 15px;
   border-bottom: none;
 }
 
@@ -18,16 +20,16 @@
   cursor: pointer;
   background: none;
   border: none;
-  height: 35px;             
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;            /* texto branco */
+  color: #fff; /* texto branco */
 }
 
-/* LOGO - aumento de 25% */
+/* LOGO CENTRAL */
 .logo-container img.logo {
-  height: 43.75px; /* 35px * 1,25 = 43.75px */
+  height: 70px; /* aumenta a logo para preencher melhor a barra */
   width: auto;
   display: block;
 }
@@ -44,7 +46,7 @@
 }
 
 .cart-icon img {
-  height: 35px; /* mantém mesmo tamanho do menu */
+  height: 35px;
   width: auto;
 }
 
