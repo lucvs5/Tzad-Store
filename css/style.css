@@ -55,15 +55,12 @@ body {
 }
 
 /* ---------------------------
-   MAIN CONTENT (evita topo sobrepondo)
---------------------------- */
-.main-content {
-  padding-top: 100px; /* espaço para topo fixo */
-}
-
-/* ---------------------------
    BANNER GIF
 --------------------------- */
+.banner {
+  margin-top: 80px; /* mesma altura do header */
+}
+
 .banner img {
   width: 100%;
   max-height: 400px;
