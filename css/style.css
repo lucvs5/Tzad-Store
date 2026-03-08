@@ -281,3 +281,32 @@ font-family:"Playfair Display", serif;
   cursor: pointer;
   border-radius: 5px;
 }
+
+.cabecalho-produtos{
+  text-align:center;
+}
+
+.textos-produtos{
+  display:block;
+}
+
+.textos-produtos h2{
+  display:block;
+  margin:0 0 10px 0;
+}
+
+.textos-produtos p{
+  display:block;
+  margin:0 0 20px 0;
+}
+
+.redes-produtos{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+}
+
+.redes-produtos img{
+  width:40px;
+}
