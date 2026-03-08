@@ -83,32 +83,35 @@ body {
 
 .cabecalho-produtos{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:30px;
-}
-
-/* garante textos um abaixo do outro */
-.textos-produtos{
-  display:flex;
   flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
 
 .textos-produtos h2{
   font-size:28px;
-  margin:0;
+  margin-bottom:10px;
 }
 
 .textos-produtos p{
   font-size:16px;
-  margin:5px 0 0 0;
-  opacity:0.9;
+  margin-bottom:20px;
 }
 
 /* redes sociais */
 .redes-produtos{
   display:flex;
-  gap:12px;
+  gap:15px;
+}
+
+.redes-produtos img{
+  width:30px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.redes-produtos img:hover{
+  transform:scale(1.1);
 }
 
 .redes-produtos img{
