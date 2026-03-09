@@ -1,7 +1,3 @@
-/**
- * SHOP.JS - Motor de Vitrine da Tzad Store
- */
-
 const catalog = {
     promocoes: [
         { id: "p1_1", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
@@ -20,7 +16,7 @@ const catalog = {
         { id: "n3_rep", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" }
     ],
     stussy: [
-        { id: "s1", name: "STÜSSY METALHEADZ (refletiva)", price: "150,00", img: "img/stmtb.jpg" },
+        { id: "s1", name: "STÜSSY METALHEADZ", price: "150,00", img: "img/stmtb.jpg" },
         { id: "s2", name: "Stüssy Logo Padrão P.", price: "150,00", img: "img/stlpp.jpg" },
         { id: "s3", name: "Stüssy Veludo B", price: "150,00", img: "img/stvlb.jpg" },
         { id: "s4", name: "Stüssy Veludo P", price: "150,00", img: "img/stvlp.jpg" },
@@ -30,17 +26,17 @@ const catalog = {
 };
 
 function renderVitrines() {
-    for (const category in catalog) {
-        const container = document.getElementById(`vitrine-${category}`);
+    for (const cat in catalog) {
+        const container = document.getElementById(`vitrine-${cat}`);
         if (container) {
-            container.innerHTML = catalog[category].map(product => `
+            container.innerHTML = catalog[cat].map(p => `
                 <div class="produto">
                     <div class="img-container">
-                        <img src="${product.img}" alt="${product.name}">
+                        <img src="${p.img}" alt="${p.name}">
                     </div>
-                    <h4>R$ ${product.price}</h4>
-                    <p>${product.name}</p>
-                    <button class="btn-comprar" onclick="abrirModalCompra('${product.id}', '${category}')">
+                    <h4>R$ ${p.price}</h4>
+                    <p>${p.name}</p>
+                    <button class="btn-comprar" onclick="abrirModalCompra('${p.id}', '${cat}')">
                         Comprar
                     </button>
                 </div>
@@ -49,11 +45,9 @@ function renderVitrines() {
     }
 }
 
-function abrirModalCompra(productId, category) {
-    const product = catalog[category].find(p => p.id === productId);
-    if (window.abrirModal) {
-        window.abrirModal(product);
-    }
-}
-
 window.addEventListener('load', renderVitrines);
+
+function abrirModalCompra(id, cat) {
+    const product = catalog[cat].find(p => p.id === id);
+    if (window.abrirModal) window.abrirModal(product);
+}
