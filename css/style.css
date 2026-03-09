@@ -11,7 +11,7 @@ body {
     color: #ffffff;
 }
 
-/* 1. CABEÇALHO (SINCRONIZADO COM A IMAGEM) */
+/* 1. CABEÇALHO (SINCRONIZADO) */
 .topo {
     display: flex;
     justify-content: space-between;
@@ -29,13 +29,13 @@ body {
     border: none;
     font-size: 30px;
     cursor: pointer;
-    color: #DAA520; /* Cor exata solicitada */
+    color: #DAA520;
     display: flex;
     align-items: center;
 }
 
 .logo {
-    height: 35px; /* Ajustado para sincronizar com os ícones */
+    height: 35px;
     object-fit: contain;
 }
 
@@ -48,10 +48,10 @@ body {
 }
 
 .cart-icon img {
-    width: 45px; /* Tamanho proporcional à imagem enviada */
+    width: 45px;
     height: auto;
     background: transparent;
-    mix-blend-mode: screen; /* Remove fundo branco residual de JPEGs no fundo preto */
+    mix-blend-mode: screen;
 }
 
 /* CONTEÚDO PRINCIPAL */
@@ -77,6 +77,20 @@ body {
     font-size: 24px;
     margin-bottom: 10px;
     color: #DAA520;
+}
+
+/* REDES SOCIAIS (ITEM 1 - REDUZIDO) */
+.redes-produtos {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.redes-produtos a img {
+    width: 22px; /* Reduzido conforme solicitado */
+    height: auto;
+    filter: brightness(0) invert(1);
 }
 
 /* GRID E PRODUTOS */
@@ -114,7 +128,6 @@ body {
     border-radius: 5px;
 }
 
-/* BOTÃO ADICIONAR AO CARRINHO (VITRINE) */
 .btn-comprar {
     background-color: #DAA520;
     color: #000000;
@@ -128,12 +141,11 @@ body {
     font-size: 12px;
 }
 
-/* 2. BOTÃO "VER TODOS" (ATUALIZADO) */
 .ver-todos {
     display: block;
     margin: 20px auto;
     padding: 12px 40px;
-    background-color: #DAA520; /* Fundo Dourado */
+    background-color: #DAA520;
     color: #000000;
     border: none;
     border-radius: 5px;
@@ -142,18 +154,18 @@ body {
     text-transform: uppercase;
 }
 
-/* 3. VÍDEO NOCTA (AJUSTADO) */
+/* VÍDEO NOCTA (ITEM 2 - SEM SOMBRA) */
 .video-loja {
     display: flex;
     justify-content: center;
-    padding: 40px 15%; /* Mais afastado das bordas */
+    padding: 40px 15%;
 }
 
 .video-loja video {
-    width: 80%; /* Menor que a largura da vitrine */
+    width: 80%;
     max-width: 700px;
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(218, 165, 32, 0.2);
+    box-shadow: none; /* Sombra removida */
 }
 
 /* MODAL */
@@ -180,7 +192,6 @@ body {
     border: 1px solid #DAA520;
 }
 
-/* RESPONSIVIDADE */
 @media (max-width: 600px) {
     .produtos {
         grid-template-columns: repeat(2, 1fr);
