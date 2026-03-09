@@ -1,6 +1,6 @@
-/* ---------------------------
+/* ============================
    RESET E BASE
---------------------------- */
+============================ */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,12 +13,12 @@ body {
   padding-top: 80px; /* altura do header */
 }
 
-/* ---------------------------
+/* ============================
    TOPO FIXO
---------------------------- */
+============================ */
 .topo {
-  position: fixed;   /* fixa o topo na tela */
-  top: 0;            /* encosta no topo da página */
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
   height: 80px;
@@ -26,7 +26,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;     /* garante que fique acima de tudo */
+  z-index: 1000;
   border-bottom: 1px solid #333;
 }
 
@@ -42,7 +42,7 @@ body {
 
 .logo {
   height: 60px;
-  transform: scaleX(0.80); /* reduz largura em 8% */
+  transform: scaleX(0.80);
 }
 
 .cart-icon {
@@ -55,17 +55,12 @@ body {
 }
 
 .cart-icon img {
-  height: 40px; /* tamanho mais profissional */
+  height: 40px;
 }
 
-/* ---------------------------
-   BANNER GIF
---------------------------- */
-.banner {
-  margin: 0;
-  padding: 0;
-}
-
+/* ============================
+   BANNER
+============================ */
 .banner img {
   width: 100%;
   max-height: 400px;
@@ -73,147 +68,141 @@ body {
   display: block;
 }
 
-/* ---------------------------
-   CONTEÚDO
---------------------------- */
-.produtos{
-  background-color:#DAA520;
-  padding:40px 20px;
+/* ============================
+   CONTEÚDO PRODUTOS
+============================ */
+.produtos {
+  background-color: #DAA520;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-/* estrutura vertical */
-.cabecalho-produtos{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
+.produto {
+  text-align: left;
+  border-radius: 6px;
+  background: #fff;
+  padding: 10px;
 }
 
-.textos-produtos{
-  margin-bottom:20px;
+.produto img {
+  width: 100%;
+  border-radius: 6px;
 }
 
-.redes-produtos{
-  display:flex;
-  gap:20px;
-  justify-content:center;
+.produto h4 {
+  color: #000;
+  font-size: 14px;
+  margin: 8px 0 4px;
 }
 
-.redes-produtos img{
-  width:40px;
-  cursor:pointer;
-  transition:0.2s;
+.produto p {
+  color: #000;
+  font-size: 12px;
+  margin-bottom: 8px;
 }
 
-.redes-produtos img:hover{
-  transform:scale(1.1);
+.produto button {
+  background: #B8860B;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 4px;
 }
 
-/* redes sociais centralizadas */
-.redes-produtos{
-  display:flex;
-  justify-content:center;
-  gap:20px;
+.ver-todos {
+  margin-top: 20px;
+  background: #B8860B;
+  border: none;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-/* ícones maiores */
-.redes-produtos img{
-  width:40px;
-  cursor:pointer;
-  transition:0.2s;
+/* ============================
+   CABEÇALHO E REDES SOCIAIS
+============================ */
+.cabecalho-produtos {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.redes-produtos img:hover{
-  transform:scale(1.15);
+.textos-produtos {
+  margin-bottom: 20px;
 }
 
-.colecao{
-padding:40px 20px;
-background:#000;
+.textos-produtos h2 {
+  margin-bottom: 10px;
 }
 
-.video-loja{
-  display:flex;
-  justify-content:center;
-  padding:40px 20px;
+.textos-produtos p {
+  margin-bottom: 20px;
 }
 
-.video-loja video{
-  width:80%;
-  max-width:900px;
-  border-radius:10px;
+.redes-produtos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
-.titulo-colecao{
-text-align:center;
-color:#B8860B;
-font-family:"Playfair Display", serif;
-font-size:22px;
-margin-bottom:40px;
+.redes-produtos img {
+  width: 40px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.categoria{
-margin-bottom:60px;
+.redes-produtos img:hover {
+  transform: scale(1.15);
 }
 
-.categoria-titulo{
-color:#B8860B;
-font-family:"Playfair Display", serif;
-font-size:16px;
-margin-bottom:20px;
+/* ============================
+   COLEÇÕES E VÍDEOS
+============================ */
+.colecao {
+  padding: 40px 20px;
+  background: #000;
 }
 
-.produtos{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
+.video-loja {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
-.produto{
-text-align:left;
+.video-loja video {
+  width: 80%;
+  max-width: 900px;
+  border-radius: 10px;
 }
 
-.produto img{
-width:100%;
-border-radius:6px;
+.titulo-colecao {
+  text-align: center;
+  color: #B8860B;
+  font-size: 22px;
+  margin-bottom: 40px;
 }
 
-.produto h4{
-color:#000;
-font-size:14px;
-margin:8px 0 4px;
-font-family:"Playfair Display", serif;
+.categoria {
+  margin-bottom: 60px;
 }
 
-.produto p{
-color:#000;
-font-size:12px;
-margin-bottom:8px;
-font-family:"Playfair Display", serif;
+.categoria-titulo {
+  color: #B8860B;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-.produto button{
-background:#B8860B;
-border:none;
-padding:8px 12px;
-cursor:pointer;
-font-size:12px;
-}
-
-.ver-todos{
-margin-top:20px;
-background:#B8860B;
-border:none;
-padding:10px 18px;
-cursor:pointer;
-font-family:"Playfair Display", serif;
-}
-
-/* ---------------------------
-   JANELA DE LOGIN
---------------------------- */
+/* ============================
+   LOGIN
+============================ */
 .login-window {
-  display: none; /* começa escondida */
+  display: none;
   position: fixed;
   top: 100px;
   right: 50px;
@@ -223,7 +212,6 @@ font-family:"Playfair Display", serif;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   z-index: 3000;
-  font-family: Arial, sans-serif;
 }
 
 .login-header {
@@ -282,31 +270,97 @@ font-family:"Playfair Display", serif;
   border-radius: 5px;
 }
 
-.cabecalho-produtos{
-  text-align:center;
+/* ============================
+   MODAL DO CARRINHO
+============================ */
+#cartModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+  overflow-y: auto;
 }
 
-.textos-produtos{
-  display:block;
+#cartModal .modalBox {
+  background: #fff;
+  width: 400px;
+  max-width: 90%;
+  margin: 80px auto;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
 }
 
-.textos-produtos h2{
-  display:block;
-  margin:0 0 10px 0;
+#cartModal .modalBox h2 {
+  margin-bottom: 15px;
+  color: #B8860B;
+  font-size: 20px;
 }
 
-.textos-produtos p{
-  display:block;
-  margin:0 0 20px 0;
+#cartModal .modalBox button.closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #B8860B;
 }
 
-.redes-produtos{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:20px;
+#cartItems p {
+  margin: 8px 0;
 }
 
-.redes-produtos img{
-  width:40px;
+#cartItems .cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#cartItems .cart-item button {
+  background: #B8860B;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+
+#cartTotal {
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* ============================
+   RESPONSIVIDADE
+============================ */
+@media (max-width: 768px) {
+  .produtos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .produtos {
+    grid-template-columns: 1fr;
+  }
+
+  .topo {
+    height: 60px;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .cart-icon img {
+    height: 35px;
+  }
 }
