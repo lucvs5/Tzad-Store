@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tzad Store</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="modal/modal.css">
+  <script src="modal/modal.js"></script> <!--pra nova configuração do modal--!>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -14,11 +14,18 @@
        TOPO FIXO
 ======================== -->
 <header class="topo">
+
+  <!-- MENU HAMBÚRGUER -->
   <button class="menu-icon" aria-label="Menu">☰</button>
+
+  <!-- LOGO CENTRAL -->
   <img src="img/topo.png" alt="Tzad Store" class="logo">
+
+  <!-- CARRINHO -->
   <button class="cart-icon" aria-label="Carrinho">
-    <img src="img/carrinho.png" alt="Carrinho">
-  </button>
+  <img src="img/carrinho.png" alt="Carrinho">
+</button>
+
 </header>
 
 <!-- ========================
@@ -31,72 +38,221 @@
     <img src="img/banner.gif" alt="Banner animado">
   </section>
 
-  <!-- SEÇÃO BEM-VINDO -->
-  <section class="produtos">
-    <div class="cabecalho-produtos">
-      <div class="textos-produtos">
-        <h2 contenteditable="true">BEM VINDO A TZAD STORE</h2>
-        <p contenteditable="true">Sua loja de REPS com o melhor preço e a melhor qualidade.</p>
-      </div>
-      <div class="redes-produtos">
-        <a href="https://instagram.com/SEUUSUARIO" target="_blank"><img src="img/instagram.png" alt="Instagram"></a>
-        <a href="https://tiktok.com/@SEUUSUARIO" target="_blank"><img src="img/tiktok.png" alt="TikTok"></a>
-      </div>
+  <!-- PRODUTOS -->
+<section class="produtos">
+
+  <div class="cabecalho-produtos">
+
+    <div class="textos-produtos">
+      <h2 contenteditable="true">BEM VINDO A TZAD STORE</h2>
+
+      <p contenteditable="true">
+        Sua loja de REPS com o melhor preço e a melhor qualidade.
+      </p>
     </div>
-  </section>
 
-  <!-- ========================
-       PRODUTOS DINÂMICOS
-======================== -->
+    <div class="redes-produtos">
 
-  <!-- Promoções -->
+      <a href="https://instagram.com/SEUUSUARIO" target="_blank">
+        <img src="img/instagram.png" alt="Instagram">
+      </a>
+
+      <a href="https://tiktok.com/@SEUUSUARIO" target="_blank">
+        <img src="img/tiktok.png" alt="TikTok">
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+  </div>
+
+  <div class="grid-produtos">
+    <!-- Produtos vão aqui -->
+  </div>
+
+</section>
+
+<section class="colecao">
+
+<h2 class="titulo-colecao">Promoções</h2>
+
+<div class="categoria">
+
+<h3 class="categoria-titulo"></h3>
+
+<div class="produtos">
+
+<div class="produto">
+<img src="img/cjbl.jpg">
+<h4>R$250,00</h4>
+<p>Conjunto BAPE Laranja</p>
+<button>Adicionar ao carrinho</button>
+</div>
+
+<div class="produto">
+<img src="img/ColarImperial.jpg">
+<h4>Colar Imperial</h4>
+<p>Brilho sofisticado para qualquer ocasião.</p>
+<button>Adicionar ao carrinho</button>
+</div>
+
+<div class="produto">
+<img src="img/ColarPrestige.jpg">
+<h4>Colar Prestige</h4>
+<p>Detalhes delicados e acabamento premium.</p>
+<button>Adicionar ao carrinho</button>
+</div>
+
+<div class="produto">
+<img src="img/ColarRoyal.jpg">
+<h4>Colar Royal</h4>
+<p>Elegância inspirada na joalheria clássica.</p>
+<button>Adicionar ao carrinho</button>
+</div>
+
+<div class="produto">
+<img src="img/ColarDiamondTouch.jpg">
+<h4>Colar Diamond Touch</h4>
+<p>Minimalismo sofisticado.</p>
+<button>Adicionar ao carrinho</button>
+</div>
+
+<div class="produto">
+<img src="img/ColarGoldenLine.jpg">
+<h4>Colar Golden Line</h4>
+<p>Peça delicada com brilho marcante.</p>
+<button>Adicionar ao carrinho</button>
+</div>
+
+</div>
+
+<button class="ver-todos">Ver todos</button>
+
+</div>
+
+<section class="colecao">
+
+<h2 class="titulo-colecao">Nocta</h2>
+
+<section class="video-loja">
+
+<video controls width="900">
+<source src="video/noctanv.mp4" type="video/mp4">
+Seu navegador não suporta vídeo.
+</video>
+
+</section>
+
+</section>
+  
+<!-- PULSEIRAS -->
+
+<div class="categoria">
+
+<h3 class="categoria-titulo"><!-- PRODUTOS --></h3>
+
+<div class="produtos">
+
+<div class="produto"><img src="img/nntc.png"><h4>R$450,00</h4><p>Conjunto Nike x Nocta NNT Cinza</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/nkcv.png"><h4>R$400,00</h4><p>Corta Vento Nike x Nocta Preto</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/nktc.jpg"><h4>R$450,00</h4><p>Conjunto Nike Nocta Tech Fleece Preto.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/PulseiraClassic.jpg"><h4>Pulseira Classic</h4><p>Estilo atemporal.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/PulseiraGoldLine.jpg"><h4>Pulseira Gold Line</h4><p>Minimalista e elegante.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/PulseiraDeluxe.jpg"><h4>Pulseira Deluxe</h4><p>Brilho delicado.</p><button>Adicionar ao carrinho</button></div>
+
+</div>
+
+<button class="ver-todos">Ver todos produtos nocta</button>
+
+</div>
+
   <section class="colecao">
-    <h2 class="titulo-colecao">Promoções</h2>
-    <div class="categoria" id="promo-products"></div>
-  </section>
 
-  <!-- Nocta -->
-  <section class="colecao">
-    <h2 class="titulo-colecao">Nocta</h2>
-    <div class="categoria" id="nocta-products"></div>
-  </section>
+<h2 class="titulo-colecao">Camisetas Stüssy</h2>
+<h3 class="categoria-titulo">2 camisetas: (16,67% OFF), 3 camisetas: (21,67 OFF), 4 camisetas: (28,33% OFF), 5 camisetas: (30% OFF)</h3>
 
-  <!-- Stüssy -->
-  <section class="colecao">
-    <h2 class="titulo-colecao">Camisetas Stüssy</h2>
-    <div class="categoria" id="stussy-products"></div>
-  </section>
+<!-- stüssy -->
 
+<div class="categoria">
+
+<div class="produtos">
+
+<div class="produto"><img src="img/stmtb.jpg"><h4>R$150,00</h4><p>STÜSSY METALHEADZ (refletiva)</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/stlpp.jpg"><h4>R$150,00</h4><p>Stüssy Logo Padrão P.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/stvlb.jpg"><h4>R$150,00</h4><p>Stüssy Veludo B</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/stvlp.jpg"><h4>R$150,00</h4><p>Stüssy Veludo P</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/stlpb.jpg"><h4>R$150,00</h4><p>Stüssy Logo Padrão B.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/stbdb.jpg"><h4>R$150,00</h4><p>Stüssy Bordada B</p><button>Adicionar ao carrinho</button></div>
+
+</div>
+
+<button class="ver-todos">Ver todos</button>
+
+</div>
+
+
+<!-- ANÉIS -->
+
+<div class="categoria">
+
+<h3 class="categoria-titulo">Anéis</h3>
+
+<div class="produtos">
+
+<div class="produto"><img src="img/a1.jpg"><h4>Anel Elegance</h4><p>Design sofisticado.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/a2.jpg"><h4>Anel Royal</h4><p>Brilho refinado.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/a3.jpg"><h4>Anel Prestige</h4><p>Detalhes premium.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/a4.jpg"><h4>Anel Classic</h4><p>Estilo elegante.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/a5.jpg"><h4>Anel Golden</h4><p>Acabamento sofisticado.</p><button>Adicionar ao carrinho</button></div>
+<div class="produto"><img src="img/a6.jpg"><h4>Anel Deluxe</h4><p>Brilho marcante.</p><button>Adicionar ao carrinho</button></div>
+
+</div>
+
+<button class="ver-todos">Ver todos</button>
+
+</div>
+
+  </section>
+  
+</section>
+</body>
+
+                       </html>
+  
 </div>
 
 <!-- ========================
        JANELA DE LOGIN
 ======================== -->
 <div id="login-window" class="login-window">
+
   <div class="login-header">
     <span>Bem Vindo a Tzad Store</span>
     <button class="minimize-btn" aria-label="Minimizar">--</button>
   </div>
+
   <div class="login-body">
     <form class="login-form">
       <label for="email">E-mail</label>
       <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
       <label for="senha">Senha</label>
       <input type="password" id="senha" placeholder="Digite sua senha" required>
+
       <div class="links">
         <a href="#">Recuperar senha</a>
         <a href="#">Esqueceu a senha?</a>
       </div>
+
       <button type="submit" class="login-button">Login</button>
     </form>
   </div>
+
 </div>
 
-<!-- ========================
-       SCRIPTS
-======================== -->
-<script src="shop.js"></script>
-<script src="modal/modal.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
