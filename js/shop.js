@@ -37,7 +37,7 @@ function renderVitrines() {
                     <h4>R$ ${p.price}</h4>
                     <p>${p.name}</p>
                     <button class="btn-comprar" onclick="abrirModalCompra('${p.id}', '${cat}')">
-                        Comprar
+                        Adicionar ao Carrinho
                     </button>
                 </div>
             `).join('');
