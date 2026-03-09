@@ -7,11 +7,11 @@
 }
 
 body {
-    background-color: #ffffff;
-    color: #333;
+    background-color: #000000; /* Fundo da página inteira preto */
+    color: #ffffff; /* Texto geral branco para leitura no preto */
 }
 
-/* 1. TOPO / HEADER (PRETO) */
+/* TOPO / HEADER */
 .topo {
     display: flex;
     justify-content: space-between;
@@ -29,20 +29,11 @@ body {
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #DAA520; /* Dourado TZAD */
-}
-
-.cart-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    color: #DAA520;
 }
 
 .cart-icon img {
     width: 30px;
-    /* Imagem original do carrinho */
 }
 
 .logo {
@@ -62,21 +53,21 @@ body {
     margin-bottom: 30px;
 }
 
-/* 4. CABEÇALHO DE BOAS VINDAS (SIMÉTRICO) */
+/* CABEÇALHO DE BOAS VINDAS */
 .cabecalho-produtos {
-    text-align: center; /* Centraliza textos e ícones */
+    text-align: center;
     margin-bottom: 40px;
 }
 
 .textos-produtos h2 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: #000;
+    color: #DAA520; /* Título em dourado */
 }
 
 .textos-produtos p {
     font-size: 16px;
-    color: #666;
+    color: #ffffff;
     margin-bottom: 20px;
 }
 
@@ -88,15 +79,16 @@ body {
 
 .redes-produtos img {
     width: 35px;
-    height: auto;
+    filter: brightness(0) invert(1); /* Ícones sociais brancos */
 }
 
-/* 5. GRID E PAINEL DOURADO (#DAA520) */
+/* GRID DE PRODUTOS */
 .titulo-colecao {
     font-size: 22px;
     border-left: 4px solid #DAA520;
     padding-left: 10px;
     margin: 30px 0 20px;
+    color: #DAA520;
 }
 
 .produtos {
@@ -109,45 +101,38 @@ body {
 .produto {
     text-align: center;
     padding: 10px;
-    transition: transform 0.3s;
-}
-
-.produto:hover {
-    transform: translateY(-5px);
-}
-
-/* Fundo dourado apenas atrás da foto (estilo banner topo) */
-.img-container {
-    background-color: #DAA520;
-    padding: 15px;
+    background: #111; /* Fundo levemente cinza para destacar o card no preto */
     border-radius: 12px;
-    margin-bottom: 12px;
+}
+
+.img-container {
+    background-color: #DAA520; /* Fundo dourado apenas atrás da foto */
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .produto img {
     width: 100%;
-    height: auto;
-    border-radius: 8px;
-    display: block;
+    border-radius: 5px;
 }
 
 .produto h4 {
     font-size: 18px;
-    color: #000;
+    color: #DAA520;
     margin: 10px 0;
 }
 
 .produto p {
     font-size: 14px;
-    color: #555;
+    color: #bbb;
     margin-bottom: 15px;
-    font-weight: bold;
 }
 
-/* BOTÕES TZAD STYLE */
+/* BOTÃO COMPRAR (ATUALIZADO) */
 .btn-comprar {
-    background-color: #000;
-    color: #DAA520;
+    background-color: #DAA520; /* Fundo Dourado */
+    color: #000000; /* Texto Preto */
     border: none;
     padding: 12px;
     border-radius: 5px;
@@ -157,14 +142,14 @@ body {
     text-transform: uppercase;
 }
 
-/* SOBRE-JANELA (MODAL) PROFISSIONAL */
+/* MODAL */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.9);
     display: none;
     justify-content: center;
     align-items: center;
@@ -172,80 +157,18 @@ body {
 }
 
 .modal-content {
-    background: #fff;
+    background: #1a1a1a;
+    color: white;
     width: 90%;
-    max-width: 500px;
-    padding: 20px;
-    border-radius: 20px;
-    position: relative;
-    text-align: center;
+    max-width: 450px;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #DAA520;
 }
 
-.btn-confirmar-pedido {
-    background: #000;
-    color: #DAA520;
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-}
-
-/* ESTRUTURA PARA CARROSSEL E LIGHTBOX */
-.carousel-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.nav-arrow {
-    position: absolute;
-    background: rgba(0,0,0,0.4);
-    color: #DAA520;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.arrow-right { right: 5px; }
-.arrow-left { left: 5px; }
-
-.full-image-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 5000;
-}
-
-.close-full-img {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    color: #DAA520;
-    font-size: 40px;
-    cursor: pointer;
-}
-
-/* RESPONSIVIDADE CELULAR */
+/* RESPONSIVIDADE */
 @media (max-width: 600px) {
     .produtos {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-    
-    .textos-produtos h2 {
-        font-size: 20px;
     }
 }
