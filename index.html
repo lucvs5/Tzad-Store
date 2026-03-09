@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tzad Store</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="frontend/modal.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -24,13 +23,11 @@
         <img src="img/banner.gif" alt="Banner animado">
     </section>
 
-    <section class="produtos">
+    <section class="boas-vindas">
         <div class="cabecalho-produtos">
             <div class="textos-produtos">
-                <h2 contenteditable="true">BEM VINDO A TZAD STORE</h2>
-                <p contenteditable="true">
-                    Sua loja de REPS com o melhor preço e a melhor qualidade.
-                </p>
+                <h2>BEM VINDO A TZAD STORE</h2>
+                <p>Sua loja de REPS com o melhor preço e a melhor qualidade.</p>
             </div>
             <div class="redes-produtos">
                 <a href="https://instagram.com/SEUUSUARIO" target="_blank">
@@ -54,7 +51,7 @@
     <section class="colecao">
         <h2 class="titulo-colecao">Nocta</h2>
         <section class="video-loja">
-            <video controls width="900" style="max-width: 100%; height: auto; border-radius: 10px;">
+            <video controls>
                 <source src="video/noctanv.mp4" type="video/mp4">
                 Seu navegador não suporta vídeo.
             </video>
@@ -67,7 +64,9 @@
 
     <section class="colecao">
         <h2 class="titulo-colecao">Camisetas Stüssy</h2>
-        <h3 class="categoria-titulo">2 camisetas: (16,67% OFF), 3 camisetas: (21,67 OFF), 4 camisetas: (28,33% OFF), 5 camisetas: (30% OFF)</h3>
+        <h3 class="categoria-titulo" style="text-align: center; color: #DAA520; font-size: 14px; margin-bottom: 15px;">
+            2 camisetas: (16,67% OFF), 3 camisetas: (21,67 OFF), 4 camisetas: (28,33% OFF), 5 camisetas: (30% OFF)
+        </h3>
         <div class="categoria">
             <div class="produtos" id="vitrine-stussy"></div>
             <button class="ver-todos">Ver todos</button>
@@ -78,8 +77,8 @@
 
 <div id="login-window" class="login-window">
     <div class="login-header">
-        <span>Bem Vindo a Tzad Store</span>
-        <button class="minimize-btn" aria-label="Minimizar">--</button>
+        <span>LOGIN / CARRINHO</span>
+        <button class="minimize-btn" aria-label="Minimizar">_</button>
     </div>
     <div class="login-body">
         <form class="login-form">
@@ -87,11 +86,13 @@
             <input type="email" id="email" placeholder="Digite seu e-mail" required>
             <label for="senha">Senha</label>
             <input type="password" id="senha" placeholder="Digite sua senha" required>
-            <div class="links">
-                <a href="#">Recuperar senha</a>
-                <a href="#">Esqueceu a senha?</a>
-            </div>
+            
             <button type="submit" class="login-button">Login</button>
+            
+            <div class="links">
+                <a href="#">Esqueceu a senha?</a>
+                <a href="#">Criar conta</a> 
+            </div>
         </form>
     </div>
 </div>
