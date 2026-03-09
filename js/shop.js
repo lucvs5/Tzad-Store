@@ -1,4 +1,7 @@
-// Banco de dados local para a vitrine
+/**
+ * SHOP.JS - Motor de Vitrine da Tzad Store
+ */
+
 const catalog = {
     promocoes: [
         { id: "p1_1", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
@@ -26,14 +29,15 @@ const catalog = {
     ]
 };
 
-// Função para renderizar as vitrines
 function renderVitrines() {
     for (const category in catalog) {
         const container = document.getElementById(`vitrine-${category}`);
         if (container) {
             container.innerHTML = catalog[category].map(product => `
                 <div class="produto">
-                    <img src="${product.img}" alt="${product.name}">
+                    <div class="img-container">
+                        <img src="${product.img}" alt="${product.name}">
+                    </div>
                     <h4>R$ ${product.price}</h4>
                     <p>${product.name}</p>
                     <button class="btn-comprar" onclick="abrirModalCompra('${product.id}', '${category}')">
@@ -45,15 +49,11 @@ function renderVitrines() {
     }
 }
 
-// Inicialização
-window.addEventListener('load', renderVitrines);
-
-// Função que fará a ponte com o frontend/modal.js
 function abrirModalCompra(productId, category) {
     const product = catalog[category].find(p => p.id === productId);
     if (window.abrirModal) {
         window.abrirModal(product);
-    } else {
-        console.log("Aguardando carregamento do modal...", product);
     }
 }
+
+window.addEventListener('load', renderVitrines);
