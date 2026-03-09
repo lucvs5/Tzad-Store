@@ -1,6 +1,6 @@
 const catalog = {
     promocoes: [
-        { id: "p1_1", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
+        { id: "p1", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
         { id: "p1_2", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
         { id: "p1_3", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
         { id: "p1_4", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
@@ -11,7 +11,6 @@ const catalog = {
         { id: "n1", name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png" },
         { id: "n2", name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png" },
         { id: "n3", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" },
-        // Repetindo os mesmos 3
         { id: "n1_rep", name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png" },
         { id: "n2_rep", name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png" },
         { id: "n3_rep", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" }
@@ -27,30 +26,26 @@ const catalog = {
 };
 
 function renderVitrine() {
-    for (let cat in catalog) {
+    for (const cat in catalog) {
         const container = document.getElementById(`vitrine-${cat}`);
         if (container) {
-            // Limpa o container antes de renderizar
-            container.innerHTML = ""; 
-            
-            catalog[cat].forEach(p => {
-                const html = `
-                    <div class="produto">
-                        <img src="${p.img}" alt="${p.name}">
-                        <h4>R$ ${p.price}</h4>
-                        <p>${p.name}</p>
-                        <button onclick="abrirModal('${p.id}', '${cat}')">Comprar</button>
-                    </div>
-                `;
-                container.innerHTML += html;
-            });
+            container.innerHTML = catalog[cat].map(p => `
+                <div class="produto">
+                    <img src="${p.img}" alt="${p.name}">
+                    <h4>R$ ${p.price}</h4>
+                    <p>${p.name}</p>
+                    <button onclick="abrirCompra('${p.id}', '${cat}')">Adicionar ao carrinho</button>
+                </div>
+            `).join('');
         }
     }
 }
 
-// Garante que o script rode após o carregamento da página
-if (document.readyState === 'complete') {
-    renderVitrine();
-} else {
-    window.addEventListener('load', renderVitrine);
+// Inicia a renderização ao carregar a página
+window.addEventListener('load', renderVitrine);
+
+function abrirCompra(id, cat) {
+    const produto = catalog[cat].find(p => p.id === id);
+    console.log("Selecionado para o Bot:", produto.name);
+    // Aqui será o gatilho para o modal.js
 }
