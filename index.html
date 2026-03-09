@@ -1,76 +1,91 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tzad Store</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="modal/modal.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tzad Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <style>
+        /* Garantia visual para o grid mesmo se o CSS demorar */
+        .produtos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+        .produto img { width: 100%; border-radius: 8px; }
+    </style>
 </head>
 <body>
 
 <header class="topo">
-  <button class="menu-icon" aria-label="Menu">☰</button>
-  <img src="img/topo.png" alt="Tzad Store" class="logo">
-  <button class="cart-icon" aria-label="Carrinho">
-    <img src="img/carrinho.png" alt="Carrinho">
-  </button>
+    <button class="menu-icon">☰</button>
+    <img src="img/topo.png" alt="Tzad Store" class="logo">
+    <button class="cart-icon"><img src="img/carrinho.png" alt="Carrinho"></button>
 </header>
 
 <div class="main-content">
-  <section class="banner">
-    <img src="img/banner.gif" alt="Banner animado">
-  </section>
+    <section class="banner"><img src="img/banner.gif" style="width:100%"></section>
 
-  <section class="produtos">
-    <div class="cabecalho-produtos">
-      <div class="textos-produtos">
-        <h2 contenteditable="true">BEM VINDO A TZAD STORE</h2>
-        <p contenteditable="true">Sua loja de REPS com o melhor preço e a melhor qualidade.</p>
-      </div>
-      <div class="redes-produtos">
-        <a href="https://instagram.com/SEUUSUARIO" target="_blank"><img src="img/instagram.png" alt="Instagram"></a>
-        <a href="https://tiktok.com/@SEUUSUARIO" target="_blank"><img src="img/tiktok.png" alt="TikTok"></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="colecao">
-    <h2 class="titulo-colecao">Promoções</h2>
-    <div class="categoria">
-      <div class="produtos" id="vitrine-promocoes">
-        </div>
-      <button class="ver-todos" onclick="window.location.href='promocoes.html'">Ver todos</button>
-    </div>
-  </section>
-
-  <section class="colecao">
-    <h2 class="titulo-colecao">Nocta</h2>
-    <section class="video-loja">
-      <video controls width="900">
-        <source src="video/noctanv.mp4" type="video/mp4">
-      </video>
+    <section class="colecao">
+        <h2 class="titulo-colecao">Promoções</h2>
+        <div id="vitrine-promocoes" class="produtos"></div>
+        <button class="ver-todos">Ver todos</button>
     </section>
-    <div class="categoria">
-      <div class="produtos" id="vitrine-nocta">
-        </div>
-      <button class="ver-todos" onclick="window.location.href='nocta.html'">Ver todos produtos nocta</button>
-    </div>
-  </section>
 
-  <section class="colecao">
-    <h2 class="titulo-colecao">Camisetas Stüssy</h2>
-    <h3 class="categoria-titulo">Promoções Progressivas Ativas</h3>
-    <div class="categoria">
-      <div class="produtos" id="vitrine-stussy">
-        </div>
-      <button class="ver-todos" onclick="window.location.href='stussy.html'">Ver todos</button>
-    </div>
-  </section>
+    <section class="colecao">
+        <h2 class="titulo-colecao">Nocta</h2>
+        <video controls width="100%"><source src="video/noctanv.mp4" type="video/mp4"></video>
+        <div id="vitrine-nocta" class="produtos"></div>
+        <button class="ver-todos">Ver todos Nocta</button>
+    </section>
+
+    <section class="colecao">
+        <h2 class="titulo-colecao">Camisetas Stüssy</h2>
+        <div id="vitrine-stussy" class="produtos"></div>
+        <button class="ver-todos">Ver todos Stüssy</button>
+    </section>
 </div>
 
-<script src="shop.js"></script>
-<script src="js/script.js"></script>
+<script>
+const catalog = {
+    promocoes: [
+        { id: "p1", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
+        { id: "p2", name: "Colar Imperial", price: "120,00", img: "img/ColarImperial.jpg" },
+        { id: "p3", name: "Colar Prestige", price: "130,00", img: "img/ColarPrestige.jpg" }
+    ],
+    nocta: [
+        { id: "n1", name: "Conjunto NNT Cinza", price: "450,00", img: "img/nntc.png" },
+        { id: "n2", name: "Corta Vento Nocta", price: "400,00", img: "img/nkcv.png" },
+        { id: "n3", name: "Tech Fleece Preto", price: "450,00", img: "img/nktc.jpg" }
+    ],
+    stussy: [
+        { id: "s1", name: "Stüssy Metalheadz", price: "150,00", img: "img/stmtb.jpg" },
+        { id: "s2", name: "Stüssy Logo Padrão", price: "150,00", img: "img/stlpp.jpg" }
+    ]
+};
+
+function render() {
+    for (let cat in catalog) {
+        const container = document.getElementById(`vitrine-${cat}`);
+        if (container) {
+            container.innerHTML = catalog[cat].slice(0, 6).map(p => `
+                <div class="produto">
+                    <img src="${p.img}">
+                    <h4>R$ ${p.price}</h4>
+                    <p>${p.name}</p>
+                    <button onclick="iniciarCompra('${p.id}', '${cat}')">Comprar</button>
+                </div>
+            `).join('');
+        }
+    }
+}
+
+function iniciarCompra(id, cat) {
+    const p = catalog[cat].find(item => item.id === id);
+    // Aqui chamaremos o modal.js para escolher TAMANHO e COR
+    alert("Iniciando pedido de: " + p.name + "\nPróximo passo: Abrir modal de variantes.");
+}
+
+window.onload = render;
+</script>
+
+<script src="modal/modal.js"></script>
 </body>
 </html>
