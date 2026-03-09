@@ -6,29 +6,27 @@
     font-family: 'Playfair Display', serif;
 }
 
-/* TOPO / HEADER ATUALIZADO */
+/* TOPO / HEADER */
 .topo {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
-    background: #000000; /* Fundo Preto */
+    background: #000000;
     border-bottom: 1px solid #333;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-/* Ícone do Menu em Dourado */
 .menu-icon {
     background: none;
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #DAA520; /* Dourado especificado */
+    color: #DAA520; /* Dourado TZAD */
 }
 
-/* Carrinho com imagem original */
 .cart-icon {
     background: none;
     border: none;
@@ -39,22 +37,10 @@
 
 .cart-icon img {
     width: 30px;
-    /* Imagem original sem filtros conforme solicitado */
 }
 
 .logo {
     height: 40px;
-}
-
-.menu-icon, .cart-icon {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.cart-icon img {
-    width: 30px;
 }
 
 /* CONTEÚDO PRINCIPAL */
@@ -96,12 +82,6 @@
     margin: 30px 0 20px;
 }
 
-.categoria-titulo {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 15px;
-}
-
 .produtos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -109,12 +89,14 @@
     margin-bottom: 20px;
 }
 
+/* PAINEL DOS PRODUTOS (ITEM 5 DA SUA LISTA) */
 .produto {
     text-align: center;
     padding: 15px;
-    border: 1px solid #f0f0f0;
-    border-radius: 8px;
+    background-color: #DAA520; /* Fundo Dourado/Amarelo solicitado */
+    border-radius: 12px; /* Bordas levemente arredondadas */
     transition: transform 0.3s;
+    border: none;
 }
 
 .produto:hover {
@@ -124,41 +106,35 @@
 .produto img {
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-bottom: 10px;
 }
 
 .produto h4 {
     font-size: 18px;
-    color: #000;
+    color: #000; /* Preço em preto para contrastar com amarelo */
     margin: 10px 0;
 }
 
 .produto p {
     font-size: 14px;
-    color: #777;
+    color: #000;
     margin-bottom: 15px;
     height: 40px;
     overflow: hidden;
+    font-weight: bold;
 }
 
+/* BOTÃO COMPRAR (REFAZENDO CONFORME SOLICITADO) */
 .btn-comprar {
-    background-color: #000;
-    color: #fff;
+    background-color: #000000; /* Botão Preto */
+    color: #DAA520; /* Letras Douradas */
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-}
-
-.ver-todos {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 30px;
-    background: none;
-    border: 1px solid #000;
-    cursor: pointer;
+    font-weight: bold;
 }
 
 /* JANELA DE LOGIN */
@@ -171,46 +147,7 @@
     border: 1px solid #000;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     z-index: 2000;
-}
-
-.login-header {
-    background: #000;
-    color: #fff;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.login-body {
-    padding: 20px;
-}
-
-.login-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.login-form input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-}
-
-.login-button {
-    width: 100%;
-    background: #000;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.links {
-    font-size: 12px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
+    display: none; /* Inicialmente escondida para o item 2 */
 }
 
 /* RESPONSIVIDADE CELULAR */
@@ -219,8 +156,4 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
-    
-    .textos-produtos h2 {
-        font-size: 18px;
-    }
-  }
+}
