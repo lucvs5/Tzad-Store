@@ -48,23 +48,41 @@
     </section>
 </div>
 
-<script>
-const catalog = {
-    promocoes: [
-        { id: "p1", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
-        { id: "p2", name: "Colar Imperial", price: "120,00", img: "img/ColarImperial.jpg" },
-        { id: "p3", name: "Colar Prestige", price: "130,00", img: "img/ColarPrestige.jpg" }
-    ],
-    nocta: [
-        { id: "n1", name: "Conjunto NNT Cinza", price: "450,00", img: "img/nntc.png" },
-        { id: "n2", name: "Corta Vento Nocta", price: "400,00", img: "img/nkcv.png" },
-        { id: "n3", name: "Tech Fleece Preto", price: "450,00", img: "img/nktc.jpg" }
-    ],
-    stussy: [
-        { id: "s1", name: "Stüssy Metalheadz", price: "150,00", img: "img/stmtb.jpg" },
-        { id: "s2", name: "Stüssy Logo Padrão", price: "150,00", img: "img/stlpp.jpg" }
-    ]
-};
+<div class="main-content">
+    <section class="colecao">
+        <h2 class="titulo-colecao">Promoções</h2>
+        <div class="categoria">
+            <div id="vitrine-promocoes" class="produtos"></div>
+            <button class="ver-todos">Ver todos</button>
+        </div>
+    </section>
+
+    <section class="colecao">
+        <h2 class="titulo-colecao">Nocta</h2>
+        <section class="video-loja" style="display: flex; justify-content: center; padding: 20px;">
+            <video controls style="width: 90%; max-width: 800px; border-radius: 15px;">
+                <source src="video/noctanv.mp4" type="video/mp4">
+            </video>
+        </section>
+        <div class="categoria">
+            <div id="vitrine-nocta" class="produtos"></div>
+            <button class="ver-todos">Ver todos Nocta</button>
+        </div>
+    </section>
+
+    <section class="colecao">
+        <h2 class="titulo-colecao">Camisetas Stüssy</h2>
+        <div class="categoria">
+            <div id="vitrine-stussy" class="produtos"></div>
+            <button class="ver-todos">Ver todos Stüssy</button>
+        </div>
+    </section>
+</div>
+
+<script src="shop.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
 
 function render() {
     for (let cat in catalog) {
