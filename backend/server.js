@@ -1,40 +1,4 @@
-const express=require("express");
-const cors=require("cors");
-const bcrypt=require("bcrypt");
-const jwt=require("jsonwebtoken");
 
-require("./database");
-
-const User=require("../models/User");
-const Cart=require("../models/Cart");
-
-const app=express();
-
-app.use(cors());
-app.use(express.json());
-
-const SECRET="supersecretkey";
-
-
-// LOGIN
-
-app.post("/login",async(req,res)=>{
-
-const {email,password}=req.body;
-
-const user=await User.findOne({email});
-
-if(!user) return res.json({error:"user not found"});
-
-const valid=await bcrypt.compare(password,user.password);
-
-if(!valid) return res.json({error:"wrong password"});
-
-const token=jwt.sign({id:user._id},SECRET);
-
-res.json({token,name:user.name});
-
-});
 
 
 // REGISTER
