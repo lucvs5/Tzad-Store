@@ -1,6 +1,7 @@
+// Banco de dados local para a vitrine
 const catalog = {
     promocoes: [
-        { id: "p1", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
+        { id: "p1_1", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
         { id: "p1_2", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
         { id: "p1_3", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
         { id: "p1_4", name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg" },
@@ -11,9 +12,9 @@ const catalog = {
         { id: "n1", name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png" },
         { id: "n2", name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png" },
         { id: "n3", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" },
-        { id: "n1_b", name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png" },
-        { id: "n2_b", name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png" },
-        { id: "n3_b", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" }
+        { id: "n1_rep", name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png" },
+        { id: "n2_rep", name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png" },
+        { id: "n3_rep", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" }
     ],
     stussy: [
         { id: "s1", name: "STÜSSY METALHEADZ (refletiva)", price: "150,00", img: "img/stmtb.jpg" },
@@ -25,26 +26,34 @@ const catalog = {
     ]
 };
 
-function renderVitrine() {
+// Função para renderizar as vitrines
+function renderVitrines() {
     for (const category in catalog) {
         const container = document.getElementById(`vitrine-${category}`);
         if (container) {
-            container.innerHTML = catalog[category].map(prod => `
+            container.innerHTML = catalog[category].map(product => `
                 <div class="produto">
-                    <img src="${prod.img}" alt="${prod.name}">
-                    <h4>R$ ${prod.price}</h4>
-                    <p>${prod.name}</p>
-                    <button onclick="abrirCompra('${prod.id}', '${category}')">Adicionar ao carrinho</button>
+                    <img src="${product.img}" alt="${product.name}">
+                    <h4>R$ ${product.price}</h4>
+                    <p>${product.name}</p>
+                    <button class="btn-comprar" onclick="abrirModalCompra('${product.id}', '${category}')">
+                        Comprar
+                    </button>
                 </div>
             `).join('');
         }
     }
 }
 
-// Rodar a função
-window.addEventListener('load', renderVitrine);
+// Inicialização
+window.addEventListener('load', renderVitrines);
 
-function abrirCompra(id, cat) {
-    console.log("Produto selecionado:", id, cat);
-    // Aqui entrará a lógica do Modal.js
+// Função que fará a ponte com o frontend/modal.js
+function abrirModalCompra(productId, category) {
+    const product = catalog[category].find(p => p.id === productId);
+    if (window.abrirModal) {
+        window.abrirModal(product);
+    } else {
+        console.log("Aguardando carregamento do modal...", product);
+    }
 }
