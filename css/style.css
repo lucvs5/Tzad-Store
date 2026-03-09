@@ -6,22 +6,40 @@
     font-family: 'Playfair Display', serif;
 }
 
-body {
-    background-color: #ffffff;
-    color: #333;
-}
-
-/* TOPO / HEADER */
+/* TOPO / HEADER ATUALIZADO */
 .topo {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
-    background: #fff;
-    border-bottom: 1px solid #eee;
+    background: #000000; /* Fundo Preto */
+    border-bottom: 1px solid #333;
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+/* Ícone do Menu em Dourado */
+.menu-icon {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #DAA520; /* Dourado especificado */
+}
+
+/* Carrinho com imagem original */
+.cart-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.cart-icon img {
+    width: 30px;
+    /* Imagem original sem filtros conforme solicitado */
 }
 
 .logo {
