@@ -79,7 +79,6 @@ body {
     color: #DAA520;
 }
 
-/* REDES SOCIAIS (ITEM 1 - REDUZIDO) */
 .redes-produtos {
     display: flex;
     justify-content: center;
@@ -88,7 +87,7 @@ body {
 }
 
 .redes-produtos a img {
-    width: 22px; /* Reduzido conforme solicitado */
+    width: 22px;
     height: auto;
     filter: brightness(0) invert(1);
 }
@@ -154,7 +153,7 @@ body {
     text-transform: uppercase;
 }
 
-/* VÍDEO NOCTA (ITEM 2 - SEM SOMBRA) */
+/* VÍDEO NOCTA */
 .video-loja {
     display: flex;
     justify-content: center;
@@ -165,10 +164,9 @@ body {
     width: 80%;
     max-width: 700px;
     border-radius: 15px;
-    box-shadow: none; /* Sombra removida */
 }
 
-/* MODAL */
+/* MODAL DE COMPRA */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -190,8 +188,98 @@ body {
     padding: 25px;
     border-radius: 15px;
     border: 1px solid #DAA520;
+    position: relative; /* Necessário para posicionar o X */
 }
 
+/* CORREÇÃO DO X (ITEM SOLICITADO) */
+.close-modal {
+    position: absolute; 
+    top: 15px; 
+    right: 15px; 
+    border: none; 
+    background: #DAA520; /* Fundo Dourado */
+    color: #000000;      /* X Preto */
+    font-size: 32px;     /* Grande */
+    font-weight: 900;   /* Grosso */
+    cursor: pointer;
+    width: 40px;         /* Aumentado */
+    height: 40px;        /* Aumentado */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 0;
+    z-index: 100;
+    transition: transform 0.2s;
+}
+
+.close-modal:hover {
+    transform: scale(1.1);
+}
+
+/* JANELA DE LOGIN */
+.login-window {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: #000;
+    border: 1px solid #DAA520;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    z-index: 2000;
+}
+
+.login-header {
+    background: #DAA520;
+    color: #000;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.minimize-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: bold;
+}
+
+.login-body {
+    padding: 20px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    background: #222;
+    border: 1px solid #DAA520;
+    color: #fff;
+}
+
+.login-button {
+    width: 100%;
+    background: #DAA520;
+    color: #000;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.links {
+    font-size: 12px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.links a {
+    color: #DAA520;
+    text-decoration: none;
+}
+
+/* RESPONSIVIDADE CELULAR */
 @media (max-width: 600px) {
     .produtos {
         grid-template-columns: repeat(2, 1fr);
