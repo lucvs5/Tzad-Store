@@ -5,110 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tzad Store</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="frontend/modal.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-    <style>
-        /* Garantia visual para o grid mesmo se o CSS demorar */
-        .produtos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-        .produto img { width: 100%; border-radius: 8px; }
-    </style>
 </head>
 <body>
 
 <header class="topo">
-    <button class="menu-icon">☰</button>
+    <button class="menu-icon" aria-label="Menu">☰</button>
     <img src="img/topo.png" alt="Tzad Store" class="logo">
-    <button class="cart-icon"><img src="img/carrinho.png" alt="Carrinho"></button>
+    <button class="cart-icon" aria-label="Carrinho">
+        <img src="img/carrinho.png" alt="Carrinho">
+    </button>
 </header>
 
 <div class="main-content">
-    <section class="banner"><img src="img/banner.gif" style="width:100%"></section>
 
-    <section class="colecao">
-        <h2 class="titulo-colecao">Promoções</h2>
-        <div id="vitrine-promocoes" class="produtos"></div>
-        <button class="ver-todos">Ver todos</button>
+    <section class="banner">
+        <img src="img/banner.gif" alt="Banner animado">
     </section>
 
-    <section class="colecao">
-        <h2 class="titulo-colecao">Nocta</h2>
-        <section class="video-loja" style="display: flex; justify-content: center; padding: 20px;">
-  <video controls style="width: 90%; max-width: 800px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-    <source src="video/noctanv.mp4" type="video/mp4">
-    Seu navegador não suporta vídeo.
-  </video>
-</section>
-        <div id="vitrine-nocta" class="produtos"></div>
-        <button class="ver-todos">Ver todos Nocta</button>
+    <section class="produtos">
+        <div class="cabecalho-produtos">
+            <div class="textos-produtos">
+                <h2 contenteditable="true">BEM VINDO A TZAD STORE</h2>
+                <p contenteditable="true">
+                    Sua loja de REPS com o melhor preço e a melhor qualidade.
+                </p>
+            </div>
+            <div class="redes-produtos">
+                <a href="https://instagram.com/SEUUSUARIO" target="_blank">
+                    <img src="img/instagram.png" alt="Instagram">
+                </a>
+                <a href="https://tiktok.com/@SEUUSUARIO" target="_blank">
+                    <img src="img/tiktok.png" alt="TikTok">
+                </a>
+            </div>
+        </div>
     </section>
 
-    <section class="colecao">
-        <h2 class="titulo-colecao">Camisetas Stüssy</h2>
-        <div id="vitrine-stussy" class="produtos"></div>
-        <button class="ver-todos">Ver todos Stüssy</button>
-    </section>
-</div>
-
-<div class="main-content">
     <section class="colecao">
         <h2 class="titulo-colecao">Promoções</h2>
         <div class="categoria">
-            <div id="vitrine-promocoes" class="produtos"></div>
+            <div class="produtos" id="vitrine-promocoes"></div>
             <button class="ver-todos">Ver todos</button>
         </div>
     </section>
 
     <section class="colecao">
         <h2 class="titulo-colecao">Nocta</h2>
-        <section class="video-loja" style="display: flex; justify-content: center; padding: 20px;">
-            <video controls style="width: 90%; max-width: 800px; border-radius: 15px;">
+        <section class="video-loja">
+            <video controls width="900" style="max-width: 100%; height: auto; border-radius: 10px;">
                 <source src="video/noctanv.mp4" type="video/mp4">
+                Seu navegador não suporta vídeo.
             </video>
         </section>
         <div class="categoria">
-            <div id="vitrine-nocta" class="produtos"></div>
-            <button class="ver-todos">Ver todos Nocta</button>
+            <div class="produtos" id="vitrine-nocta"></div>
+            <button class="ver-todos">Ver todos produtos nocta</button>
         </div>
     </section>
 
     <section class="colecao">
         <h2 class="titulo-colecao">Camisetas Stüssy</h2>
+        <h3 class="categoria-titulo">2 camisetas: (16,67% OFF), 3 camisetas: (21,67 OFF), 4 camisetas: (28,33% OFF), 5 camisetas: (30% OFF)</h3>
         <div class="categoria">
-            <div id="vitrine-stussy" class="produtos"></div>
-            <button class="ver-todos">Ver todos Stüssy</button>
+            <div class="produtos" id="vitrine-stussy"></div>
+            <button class="ver-todos">Ver todos</button>
         </div>
     </section>
+
 </div>
 
-<script src="shop.js"></script>
+<div id="login-window" class="login-window">
+    <div class="login-header">
+        <span>Bem Vindo a Tzad Store</span>
+        <button class="minimize-btn" aria-label="Minimizar">--</button>
+    </div>
+    <div class="login-body">
+        <form class="login-form">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="Digite seu e-mail" required>
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" placeholder="Digite sua senha" required>
+            <div class="links">
+                <a href="#">Recuperar senha</a>
+                <a href="#">Esqueceu a senha?</a>
+            </div>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+</div>
+
+<script src="js/shop.js"></script>
 <script src="js/script.js"></script>
-</body>
-</html>
+<script src="frontend/modal.js"></script>
 
-function render() {
-    for (let cat in catalog) {
-        const container = document.getElementById(`vitrine-${cat}`);
-        if (container) {
-            container.innerHTML = catalog[cat].slice(0, 6).map(p => `
-                <div class="produto">
-                    <img src="${p.img}">
-                    <h4>R$ ${p.price}</h4>
-                    <p>${p.name}</p>
-                    <button onclick="iniciarCompra('${p.id}', '${cat}')">Comprar</button>
-                </div>
-            `).join('');
-        }
-    }
-}
-
-function iniciarCompra(id, cat) {
-    const p = catalog[cat].find(item => item.id === id);
-    // Aqui chamaremos o modal.js para escolher TAMANHO e COR
-    alert("Iniciando pedido de: " + p.name + "\nPróximo passo: Abrir modal de variantes.");
-}
-
-window.onload = render;
-</script>
-
-<script src="modal/modal.js"></script>
 </body>
 </html>
