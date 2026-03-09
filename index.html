@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tzad Store</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="modal/modal.css"> <!-- Modal CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-  <script src="modal/modal.js" defer></script> <!-- Modal JS -->
-  <script src="js/shop.js" defer></script> <!-- Funções do site -->
+  <script src="modal/modal.js"></script>
 </head>
 <body>
 
@@ -40,14 +38,16 @@
     <img src="img/banner.gif" alt="Banner animado">
   </section>
 
-  <!-- CABEÇALHO PRODUTOS -->
+  <!-- PRODUTOS PRINCIPAIS -->
   <section class="produtos">
 
     <div class="cabecalho-produtos">
 
       <div class="textos-produtos">
         <h2 contenteditable="true">BEM VINDO A TZAD STORE</h2>
-        <p contenteditable="true">Sua loja de REPS com o melhor preço e a melhor qualidade.</p>
+        <p contenteditable="true">
+          Sua loja de REPS com o melhor preço e a melhor qualidade.
+        </p>
       </div>
 
       <div class="redes-produtos">
@@ -61,14 +61,7 @@
 
     </div>
 
-  </section>
-
-  <!-- ========================
-         SEÇÃO DE PRODUTOS: PROMOÇÕES
-  ======================== -->
-  <section class="colecao">
-    <h2 class="titulo-colecao">Promoções</h2>
-
+    <!-- GRID DE PRODUTOS (primeira seção) -->
     <div class="categoria">
       <div class="produtos">
         <div class="produto"><img src="img/cjbl.jpg"><h4>R$250,00</h4><p>Conjunto BAPE Laranja</p><button>Adicionar ao carrinho</button></div>
@@ -78,19 +71,19 @@
         <div class="produto"><img src="img/ColarDiamondTouch.jpg"><h4>Colar Diamond Touch</h4><p>Minimalismo sofisticado.</p><button>Adicionar ao carrinho</button></div>
         <div class="produto"><img src="img/ColarGoldenLine.jpg"><h4>Colar Golden Line</h4><p>Peça delicada com brilho marcante.</p><button>Adicionar ao carrinho</button></div>
       </div>
-
       <button class="ver-todos">Ver todos</button>
     </div>
+
   </section>
 
   <!-- ========================
-         SEÇÃO DE PRODUTOS: NOCTA
-  ======================== -->
+       SEGUNDA SESSÃO COM VÍDEO
+======================== -->
   <section class="colecao">
     <h2 class="titulo-colecao">Nocta</h2>
 
     <section class="video-loja">
-      <video controls width="900">
+      <video controls>
         <source src="video/noctanv.mp4" type="video/mp4">
         Seu navegador não suporta vídeo.
       </video>
@@ -105,17 +98,16 @@
         <div class="produto"><img src="img/PulseiraGoldLine.jpg"><h4>Pulseira Gold Line</h4><p>Minimalista e elegante.</p><button>Adicionar ao carrinho</button></div>
         <div class="produto"><img src="img/PulseiraDeluxe.jpg"><h4>Pulseira Deluxe</h4><p>Brilho delicado.</p><button>Adicionar ao carrinho</button></div>
       </div>
-
-      <button class="ver-todos">Ver todos produtos nocta</button>
+      <button class="ver-todos">Ver todos produtos Nocta</button>
     </div>
   </section>
 
   <!-- ========================
-         SEÇÃO DE PRODUTOS: CAMISETAS STÜSSY
-  ======================== -->
+       CAMISETAS E ANÉIS
+======================== -->
   <section class="colecao">
     <h2 class="titulo-colecao">Camisetas Stüssy</h2>
-    <h3 class="categoria-titulo">2 camisetas: (16,67% OFF), 3 camisetas: (21,67 OFF), 4 camisetas: (28,33% OFF), 5 camisetas: (30% OFF)</h3>
+    <h3 class="categoria-titulo">2 camisetas: (16,67% OFF), 3 camisetas: (21,67% OFF), 4 camisetas: (28,33% OFF), 5 camisetas: (30% OFF)</h3>
 
     <div class="categoria">
       <div class="produtos">
@@ -126,15 +118,9 @@
         <div class="produto"><img src="img/stlpb.jpg"><h4>R$150,00</h4><p>Stüssy Logo Padrão B.</p><button>Adicionar ao carrinho</button></div>
         <div class="produto"><img src="img/stbdb.jpg"><h4>R$150,00</h4><p>Stüssy Bordada B</p><button>Adicionar ao carrinho</button></div>
       </div>
-
       <button class="ver-todos">Ver todos</button>
     </div>
-  </section>
 
-  <!-- ========================
-         SEÇÃO DE PRODUTOS: ANÉIS
-  ======================== -->
-  <section class="colecao">
     <div class="categoria">
       <h3 class="categoria-titulo">Anéis</h3>
       <div class="produtos">
@@ -145,7 +131,6 @@
         <div class="produto"><img src="img/a5.jpg"><h4>Anel Golden</h4><p>Acabamento sofisticado.</p><button>Adicionar ao carrinho</button></div>
         <div class="produto"><img src="img/a6.jpg"><h4>Anel Deluxe</h4><p>Brilho marcante.</p><button>Adicionar ao carrinho</button></div>
       </div>
-
       <button class="ver-todos">Ver todos</button>
     </div>
   </section>
@@ -153,31 +138,29 @@
 </div>
 
 <!-- ========================
-       MODAL / JANELA DE LOGIN E CARRINHO
+       MODAL DE LOGIN / CARRINHO
 ======================== -->
 <div id="login-window" class="login-window">
   <div class="login-header">
     <span>Bem Vindo a Tzad Store</span>
     <button class="minimize-btn" aria-label="Minimizar">—</button>
   </div>
-
   <div class="login-body">
     <form class="login-form">
       <label for="email">E-mail</label>
       <input type="email" id="email" placeholder="Digite seu e-mail" required>
-
       <label for="senha">Senha</label>
       <input type="password" id="senha" placeholder="Digite sua senha" required>
-
       <div class="links">
         <a href="#">Recuperar senha</a>
         <a href="#">Esqueceu a senha?</a>
       </div>
-
       <button type="submit" class="login-button">Login</button>
     </form>
   </div>
 </div>
 
+<script src="js/shop.js"></script>
+<script src="modal/modal.js"></script>
 </body>
 </html>
