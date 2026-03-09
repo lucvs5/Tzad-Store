@@ -51,7 +51,7 @@ body {
     width: 45px;
     height: auto;
     background: transparent;
-    mix-blend-mode: screen;
+    mix-blend-mode: screen; /* Remove fundo branco residual */
 }
 
 /* CONTEÚDO PRINCIPAL */
@@ -61,46 +61,7 @@ body {
     padding: 20px;
 }
 
-.banner img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 30px;
-}
-
-/* CABEÇALHO DE BOAS VINDAS */
-.cabecalho-produtos {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.textos-produtos h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #DAA520;
-}
-
-.redes-produtos {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.redes-produtos a img {
-    width: 22px;
-    height: auto;
-    filter: brightness(0) invert(1);
-}
-
 /* GRID E PRODUTOS */
-.titulo-colecao {
-    font-size: 22px;
-    border-left: 4px solid #DAA520;
-    padding-left: 10px;
-    margin: 30px 0 20px;
-    color: #DAA520;
-}
-
 .produtos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -140,33 +101,7 @@ body {
     font-size: 12px;
 }
 
-.ver-todos {
-    display: block;
-    margin: 20px auto;
-    padding: 12px 40px;
-    background-color: #DAA520;
-    color: #000000;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-/* VÍDEO NOCTA */
-.video-loja {
-    display: flex;
-    justify-content: center;
-    padding: 40px 15%;
-}
-
-.video-loja video {
-    width: 80%;
-    max-width: 700px;
-    border-radius: 15px;
-}
-
-/* MODAL DE COMPRA (ADICIONAR AO CARRINHO) */
+/* MODAL ADICIONAR AO CARRINHO (O QUE TEM O X PRETO) */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -197,33 +132,34 @@ body {
     top: 15px; 
     right: 15px; 
     border: none; 
-    background: #DAA520; 
-    color: #000000 !important; /* X PRETO FORÇADO */
-    font-size: 35px;     
-    font-weight: 900;   /* GROSSO */
+    background: #DAA520 !important; 
+    color: #000000 !important; /* X NA COR PRETA */
+    font-size: 32px !important;     
+    font-weight: 900 !important;   /* BEM GROSSO */
     cursor: pointer;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    line-height: 0;
     z-index: 100;
 }
 
-/* JANELA DE CARRINHO/LOGIN (ATO 2) */
+/* JANELA DO CARRINHO/LOGIN (MINIMIZÁVEL) */
 .login-window {
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 320px;
     background: #000;
-    border: 1px solid #DAA520;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+    border: 2px solid #DAA520;
     z-index: 2000;
-    display: none; /* Inicia escondido */
+    display: none; /* COMEÇA ESCONDIDO PARA O ATO 2 */
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
 .login-header {
@@ -243,8 +179,8 @@ body {
     border: none;
     width: 25px;
     height: 25px;
-    border-radius: 5px;
     font-weight: bold;
+    border-radius: 5px;
 }
 
 .login-body {
@@ -284,7 +220,9 @@ body {
     text-decoration: none;
 }
 
+/* RESPONSIVIDADE */
 @media (max-width: 600px) {
-    .produtos { grid-template-columns: repeat(2, 1fr); }
-    .video-loja { padding: 20px 5%; }
+    .produtos {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
