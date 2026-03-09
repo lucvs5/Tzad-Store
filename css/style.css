@@ -166,7 +166,7 @@ body {
     border-radius: 15px;
 }
 
-/* MODAL DE COMPRA */
+/* MODAL DE COMPRA (ADICIONAR AO CARRINHO) */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -188,59 +188,62 @@ body {
     padding: 25px;
     border-radius: 15px;
     border: 1px solid #DAA520;
-    position: relative; /* Necessário para posicionar o X */
+    position: relative;
 }
 
-/* CORREÇÃO DO X (ITEM SOLICITADO) */
+/* O X DE FECHAR (PRETO E GROSSO) */
 .close-modal {
     position: absolute; 
     top: 15px; 
     right: 15px; 
     border: none; 
-    background: #DAA520; /* Fundo Dourado */
-    color: #000000;      /* X Preto */
-    font-size: 32px;     /* Grande */
-    font-weight: 900;   /* Grosso */
+    background: #DAA520; 
+    color: #000000 !important; /* X PRETO FORÇADO */
+    font-size: 35px;     
+    font-weight: 900;   /* GROSSO */
     cursor: pointer;
-    width: 40px;         /* Aumentado */
-    height: 40px;        /* Aumentado */
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    line-height: 0;
     z-index: 100;
-    transition: transform 0.2s;
 }
 
-.close-modal:hover {
-    transform: scale(1.1);
-}
-
-/* JANELA DE LOGIN */
+/* JANELA DE CARRINHO/LOGIN (ATO 2) */
 .login-window {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 300px;
+    width: 320px;
     background: #000;
     border: 1px solid #DAA520;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.8);
     z-index: 2000;
+    display: none; /* Inicia escondido */
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .login-header {
     background: #DAA520;
     color: #000;
-    padding: 10px;
+    padding: 12px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
 }
 
 .minimize-btn {
     cursor: pointer;
-    background: none;
+    background: #000;
+    color: #DAA520;
     border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
     font-weight: bold;
 }
 
@@ -250,11 +253,12 @@ body {
 
 .login-form input {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 15px;
-    background: #222;
-    border: 1px solid #DAA520;
+    background: #111;
+    border: 1px solid #333;
     color: #fff;
+    border-radius: 5px;
 }
 
 .login-button {
@@ -262,9 +266,10 @@ body {
     background: #DAA520;
     color: #000;
     border: none;
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
     font-weight: bold;
+    border-radius: 5px;
 }
 
 .links {
@@ -279,12 +284,7 @@ body {
     text-decoration: none;
 }
 
-/* RESPONSIVIDADE CELULAR */
 @media (max-width: 600px) {
-    .produtos {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .video-loja {
-        padding: 20px 5%;
-    }
+    .produtos { grid-template-columns: repeat(2, 1fr); }
+    .video-loja { padding: 20px 5%; }
 }
