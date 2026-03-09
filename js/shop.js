@@ -11,9 +11,9 @@ const catalog = {
         { id: "n1", name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png" },
         { id: "n2", name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png" },
         { id: "n3", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" },
-        { id: "n1_rep", name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png" },
-        { id: "n2_rep", name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png" },
-        { id: "n3_rep", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" }
+        { id: "n1_b", name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png" },
+        { id: "n2_b", name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png" },
+        { id: "n3_b", name: "Conjunto Nike Nocta Tech Fleece", price: "450,00", img: "img/nktc.jpg" }
     ],
     stussy: [
         { id: "s1", name: "STÜSSY METALHEADZ (refletiva)", price: "150,00", img: "img/stmtb.jpg" },
@@ -26,26 +26,25 @@ const catalog = {
 };
 
 function renderVitrine() {
-    for (const cat in catalog) {
-        const container = document.getElementById(`vitrine-${cat}`);
+    for (const category in catalog) {
+        const container = document.getElementById(`vitrine-${category}`);
         if (container) {
-            container.innerHTML = catalog[cat].map(p => `
+            container.innerHTML = catalog[category].map(prod => `
                 <div class="produto">
-                    <img src="${p.img}" alt="${p.name}">
-                    <h4>R$ ${p.price}</h4>
-                    <p>${p.name}</p>
-                    <button onclick="abrirCompra('${p.id}', '${cat}')">Adicionar ao carrinho</button>
+                    <img src="${prod.img}" alt="${prod.name}">
+                    <h4>R$ ${prod.price}</h4>
+                    <p>${prod.name}</p>
+                    <button onclick="abrirCompra('${prod.id}', '${category}')">Adicionar ao carrinho</button>
                 </div>
             `).join('');
         }
     }
 }
 
-// Inicia a renderização ao carregar a página
+// Rodar a função
 window.addEventListener('load', renderVitrine);
 
 function abrirCompra(id, cat) {
-    const produto = catalog[cat].find(p => p.id === id);
-    console.log("Selecionado para o Bot:", produto.name);
-    // Aqui será o gatilho para o modal.js
+    console.log("Produto selecionado:", id, cat);
+    // Aqui entrará a lógica do Modal.js
 }
