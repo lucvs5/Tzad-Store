@@ -11,7 +11,6 @@ body {
   font-family: 'Playfair Display', Arial, sans-serif;
   background: #fff;
   padding-top: 80px; /* altura do header */
-   <div id="cartModal"></div>
 }
 
 /* ---------------------------
@@ -311,5 +310,3 @@ font-family:"Playfair Display", serif;
 .redes-produtos img{
   width:40px;
 }
-   <script src="shop.js"></script>
-<script src="modal/modal.js"></script>
