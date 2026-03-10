@@ -5,47 +5,32 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Seleciona os elementos principais da interface
+    // 1. Localiza a janela de login/carrinho
     const loginWindow = document.getElementById('login-window');
-    const modalOverlay = document.querySelector('.modal-overlay');
+    
+    // 2. Localiza o botão do carrinho (que está lá no topo do seu HTML)
+    const cartBtn = document.querySelector('.cart-icon');
+    
+    // 3. Localiza o botão de minimizar (_)
+    const minimizeBtn = document.querySelector('.minimize-btn');
 
-    // --- GESTÃO GLOBAL DE CLIQUES (Método infalível por delegação) ---
-    document.addEventListener('click', (e) => {
-        
-        // 1. ABRIR CARRINHO / LOGIN (Detecta clique no ícone ou na imagem do carrinho)
-        if (e.target.closest('.cart-icon')) {
-            e.preventDefault(); // Impede que a página recarregue
-            if (loginWindow) {
-                loginWindow.style.display = 'block';
-                console.log("Carrinho aberto com sucesso!");
-            }
-        }
+    // --- LÓGICA DE ABRIR ---
+    if (cartBtn && loginWindow) {
+        cartBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita qualquer comportamento padrão
+            loginWindow.style.display = 'block'; // Força a exibição
+            console.log("Comando recebido: Abrindo carrinho.");
+        });
+    } else {
+        console.error("Erro: Botão .cart-icon não encontrado no topo do index.html");
+    }
 
-        // 2. MINIMIZAR CARRINHO (Detecta clique no botão _)
-        if (e.target.closest('.minimize-btn')) {
-            e.preventDefault();
-            if (loginWindow) {
-                loginWindow.style.display = 'none';
-            }
-        }
-
-        // 3. FECHAR MODAL DE DETALHES (Detecta clique no X preto e grosso)
-        if (e.target.closest('.close-modal')) {
-            e.preventDefault();
-            if (modalOverlay) {
-                modalOverlay.style.display = 'none';
-            }
-        }
-    });
-
-    // --- FECHAR MODAL CLICANDO FORA ---
-    // Se o usuário clicar no fundo escuro (fora da caixa de detalhes), o modal fecha
-    window.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-            modalOverlay.style.display = 'none';
-        }
-    });
-
+    // --- LÓGICA DE MINIMIZAR ---
+    if (minimizeBtn && loginWindow) {
+        minimizeBtn.addEventListener('click', () => {
+            loginWindow.style.display = 'none'; // Esconde a janela
+        });
+    }
 });
 
 /**
