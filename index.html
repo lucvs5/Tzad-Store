@@ -74,7 +74,7 @@
 
 </div>
 
-<div id="login-window" class="login-window">
+      <div id="login-window" class="login-window">
     <div class="login-header">
         <span id="titulo-janela">LOGIN / CARRINHO</span>
         <button class="minimize-btn">_</button>
@@ -83,7 +83,6 @@
     <div class="login-body">
         
         <div id="estado-login">
-            
             <div class="login-image-container">
                 <img src="img/logocarrinho.png" alt="Zad Store Login Logo" onerror="this.src='https://via.placeholder.com/200?text=ZAD+REPS'">
             </div>
@@ -105,17 +104,57 @@
         </div>
 
         <div id="estado-cadastro" style="display: none;">
+            <form class="login-form">
+                <label>Nome</label>
+                <input type="text" placeholder="Nome completo" required>
+                <label>E-mail</label>
+                <input type="email" placeholder="Seu e-mail" required>
+                <label>Senha</label>
+                <input type="password" placeholder="Crie uma senha" required>
+                <button type="button" class="login-button" onclick="alternarTela('login')">Cadastrar</button>
+            </form>
+            <div class="links">
+                <a href="javascript:void(0)" onclick="alternarTela('login')">Já tenho conta</a>
             </div>
+        </div>
 
         <div id="estado-painel" style="display: none;">
+            <div class="user-welcome">
+                <p>Olá, <strong id="user-name-display">Visitante</strong>!</p>
             </div>
+            
+            <div id="area-perfil-usuario"></div>
+
+            <div class="divisor"></div>
+            <p class="section-label">ITENS NO CARRINHO</p>
+            
+            <div id="carrinho-lista"></div>
+
+            <div class="divisor"></div>
+            
+            <div class="carrinho-resumo">
+                <div class="resumo-linha">
+                    <span>Total:</span>
+                    <strong id="total-carrinho">R$ 0,00</strong>
+                </div>
+            </div>
+
+            <button id="btn-finalizar" class="login-button" style="margin-top: 15px;">
+                FINALIZAR PEDIDO
+            </button>
+
+            <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 10px;">
+                Sair da conta
+            </button>
+        </div>
         
     </div>
 </div>
+        
         
 </div> <script src="js/shop.js"></script>
 <script src="js/script.js"></script>
 <script src="frontend/modal.js"></script>
 
 </body>
-</html>
+    </html>
