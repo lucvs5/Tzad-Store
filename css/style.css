@@ -386,3 +386,23 @@ body {
 .resumo-linha { display: flex; justify-content: space-between; margin-bottom: 5px; }
 
 /* DICA: Remova qualquer duplicata de .login-body que houver no seu arquivo */
+/* --- Estilos para o Painel do Carrinho e Divisores --- */
+.divisor { 
+    height: 1px; 
+    background: #333; 
+    margin: 15px 0; 
+}
+
+.menu-item-btn { 
+    background: transparent; 
+    border: 1px solid #444; 
+    color: #fff; 
+    padding: 8px; 
+    cursor: pointer; 
+    transition: 0.3s;
+}
+
+.menu-item-btn:hover {
+    background: #222;
+    border-color: #DAA520; /* Dourado ao passar o mouse */
+}
