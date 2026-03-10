@@ -1,64 +1,93 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tzad Store - Oficial</title>
+    <title>Tzad Store</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="topo">
-        <button class="menu-icon" aria-label="Menu">☰</button>
-        
-        <img src="img/topo.png" alt="Tzad Store" class="logo">
-        
-        <button class="cart-icon" aria-label="Carrinho" type="button">
-            <img src="img/carrinho.png" alt="Carrinho" onclick="abrirCarrinho()">
-        </button>
-    </header>
+<header class="topo">
+    <button class="menu-icon" aria-label="Menu">☰</button>
+    <img src="img/topo.png" alt="Tzad Store" class="logo">
+    
+    <button class="cart-icon" style="cursor: pointer;" type="button">
+        <img src="img/carrinho.png" alt="Carrinho" onclick="abrirCarrinho()" style="pointer-events: auto;">
+    </button>
+</header>
 
-    <main class="container">
-        <div class="product-grid" id="product-grid">
-            </div>
-    </main>
+<div class="main-content">
 
-    <div id="login-window" class="login-window">
-        <div class="login-header">
-            <span>LOGIN / CARRINHO</span>
-            <button class="minimize-btn" onclick="fecharCarrinho()">_</button>
+    <section class="banner">
+        <img src="img/banner.gif" alt="Banner animado">
+    </section>
+
+    <section class="cabecalho-produtos">
+        <div class="textos-produtos">
+            <h2>BEM VINDO A TZAD STORE</h2>
+            <p>
+                Sua loja de REPS com o melhor preço e a melhor qualidade. 
+                Trabalhamos com os melhores fornecedores para garantir exclusividade e satisfação em cada peça.
+            </p>
         </div>
-        <div class="login-body">
-            <form class="login-form">
-                <label>E-mail</label>
-                <input type="email" placeholder="Digite seu e-mail" required>
-                <label>Senha</label>
-                <input type="password" placeholder="Digite sua senha" required>
-                <button type="submit" class="login-button">Login</button>
-            </form>
-            <div class="links">
-                <a href="#">Criar conta</a>
-                <a href="#">Esqueceu a senha?</a>
-            </div>
+        <div class="redes-produtos">
+            <a href="https://instagram.com/SEUUSUARIO" target="_blank">
+                <img src="img/instagram.png" alt="Instagram">
+            </a>
+            <a href="https://tiktok.com/@SEUUSUARIO" target="_blank">
+                <img src="img/tiktok.png" alt="TikTok">
+            </a>
+        </div>
+    </section>
+
+    <section class="colecao">
+        <h2 class="titulo-colecao">Promoções</h2>
+        <div class="categoria"> 
+            <div class="produtos" id="vitrine-promocoes"></div>
+            <button class="ver-todos">Ver todos</button>
+        </div>
+    </section>
+
+    <section class="colecao">
+        <h2 class="titulo-colecao">Nocta</h2>
+        <section class="video-loja">
+            <video controls>
+                <source src="video/noctanv.mp4" type="video/mp4">
+            </video>
+        </section>
+        <div class="categoria">
+            <div class="produtos" id="vitrine-nocta"></div>
+            <button class="ver-todos">Ver todos nocta</button>
+        </div>
+    </section>
+
+</div>
+
+<div id="login-window" class="login-window">
+    <div class="login-header">
+        <span>LOGIN / CARRINHO</span>
+        <button class="minimize-btn" onclick="fecharCarrinho()">_</button>
+    </div>
+    <div class="login-body">
+        <form class="login-form">
+            <label>E-mail</label>
+            <input type="email" placeholder="Digite seu e-mail" required>
+            <label>Senha</label>
+            <input type="password" placeholder="Digite sua senha" required>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        <div class="links">
+            <a href="#">Criar conta</a>
+            <a href="#">Esqueceu a senha?</a>
         </div>
     </div>
-
-    <div class="modal-overlay" id="product-modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="fecharModal()">&times;</button>
-            <div id="modal-body">
-                </div>
-        </div>
-    </div>
-
-    <footer class="rodape">
-        <p>&copy; 2024 Tzad Store. Todos os direitos reservados.</p>
-    </footer>
-
-    <script src="js/script.js"></script>
-    <script src="js/shop.js"></script>
-    <script src="frontend/modal.js"></script>
+</div>
+    
+<script src="js/script.js"></script>
+<script src="js/shop.js"></script>
+<script src="frontend/modal.js"></script>
 
 </body>
 </html>
