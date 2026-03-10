@@ -9,10 +9,9 @@
 body {
     background-color: #000000;
     color: #ffffff;
-    overflow-x: hidden;
 }
 
-/* 1. CABEÇALHO */
+/* CABEÇALHO */
 .topo {
     display: flex;
     justify-content: space-between;
@@ -28,13 +27,15 @@ body {
 .menu-icon {
     background: none;
     border: none;
-    font-size: 28px;
+    font-size: 30px;
     cursor: pointer;
     color: #DAA520;
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-    height: 30px; /* Tamanho controlado do logo topo */
+    height: 35px;
     object-fit: contain;
 }
 
@@ -42,93 +43,69 @@ body {
     background: none;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .cart-icon img {
-    width: 40px;
+    width: 45px;
     height: auto;
+    background: transparent;
     mix-blend-mode: screen;
 }
 
-/* 2. CONTEÚDO PRINCIPAL */
+/* CONTEÚDO PRINCIPAL */
 .main-content {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 15px;
-}
-
-/* BANNER GIF - Ajustado para não explodir na tela */
-.banner {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
+    padding: 20px;
 }
 
 .banner img {
     width: 100%;
-    max-width: 800px; /* Limita a largura do GIF */
     border-radius: 10px;
+    margin-bottom: 30px;
 }
 
-/* BOAS VINDAS E REDES SOCIAIS (ITEM 4) */
+/* SEÇÃO DE BOAS VINDAS */
 .cabecalho-produtos {
     text-align: center;
-    margin: 40px 0;
+    margin-bottom: 40px;
 }
 
 .textos-produtos h2 {
-    font-size: 22px;
-    color: #DAA520;
+    font-size: 24px;
     margin-bottom: 10px;
-}
-
-.textos-produtos p {
-    font-size: 14px;
-    color: #ccc;
-    margin-bottom: 20px;
+    color: #DAA520;
 }
 
 .redes-produtos {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
+    margin-top: 15px;
 }
 
 .redes-produtos img {
-    width: 25px; /* Ícones pequenos conforme solicitado */
+    width: 22px;
     height: auto;
     filter: brightness(0) invert(1);
 }
 
-/* 3. VÍDEO NOCTA (CORRIGIDO PARA NÃO FICAR GIGANTE) */
-.video-loja {
-    display: flex;
-    justify-content: center;
-    margin: 30px 0;
-    padding: 0 10%;
-}
-
-.video-loja video {
-    width: 100%;
-    max-width: 600px; /* Tamanho controlado do vídeo */
-    border-radius: 12px;
-    border: 1px solid #333;
-}
-
-/* 4. GRID DE PRODUTOS */
+/* GRID E PRODUTOS */
 .titulo-colecao {
-    font-size: 20px;
+    font-size: 22px;
     border-left: 4px solid #DAA520;
     padding-left: 10px;
-    margin: 40px 0 20px;
+    margin: 30px 0 20px;
     color: #DAA520;
 }
 
 .produtos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
 .produto {
@@ -150,19 +127,54 @@ body {
     border-radius: 5px;
 }
 
+/* BOTÃO COMPRAR (VITRINE) */
 .btn-comprar {
     background-color: #DAA520;
     color: #000000;
     border: none;
-    padding: 10px;
+    padding: 12px;
     border-radius: 5px;
+    cursor: pointer;
     width: 100%;
     font-weight: bold;
-    cursor: pointer;
-    font-size: 11px;
+    text-transform: uppercase;
+    font-size: 12px;
 }
 
-/* 5. MODAIS E JANELAS */
+/* AJUSTE SOLICITADO: BOTÃO VER TODOS */
+.ver-todos {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 40px;
+    background-color: #DAA520; /* Cor solicitada */
+    color: #000000;            /* Texto preto para contraste */
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: opacity 0.2s;
+}
+
+.ver-todos:hover {
+    opacity: 0.8;
+}
+
+/* VÍDEO NOCTA */
+.video-loja {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.video-loja video {
+    width: 80%;
+    max-width: 700px;
+    border-radius: 15px;
+}
+
+/* JANELA LOGIN/CARRINHO */
 .login-window {
     position: fixed;
     bottom: 20px;
@@ -171,9 +183,7 @@ body {
     background: #000;
     border: 1px solid #DAA520;
     z-index: 2000;
-    display: none;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    display: none; 
 }
 
 .login-header {
@@ -182,21 +192,93 @@ body {
     padding: 10px;
     display: flex;
     justify-content: space-between;
+}
+
+.minimize-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
     font-weight: bold;
 }
 
-.close-modal {
-    position: absolute; top: 15px; right: 15px;
-    background: #DAA520; color: #000;
-    width: 40px; height: 40px; border-radius: 50%;
-    font-size: 30px; font-weight: 900;
-    display: flex; justify-content: center; align-items: center;
-    border: none; cursor: pointer;
+.login-body {
+    padding: 20px;
 }
 
-/* RESPONSIVIDADE CELULAR */
+.login-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    background: #222;
+    border: 1px solid #DAA520;
+    color: #fff;
+}
+
+.login-button {
+    width: 100%;
+    background: #DAA520;
+    color: #000;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.links {
+    font-size: 12px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.links a {
+    color: #DAA520;
+    text-decoration: none;
+}
+
+/* MODAL OVERLAY */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.modal-content {
+    background: #111;
+    color: white;
+    width: 90%;
+    max-width: 450px;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #DAA520;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute; 
+    top: 15px; 
+    right: 15px; 
+    background: #DAA520; 
+    color: #000000;      
+    font-size: 32px;     
+    font-weight: 900;   
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
     .produtos { grid-template-columns: repeat(2, 1fr); }
-    .video-loja { padding: 0 5%; }
-    .banner img { max-width: 100%; }
 }
