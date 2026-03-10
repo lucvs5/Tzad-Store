@@ -142,66 +142,62 @@
         <div id="estado-login">
             <form class="login-form" id="form-executa-login">
                 <label>E-mail</label>
-                <input type="email" id="login-email" placeholder="Digite seu e-mail" required>
+                <input type="email" id="login-email" placeholder="seu@email.com" required>
                 <label>Senha</label>
-                <input type="password" id="login-senha" placeholder="Digite sua senha" required>
+                <input type="password" id="login-senha" placeholder="******" required>
                 <button type="submit" class="login-button">Entrar</button>
             </form>
             <div class="links">
-                <a href="#">Esqueceu a senha?</a>
                 <a href="javascript:void(0)" onclick="alternarTela('cadastro')">Criar conta</a>
+                <a href="#">Esqueceu a senha?</a>
             </div>
         </div>
 
         <div id="estado-cadastro" style="display: none;">
-            <form class="login-form" id="form-executa-cadastro">
-                <label>Nome Completo</label>
-                <input type="text" placeholder="Seu nome" required>
+            <form class="login-form">
+                <label>Nome</label>
+                <input type="text" placeholder="Nome completo">
                 <label>E-mail</label>
-                <input type="email" placeholder="Seu melhor e-mail" required>
+                <input type="email" placeholder="Seu e-mail">
                 <label>Senha</label>
-                <input type="password" placeholder="Mínimo 6 dígitos" required>
-                <button type="submit" class="login-button">Cadastrar</button>
+                <input type="password" placeholder="Crie uma senha">
+                <button type="button" class="login-button" onclick="alternarTela('login')">Cadastrar</button>
             </form>
             <div class="links">
-                <a href="javascript:void(0)" onclick="alternarTela('login')">Já tenho conta (Login)</a>
+                <a href="javascript:void(0)" onclick="alternarTela('login')">Já tenho conta</a>
             </div>
         </div>
 
         <div id="estado-painel" style="display: none;">
             <div class="user-welcome">
-                <p>Bem-vindo, <strong id="user-name-display">Cliente</strong>.</p>
+                <p>Olá, <strong id="user-name-display">Visitante</strong>!</p>
             </div>
+            
+            <div class="divisor"></div>
+            <p class="section-label">ITENS NO CARRINHO</p>
+            
+            <div id="carrinho-lista"></div>
 
             <div class="divisor"></div>
-            <p class="section-label">MEU CARRINHO</p>
-
-            <div id="carrinho-lista">
-                </div>
-
-            <div class="divisor"></div>
-
+            
             <div class="carrinho-resumo">
                 <div class="resumo-linha">
                     <span>Total:</span>
-                    <strong id="total-carrinho" style="color: #DAA520; font-size: 18px;">R$ 0,00</strong>
+                    <strong id="total-carrinho">R$ 0,00</strong>
                 </div>
             </div>
 
-            <button class="login-button" id="btn-finalizar" style="margin-top: 15px; background: #DAA520; color: #000; font-weight: bold;">
-                FINALIZAR COMPRA
+            <button id="btn-finalizar" class="login-button" style="margin-top: 15px; background: #DAA520; color: #000;">
+                FINALIZAR PEDIDO (WHATSAPP)
             </button>
 
-            <div class="user-menu-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-                <button class="menu-item-btn">Perfil</button>
-                <button class="menu-item-btn">Pedidos</button>
-            </div>
-
-            <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 10px; border-color: #ff4444; color: #ff4444;">
-                SAIR DA CONTA
+            <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 10px;">
+                Sair da conta
             </button>
         </div>
     </div>
+</div>
+        
 </div> <script src="js/shop.js"></script>
 <script src="js/script.js"></script>
 <script src="frontend/modal.js"></script>
