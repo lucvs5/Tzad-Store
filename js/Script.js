@@ -1,21 +1,26 @@
-// TZAD STORE - AUTOMACÃO ATO 2
+// TZAD STORE - SOLUÇÃO FINAL ATO 2
+console.log("Sistema Tzad Store Iniciado...");
 
-function abrirCarrinho() {
-    const janela = document.getElementById('login-window');
-    if (janela) {
-        // Altera o estilo diretamente para garantir visibilidade
-        janela.style.display = 'block';
-        console.log("Carrinho aberto.");
+// 1. Forçamos a escuta de cliques em toda a página
+document.addEventListener('click', function (event) {
+    
+    // 2. Verifica se o que foi clicado é o botão do carrinho (ou a imagem dentro dele)
+    if (event.target.closest('.cart-icon')) {
+        event.preventDefault();
+        const janela = document.getElementById('login-window');
+        if (janela) {
+            janela.style.setProperty('display', 'block', 'important');
+            console.log("Sucesso: Janela aberta!");
+        } else {
+            console.error("Erro: A div #login-window não existe no HTML.");
+        }
     }
-}
 
-function fecharCarrinho() {
-    const janela = document.getElementById('login-window');
-    if (janela) {
-        janela.style.display = 'none';
-        console.log("Carrinho fechado.");
+    // 3. Verifica se o que foi clicado é o botão de minimizar (_)
+    if (event.target.closest('.minimize-btn')) {
+        const janela = document.getElementById('login-window');
+        if (janela) {
+            janela.style.display = 'none';
+        }
     }
-}
-
-// Log para confirmar que o script carregou no navegador
-console.log("script.js carregado com sucesso.");
+});
