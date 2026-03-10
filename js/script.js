@@ -96,31 +96,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- 6. FUNÇÕES DO MODAL (ESCOLHER TAMANHO) ---
 window.abrirDetalhes = function(produtoId) {
-    const produto = produtosLoja.find(p => p.id == produtoId);
-    if (!produto) return;
+    // Busca garantindo que o ID seja tratado como número
+    const produto = produtosLoja.find(p => Number(p.id) === Number(produtoId));
+    
+    if (!produto) {
+        console.error("Produto não encontrado!");
+        return;
+    }
 
     const modal = document.querySelector('.modal-overlay');
     const modalContent = document.querySelector('.modal-content');
 
     if (modal && modalContent) {
-        // Monta o visual do modal central dinamicamente
         modalContent.innerHTML = `
             <button class="close-modal" onclick="window.fecharDetalhes()">X</button>
             <div style="text-align: center;">
-                <img src="${produto.img}" style="width: 100%; max-width: 250px; border-radius: 10px; margin-bottom: 15px;">
-                <h3 style="color: #DAA520; margin-bottom: 5px;">${produto.name}</h3>
-                <p style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">R$ ${produto.price}</p>
+                <img src="${produto.img}" style="width: 100%; max-width: 220px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #333;">
+                <h3 style="color: #DAA520; margin-bottom: 5px; font-family: serif;">${produto.name}</h3>
+                <p style="font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #fff;">R$ ${produto.price}</p>
                 
-                <label style="display: block; text-align: left; font-size: 14px; margin-bottom: 8px; color: #bbb;">Escolha o Tamanho:</label>
-                <select id="select-tamanho" style="width: 100%; padding: 12px; margin-bottom: 20px; background: #111; color: #fff; border: 1px solid #DAA520; border-radius: 5px; font-size: 16px;">
+                <label style="display: block; text-align: left; font-size: 13px; margin-bottom: 8px; color: #888; text-transform: uppercase;">Selecione o Tamanho:</label>
+                <select id="select-tamanho" style="width: 100%; padding: 12px; margin-bottom: 20px; background: #000; color: #fff; border: 1px solid #DAA520; border-radius: 5px; font-size: 16px; outline: none;">
                     <option value="P">Tamanho P</option>
-                    <option value="M">Tamanho M</option>
+                    <option value="M" selected>Tamanho M</option>
                     <option value="G">Tamanho G</option>
                     <option value="GG">Tamanho GG</option>
                 </select>
 
-                <button class="login-button" onclick="window.confirmarCompra(${produto.id})" style="background: #28a745; color: white;">
-                    CONFIRMAR NO CARRINHO
+                <button class="login-button" onclick="window.confirmarCompra(${produto.id})" style="background: #28a745; color: white; font-weight: bold;">
+                    ADICIONAR AO CARRINHO
                 </button>
             </div>
         `;
@@ -133,31 +137,37 @@ window.fecharDetalhes = function() {
     if (modal) modal.style.display = 'none';
 };
 
-// --- 7. FINALIZAR COMPRA E ENVIAR AO CARRINHO LATERAL ---
+// --- 7. FINALIZAR COMPRA E ENVIAR AO CARRINHO ---
 window.confirmarCompra = function(produtoId) {
-    const produto = produtosLoja.find(p => p.id == produtoId);
+    const produto = produtosLoja.find(p => Number(p.id) === Number(produtoId));
     const selectTamanho = document.getElementById('select-tamanho');
-    const tamanhoEscolhido = selectTamanho ? selectTamanho.value : 'Único';
+    const tamanhoEscolhido = selectTamanho ? selectTamanho.value : 'M';
 
     if (produto) {
-        // Salva o produto + o tamanho escolhido
-        const itemParaAdicionar = {
+        // Adiciona ao array global com o tamanho
+        itensNoCarrinho.push({
             ...produto,
             tamanho: tamanhoEscolhido
-        };
+        });
 
-        itensNoCarrinho.push(itemParaAdicionar);
+        // 1. Fecha o modal de escolha
         window.fecharDetalhes(); 
+        
+        // 2. Atualiza a lista visual do carrinho lateral
         atualizarCarrinhoVisual(); 
         
-        // Abre o painel lateral automaticamente para mostrar o item
+        // 3. Força a abertura do painel lateral no estado correto
         const loginWindow = document.getElementById('login-window');
         const estadoLogin = document.getElementById('estado-login');
         const estadoPainel = document.getElementById('estado-painel');
+        const tituloJanela = document.getElementById('titulo-janela');
         
         if(loginWindow) loginWindow.style.display = 'block';
         if(estadoLogin) estadoLogin.style.display = 'none';
         if(estadoPainel) estadoPainel.style.display = 'block';
+        if(tituloJanela) tituloJanela.innerText = "MEU CARRINHO";
+
+        console.log("Sucesso: Item adicionado!");
     }
 };
 
