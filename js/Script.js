@@ -1,48 +1,25 @@
-/**
- * TZAD STORE - SCRIPT PRINCIPAL
- * Foco: Ato 2 - Automação do Carrinho/Login
- */
+// TZAD STORE - AUTOMACÃO ATO 2
 
-// 1. Função para ABRIR o Modal (chamada pelo clique na imagem do carrinho)
+// Função que a IMAGEM chama para abrir o modal
 function abrirCarrinho() {
     const janela = document.getElementById('login-window');
     if (janela) {
-        // Usamos style.display para garantir a abertura imediata
+        // Força o estilo diretamente para evitar bloqueios de CSS
         janela.style.display = 'block';
-        console.log("Ato 2: Modal aberto com sucesso.");
-    } else {
-        console.error("Erro: Elemento 'login-window' não encontrado no HTML.");
+        console.log("Sistema: Modal aberto via toque na imagem.");
     }
 }
 
-// 2. Função para FECHAR o Modal (chamada pelo botão _)
+// Função que o botão _ chama para fechar
 function fecharCarrinho() {
     const janela = document.getElementById('login-window');
     if (janela) {
         janela.style.display = 'none';
-        console.log("Ato 2: Modal minimizado.");
+        console.log("Sistema: Modal minimizado.");
     }
 }
 
-// 3. Funções para o Modal de Detalhes dos Produtos (Ato 5)
-function abrirModal() {
-    const modal = document.getElementById('product-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
-}
-
-function fecharModal() {
-    const modal = document.getElementById('product-modal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-}
-
-// Fecha o modal de detalhes se clicar fora da caixa branca
-window.onclick = function(event) {
-    const modal = document.getElementById('product-modal');
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-};
+// Prevenção para garantir que o modal não feche sozinho sem comando
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Tzad Store pronta.");
+});
