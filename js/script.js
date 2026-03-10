@@ -132,16 +132,24 @@ window.removerItem = function(index) {
 
 function atualizarCarrinhoVisual() {
     const lista = document.getElementById('carrinho-lista');
+    const precoBrutoTxt = document.getElementById('preco-bruto');
+    const valorDescTxt = document.getElementById('valor-desconto');
+    const percDescTxt = document.getElementById('txt-perc-desc');
     const totalTxt = document.getElementById('total-carrinho');
     
     if (!lista) return;
 
+    // Se o carrinho estiver vazio
     if (itensNoCarrinho.length === 0) {
         lista.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Seu carrinho está vazio.</p>';
-        if (totalTxt) totalTxt.innerText = "R$ 0,00";
+        if(precoBrutoTxt) precoBrutoTxt.innerText = "R$ 0,00";
+        if(valorDescTxt) valorDescTxt.innerText = "- R$ 0,00";
+        if(percDescTxt) percDescTxt.innerText = "0";
+        if(totalTxt) totalTxt.innerText = "R$ 0,00";
         return;
     }
 
+    // Renderiza os itens na lista
     lista.innerHTML = itensNoCarrinho.map((item, index) => `
         <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid #333; padding:10px 0;">
             <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
@@ -152,13 +160,33 @@ function atualizarCarrinhoVisual() {
         </div>
     `).join('');
 
-    const soma = itensNoCarrinho.reduce((acc, p) => {
+    // --- LÓGICA DE CÁLCULO ---
+    
+    // 1. Soma o valor bruto (Preço cheio)
+    const somaBruta = itensNoCarrinho.reduce((acc, p) => {
         let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
         return acc + valor;
     }, 0);
     
-    if (totalTxt) {
-        totalTxt.innerText = `R$ ${soma.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    // 2. Define o percentual (5% se tiver 2 ou mais itens, senão 0)
+    const percDesconto = (itensNoCarrinho.length >= 2) ? 5 : 0;
+
+    // 3. Calcula os valores finais
+    const valorAbatido = somaBruta * (percDesconto / 100);
+    const totalComDesconto = somaBruta - valorAbatido;
+    
+    // 4. Injeta os valores nos IDs correspondentes do HTML
+    if(precoBrutoTxt) {
+        precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    }
+    if(percDescTxt) {
+        percDescTxt.innerText = percDesconto;
+    }
+    if(valorDescTxt) {
+        valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    }
+    if(totalTxt) {
+        totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
     }
 }
 
