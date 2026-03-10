@@ -1,26 +1,29 @@
-// TZAD STORE - SOLUÇÃO FINAL ATO 2
-console.log("Sistema Tzad Store Iniciado...");
+// Função simples para abrir
+function abrirCarrinho() {
+    const janela = document.getElementById('login-window');
+    if (janela) {
+        janela.style.display = 'block';
+    }
+}
 
-// 1. Forçamos a escuta de cliques em toda a página
-document.addEventListener('click', function (event) {
-    
-    // 2. Verifica se o que foi clicado é o botão do carrinho (ou a imagem dentro dele)
-    if (event.target.closest('.cart-icon')) {
-        event.preventDefault();
-        const janela = document.getElementById('login-window');
-        if (janela) {
-            janela.style.setProperty('display', 'block', 'important');
-            console.log("Sucesso: Janela aberta!");
-        } else {
-            console.error("Erro: A div #login-window não existe no HTML.");
-        }
+// Função simples para fechar
+function fecharCarrinho() {
+    const janela = document.getElementById('login-window');
+    if (janela) {
+        janela.style.display = 'none';
+    }
+}
+
+// Vincula os botões assim que a página carregar
+window.onload = function() {
+    const btnAbrir = document.querySelector('.cart-icon');
+    const btnFechar = document.querySelector('.minimize-btn');
+
+    if (btnAbrir) {
+        btnAbrir.onclick = abrirCarrinho;
     }
 
-    // 3. Verifica se o que foi clicado é o botão de minimizar (_)
-    if (event.target.closest('.minimize-btn')) {
-        const janela = document.getElementById('login-window');
-        if (janela) {
-            janela.style.display = 'none';
-        }
+    if (btnFechar) {
+        btnFechar.onclick = fecharCarrinho;
     }
-});
+};
