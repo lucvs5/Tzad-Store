@@ -333,21 +333,56 @@ body {
     cursor: pointer;
 }
 
-/* ITEM DO CARRINHO DENTRO DO MODAL */
+/* ITEM DO CARRINHO DENTRO DO MODAL ATUALIZADO */
+#carrinho-lista {
+    max-height: 220px; /* Define o limite de altura da lista */
+    overflow-y: auto;  /* Ativa o Scroll quando passar da altura */
+    padding-right: 5px;
+    margin-bottom: 10px;
+}
+
+/* Estilização da Barra de Scroll para combinar com a loja */
+#carrinho-lista::-webkit-scrollbar {
+    width: 5px;
+}
+#carrinho-lista::-webkit-scrollbar-track {
+    background: #111;
+}
+#carrinho-lista::-webkit-scrollbar-thumb {
+    background: #DAA520;
+    border-radius: 10px;
+}
+
 .item-carrinho-demo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px; /* Espaço entre a foto e o texto */
     background: #0a0a0a;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 8px;
+    border: 1px solid #1a1a1a;
 }
 
-.item-carrinho-demo img { width: 40px; height: 40px; border-radius: 3px; }
-.item-info { display: flex; flex-direction: column; font-size: 13px; }
-.item-info span { color: #bbb; }
+/* Foto do produto minificada à esquerda */
+.item-carrinho-demo img { 
+    width: 50px; 
+    height: 50px; 
+    object-fit: cover; /* Garante que a foto não fique amassada */
+    border-radius: 4px; 
+    border: 1px solid #DAA520;
+}
+
+.item-info { 
+    display: flex; 
+    flex-direction: column; 
+    font-size: 13px; 
+}
+
+.item-info span { color: #ffffff; margin-bottom: 2px; }
 .item-info strong { color: #DAA520; }
 
-.carrinho-resumo { font-size: 14px; }
+.carrinho-resumo { font-size: 14px; margin-top: 10px; }
 .resumo-linha { display: flex; justify-content: space-between; margin-bottom: 5px; }
+
+/* DICA: Remova qualquer duplicata de .login-body que houver no seu arquivo */
