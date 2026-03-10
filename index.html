@@ -80,16 +80,33 @@
         <button class="minimize-btn">_</button>
     </div>
     <div class="login-body">
-        <form class="login-form">
-            <label>E-mail</label>
-            <input type="email" placeholder="Digite seu e-mail">
-            <label>Senha</label>
-            <input type="password" placeholder="Digite sua senha">
-            <button type="submit" class="login-button">Login</button>
-        </form>
-        <div class="links">
-            <a href="#">Esqueceu a senha?</a>
-            <a href="#">Criar conta</a>
+        <div id="form-login">
+            <form class="login-form">
+                <label>E-mail</label>
+                <input type="email" placeholder="Digite seu e-mail">
+                <label>Senha</label>
+                <input type="password" placeholder="Digite sua senha">
+                <button type="submit" class="login-button">Login</button>
+            </form>
+            <div class="links">
+                <a href="#">Esqueceu a senha?</a>
+                <a href="javascript:void(0)" id="btn-ir-cadastro">Criar conta</a>
+            </div>
+        </div>
+
+        <div id="form-cadastro" style="display: none;">
+            <form class="login-form">
+                <label>Nome Completo</label>
+                <input type="text" placeholder="Seu nome">
+                <label>E-mail</label>
+                <input type="email" placeholder="Seu melhor e-mail">
+                <label>Crie uma Senha</label>
+                <input type="password" placeholder="Mínimo 6 dígitos">
+                <button type="submit" class="login-button">Cadastrar</button>
+            </form>
+            <div class="links">
+                <a href="javascript:void(0)" id="btn-ir-login">Já tenho conta (Login)</a>
+            </div>
         </div>
     </div>
 </div>
