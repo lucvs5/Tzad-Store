@@ -24,7 +24,7 @@ const produtosLoja = [
 
 let itensNoCarrinho = [];
 
-// 2. INICIALIZAÇÃO (Aguardando todos os scripts e DOM)
+// 2. INICIALIZAÇÃO
 document.addEventListener('DOMContentLoaded', () => {
     renderizarVitrines();
     configurarInterface();
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // 3. RENDERIZAR VITRINES
 function renderizarVitrines() {
     const categorias = ['promocoes', 'nocta', 'stussy'];
-    
     categorias.forEach(cat => {
         const elemento = document.getElementById(`vitrine-${cat}`);
         if (elemento) {
@@ -50,12 +49,13 @@ function renderizarVitrines() {
     });
 }
 
-// 4. INTERFACE
+// 4. INTERFACE E LOGICA DE LOGIN
 function configurarInterface() {
     const loginWindow = document.getElementById('login-window');
     const cartIcon = document.querySelector('.cart-icon');
     const minimizeBtn = document.querySelector('.minimize-btn');
     const formLogin = document.getElementById('form-executa-login');
+    const btnLogout = document.getElementById('btn-logout');
 
     if (cartIcon && loginWindow) {
         cartIcon.onclick = (e) => {
@@ -70,15 +70,29 @@ function configurarInterface() {
         };
     }
 
+    // Ação de Login (Injetar Página do Carrinho)
     if (formLogin) {
         formLogin.onsubmit = (e) => {
             e.preventDefault();
-            alternarTela('painel');
+            const email = document.getElementById('login-email').value;
+            const nomeUser = email.split('@')[0]; // Pega o nome antes do @
+            
+            const displayNome = document.getElementById('user-name-display');
+            if (displayNome) displayNome.innerText = nomeUser.toUpperCase();
+
+            alternarTela('painel'); // Muda para a página do carrinho
+        };
+    }
+
+    // Ação de Sair
+    if (btnLogout) {
+        btnLogout.onclick = () => {
+            alternarTela('login');
         };
     }
 }
 
-// 5. TELAS (Global para ser acessada pelo HTML)
+// 5. TELAS (Mecânica de Injeção)
 window.alternarTela = function(tela) {
     const login = document.getElementById('estado-login');
     const cadastro = document.getElementById('estado-cadastro');
@@ -126,7 +140,7 @@ function atualizarCarrinhoVisual() {
     if (!lista) return;
 
     if (itensNoCarrinho.length === 0) {
-        lista.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Carrinho vazio.</p>';
+        lista.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Seu carrinho está vazio.</p>';
         if (totalTxt) totalTxt.innerText = "R$ 0,00";
         return;
     }
@@ -137,26 +151,10 @@ function atualizarCarrinhoVisual() {
             <div style="flex:1; color:white; font-size:11px;">
                 ${item.name}<br><strong style="color:#DAA520;">R$ ${item.price}</strong>
             </div>
-            <button onclick="removerItem(${index})" style="background:none; border:none; color:red; cursor:pointer;">X</button>
+            <button onclick="removerItem(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
         </div>
     `).join('');
 
     const soma = itensNoCarrinho.reduce((acc, p) => {
-        let valor = parseFloat(p.price.replace(',', '.'));
-        return acc + valor;
-    }, 0);
-    
-    if (totalTxt) totalTxt.innerText = `R$ ${soma.toFixed(2).replace('.', ',')}`;
-}
-
-// 7. FINALIZAR (WHATSAPP)
-document.addEventListener('click', (e) => {
-    if (e.target && e.target.id === 'btn-finalizar') {
-        if (itensNoCarrinho.length === 0) return alert("Carrinho vazio!");
-        let msg = "Olá TZAD! Pedido:%0A";
-        itensNoCarrinho.forEach(i => msg += `- ${i.name}%0A`);
-        const total = document.getElementById('total-carrinho').innerText;
-        msg += `%0ATotal: ${total}`;
-        window.open(`https://wa.me/5511999999999?text=${msg}`, '_blank');
-    }
-});
+        let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
+        return
