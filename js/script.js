@@ -29,12 +29,12 @@ let itensNoCarrinho = [];
 
 // 2. INICIALIZAÇÃO
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("TZAD Store: Sistema Iniciado.");
+    console.log("TZAD Store: Carregando sistema...");
     renderizarVitrines();
     configurarInterface();
 });
 
-// --- RENDERIZAR OS PRODUTOS ---
+// --- RENDERIZAR OS PRODUTOS NAS 3 SEÇÕES ---
 function renderizarVitrines() {
     const sessoes = {
         'promocoes': document.getElementById('vitrine-promocoes'),
@@ -58,57 +58,45 @@ function renderizarVitrines() {
     }
 }
 
-// --- CONTROLE DA JANELA (LOGIN / CADASTRO / PAINEL) ---
+// --- CONFIGURAÇÃO DA JANELA DE LOGIN E CARRINHO ---
 function configurarInterface() {
     const loginWindow = document.getElementById('login-window');
     const cartIcon = document.querySelector('.cart-icon');
     const minimizeBtn = document.querySelector('.minimize-btn');
     const formLogin = document.getElementById('form-executa-login');
 
-    // Abrir/Fechar Janela
+    // Abrir/Fechar
     if (cartIcon) cartIcon.onclick = () => loginWindow.style.display = 'block';
     if (minimizeBtn) minimizeBtn.onclick = () => loginWindow.style.display = 'none';
 
-    // Lógica do Login
+    // Lógica do Login (Muda da tela de E-mail para o Carrinho)
     if (formLogin) {
         formLogin.onsubmit = (e) => {
             e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            document.getElementById('user-name-display').innerText = email.split('@')[0];
-            alternarTela('painel');
+            
+            // Esconde o formulário de login
+            document.getElementById('estado-login').style.display = 'none';
+            
+            // Mostra o painel do carrinho
+            const painel = document.getElementById('estado-painel');
+            painel.style.display = 'block';
+            
+            // Força o título e cores para evitar "tela preta"
+            document.getElementById('titulo-janela').innerText = "MINHA CONTA / CARRINHO";
+            painel.style.color = "#ffffff";
+            
             atualizarCarrinhoVisual();
         };
     }
 
-    // Botão Logout
+    // Logout
     const btnLogout = document.getElementById('btn-logout');
     if (btnLogout) {
-        btnLogout.onclick = () => alternarTela('login');
-    }
-}
-
-// --- FUNÇÃO PARA ALTERNAR TELAS (CHAMADA NO HTML) ---
-function alternarTela(tela) {
-    const login = document.getElementById('estado-login');
-    const cadastro = document.getElementById('estado-cadastro');
-    const painel = document.getElementById('estado-painel');
-    const titulo = document.getElementById('titulo-janela');
-
-    if (!login || !cadastro || !painel) return;
-
-    login.style.display = 'none';
-    cadastro.style.display = 'none';
-    painel.style.display = 'none';
-
-    if (tela === 'cadastro') {
-        cadastro.style.display = 'block';
-        titulo.innerText = "CRIAR CONTA";
-    } else if (tela === 'login') {
-        login.style.display = 'block';
-        titulo.innerText = "LOGIN / CARRINHO";
-    } else if (tela === 'painel') {
-        painel.style.display = 'block';
-        titulo.innerText = "MINHA CONTA / CARRINHO";
+        btnLogout.onclick = () => {
+            document.getElementById('estado-painel').style.display = 'none';
+            document.getElementById('estado-login').style.display = 'block';
+            document.getElementById('titulo-janela').innerText = "LOGIN / CARRINHO";
+        };
     }
 }
 
@@ -117,7 +105,9 @@ window.adicionarAoCarrinho = function(id) {
     const p = produtosLoja.find(item => item.id === id);
     if (p) {
         itensNoCarrinho.push(p);
-        alert(`Sucesso! ${p.name} adicionado.`);
+        alert(`Sucesso! ${p.name} foi para o seu carrinho.`);
+        
+        // Abre o carrinho e já pula para o painel se necessário
         document.getElementById('login-window').style.display = 'block';
         atualizarCarrinhoVisual();
     }
@@ -135,7 +125,7 @@ function atualizarCarrinhoVisual() {
     if (!lista) return;
 
     if (itensNoCarrinho.length === 0) {
-        lista.innerHTML = '<p style="text-align:center; padding:30px; color:#888; font-size:12px;">Seu carrinho está vazio.</p>';
+        lista.innerHTML = '<p style="text-align:center; padding:30px; color:#888;">Seu carrinho está vazio.</p>';
         if (totalTxt) totalTxt.innerText = "R$ 0,00";
         return;
     }
@@ -147,28 +137,17 @@ function atualizarCarrinhoVisual() {
                 <p style="margin:0; font-size:12px; color:#fff;">${item.name}</p>
                 <strong style="color:#DAA520;">R$ ${item.price}</strong>
             </div>
-            <button onclick="removerItem(${index})" style="background:none; border:none; color:#ff4444; font-weight:bold; cursor:pointer;">X</button>
+            <button onclick="removerItem(${index})" style="background:none; border:none; color:#ff4444; font-weight:bold; cursor:pointer; padding:5px;">X</button>
         </div>
     `).join('');
 
-    const soma = itensNoCarrinho.reduce((acc, p) => acc + parseFloat(p.price.replace('.', '').replace(',', '.')), 0);
-    if (totalTxt) totalTxt.innerText = `R$ ${soma.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-}
-
-// --- FINALIZAR NO WHATSAPP ---
-document.addEventListener('click', function(e) {
-    if(e.target && e.target.id == 'btn-finalizar'){
-        if(itensNoCarrinho.length === 0) {
-            alert("Carrinho vazio!");
-            return;
-        }
-        
-        let msg = "Olá TZAD Store! Gostaria de finalizar meu pedido:%0A%0A";
-        itensNoCarrinho.forEach(i => msg += `• ${i.name} - R$ ${i.price}%0A`);
-        const total = document.getElementById('total-carrinho').innerText;
-        msg += `%0A*Total: ${total}*`;
-        
-        const tel = "5511999999999"; // COLOQUE SEU NUMERO AQUI
-        window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
+    // Cálculo do Total
+    const soma = itensNoCarrinho.reduce((acc, p) => {
+        let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
+        return acc + valor;
+    }, 0);
+    
+    if (totalTxt) {
+        totalTxt.innerText = `R$ ${soma.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
     }
-});
+                                        }
