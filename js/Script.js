@@ -1,33 +1,24 @@
-/**
- * SCRIPT.JS - Lógica de Interface e Controle do Carrinho/Login
- */
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Referências dos elementos
+    // Seleção de elementos
     const cartIcon = document.querySelector('.cart-icon');
     const loginWindow = document.getElementById('login-window');
     const minimizeBtn = document.querySelector('.minimize-btn');
 
-    // 1. ABRIR CARRINHO (Ato 2)
+    // ABRIR CARRINHO (Ato 2)
     if (cartIcon && loginWindow) {
-        cartIcon.addEventListener('click', (e) => {
+        cartIcon.onclick = function(e) {
             e.preventDefault();
             loginWindow.style.display = 'block';
-            console.log("Carrinho visualizado.");
-        });
+        };
     }
 
-    // 2. MINIMIZAR CARRINHO (_) (Ato 2)
+    // MINIMIZAR CARRINHO (Ato 2)
     if (minimizeBtn && loginWindow) {
-        minimizeBtn.addEventListener('click', () => {
+        minimizeBtn.onclick = function() {
             loginWindow.style.display = 'none';
-        });
+        };
     }
 
-    // Fechar ao clicar fora da janela (Opcional)
-    window.addEventListener('click', (e) => {
-        if (e.target === loginWindow) {
-            loginWindow.style.display = 'none';
-        }
-    });
+    // NOTA: Para o Ato 3 (Criar conta), o link apenas redireciona. 
+    // Caso queira que ele abra um novo formulário futuramente, me avise!
 });
