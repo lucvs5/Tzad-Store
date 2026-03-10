@@ -1,54 +1,78 @@
-// TZAD STORE - SCRIPT UNIFICADO (ATÉ ATO 3)
-
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 1. CONTROLE DA JANELA DE LOGIN/CARRINHO ---
+    // --- 1. SELETORES PRINCIPAIS ---
     const cartIcon = document.querySelector('.cart-icon');
     const loginWindow = document.getElementById('login-window');
     const minimizeBtn = document.querySelector('.minimize-btn');
+    
+    // Seletores de Estados (Telas internas do modal)
+    const estadoLogin = document.getElementById('estado-login');
+    const estadoCadastro = document.getElementById('estado-cadastro');
+    const estadoPainel = document.getElementById('estado-painel');
+    const tituloJanela = document.getElementById('titulo-janela');
 
-    // Abre a janela
+    // --- 2. CONTROLE DE ABERTURA/FECHAMENTO ---
     if (cartIcon && loginWindow) {
         cartIcon.addEventListener('click', (e) => {
             e.preventDefault();
             loginWindow.style.display = 'block';
-            console.log("Interface de login/carrinho ativada.");
         });
     }
 
-    // Minimiza a janela
-    if (minimizeBtn && loginWindow) {
+    if (minimizeBtn) {
         minimizeBtn.addEventListener('click', () => {
             loginWindow.style.display = 'none';
         });
     }
 
-    // --- 2. TROCA DE TELAS (LOGIN <-> CADASTRO) ---
-    const formLogin = document.getElementById('form-login');
-    const formCadastro = document.getElementById('form-cadastro');
+    // --- 3. NAVEGAÇÃO ENTRE TELAS (LOGIN / CADASTRO) ---
     const btnIrCadastro = document.getElementById('btn-ir-cadastro');
     const btnIrLogin = document.getElementById('btn-ir-login');
 
-    if (btnIrCadastro && btnIrLogin) {
-        // Mudar para Cadastro
-        btnIrCadastro.addEventListener('click', (e) => {
-            e.preventDefault();
-            formLogin.style.display = 'none';
-            formCadastro.style.display = 'block';
-            console.log("Mudando para tela de Cadastro.");
-        });
+    if (btnIrCadastro) {
+        btnIrCadastro.onclick = () => {
+            estadoLogin.style.display = 'none';
+            estadoCadastro.style.display = 'block';
+            tituloJanela.innerText = "CRIAR CONTA";
+        };
+    }
 
-        // Voltar para Login
-        btnIrLogin.addEventListener('click', (e) => {
+    if (btnIrLogin) {
+        btnIrLogin.onclick = () => {
+            estadoCadastro.style.display = 'none';
+            estadoLogin.style.display = 'block';
+            tituloJanela.innerText = "LOGIN / CARRINHO";
+        };
+    }
+
+    // --- 4. LÓGICA DE LOGIN (ENTRAR NO PAINEL) ---
+    const formLogin = document.getElementById('form-executa-login');
+    if (formLogin) {
+        formLogin.addEventListener('submit', (e) => {
             e.preventDefault();
-            formCadastro.style.display = 'none';
-            formLogin.style.display = 'block';
-            console.log("Voltando para tela de Login.");
+            
+            // Simulação de transição para o Painel
+            estadoLogin.style.display = 'none';
+            estadoCadastro.style.display = 'none';
+            estadoPainel.style.display = 'block';
+            
+            tituloJanela.innerText = "MINHA CONTA";
+            document.getElementById('user-name-display').innerText = "João"; // Nome mockado
+            
+            console.log("Usuário logado com sucesso.");
         });
     }
 
-    // --- 3. GERENCIAMENTO DE PRODUTOS (VITRINES) ---
-    // Você pode adicionar mais produtos aqui seguindo o mesmo padrão
+    // Botão Sair (Logout)
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+        btnLogout.onclick = () => {
+            estadoPainel.style.display = 'none';
+            estadoLogin.style.display = 'block';
+            tituloJanela.innerText = "LOGIN / CARRINHO";
+        };
+    }
+
+    // --- 5. GERENCIAMENTO DE PRODUTOS (VITRINE) ---
     const produtosPromocao = [
         { id: 1, name: "Camiseta Nocta Gold", price: "189,90", img: "img/produto1.png" },
         { id: 2, name: "Shorts Stüssy Black", price: "159,00", img: "img/produto2.png" },
@@ -72,17 +96,15 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    // Carrega a vitrine inicial
     renderizarVitrine(produtosPromocao, 'vitrine-promocoes');
 });
 
-// --- 4. FUNÇÕES GLOBAIS (MODAL DE DETALHES) ---
-// Definidas no objeto window para garantir que o 'onclick' do HTML as encontre
+// --- 6. FUNÇÕES GLOBAIS (MODAIS DE DETALHES) ---
 window.abrirDetalhes = function(produtoId) {
     const modal = document.querySelector('.modal-overlay');
     if (modal) {
         modal.style.display = 'flex';
-        console.log("Abrindo detalhes do produto: " + produtoId);
+        console.log("Detalhes do produto: " + produtoId);
     }
 };
 
@@ -92,5 +114,3 @@ window.fecharDetalhes = function() {
         modal.style.display = 'none';
     }
 };
-
-console.log("Tzad Store Engine: Online e atualizada para o Ato 3.");
