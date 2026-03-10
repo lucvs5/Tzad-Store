@@ -23,4 +23,4 @@ document.addEventListener('click', function (event) {
             janela.style.display = 'none';
         }
     }
-}, false);
+});
