@@ -10,9 +10,9 @@ const produtosLoja = [
     { id: 201, name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png", categoria: "nocta" },
     { id: 202, name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png", categoria: "nocta" },
     { id: 203, name: "Conjunto Nike Nocta Tech Fleece Preto.", price: "450,00", img: "img/nktc.jpg", categoria: "nocta" },
-    { id: 204, name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png", categoria: "nocta" },
-    { id: 205, name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png", categoria: "nocta" },
-    { id: 206, name: "Conjunto Nike Nocta Tech Fleece Preto.", price: "450,00", img: "img/nktc.jpg", categoria: "nocta" },
+    { id: 204, name: "Pulseira Classic", price: "150,00", img: "img/PulseiraClassic.jpg", categoria: "nocta" },
+    { id: 205, name: "Pulseira Gold Line", price: "150,00", img: "img/PulseiraGoldLine.jpg", categoria: "nocta" },
+    { id: 206, name: "Pulseira Deluxe", price: "150,00", img: "img/PulseiraDeluxe.jpg", categoria: "nocta" },
 
     { id: 301, name: "STÜSSY METALHEADZ (refletiva)", price: "150,00", img: "img/stmtb.jpg", categoria: "stussy" },
     { id: 302, name: "Stüssy Logo Padrão P.", price: "150,00", img: "img/stlpp.jpg", categoria: "stussy" },
@@ -49,45 +49,43 @@ function renderizarVitrines() {
     });
 }
 
-// 4. INTERFACE E LOGICA DE LOGIN
+// 4. INTERFACE E ABERTURA DA JANELA
 function configurarInterface() {
     const loginWindow = document.getElementById('login-window');
-    const cartIcon = document.querySelector('.cart-icon');
     const minimizeBtn = document.querySelector('.minimize-btn');
     const formLogin = document.getElementById('form-executa-login');
     const btnLogout = document.getElementById('btn-logout');
 
-    if (cartIcon && loginWindow) {
-        cartIcon.onclick = (e) => {
+    // Abertura Forçada do Carrinho (Ignora conflitos)
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.cart-icon')) {
             e.preventDefault();
-            loginWindow.style.display = 'block';
-        };
-    }
+            if (loginWindow) loginWindow.style.display = 'block';
+        }
+    });
 
     if (minimizeBtn && loginWindow) {
-        minimizeBtn.onclick = () => {
-            loginWindow.style.display = 'none';
-        };
+        minimizeBtn.onclick = () => loginWindow.style.display = 'none';
     }
 
-    // Ação de Login (Injetar Página do Carrinho)
+    // Lógica de Login (Pega nome do e-mail e muda de tela)
     if (formLogin) {
         formLogin.onsubmit = (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
-            const nomeUser = email.split('@')[0]; // Pega o nome antes do @
-            
+            const nomeUser = email.split('@')[0];
             const displayNome = document.getElementById('user-name-display');
             if (displayNome) displayNome.innerText = nomeUser.toUpperCase();
-
-            alternarTela('painel'); // Muda para a página do carrinho
+            
+            alternarTela('painel');
         };
     }
 
-    // Ação de Sair
+    // Ação de Logout
     if (btnLogout) {
         btnLogout.onclick = () => {
             alternarTela('login');
+            document.getElementById('form-executa-login').reset();
         };
     }
 }
@@ -111,17 +109,16 @@ window.alternarTela = function(tela) {
         titulo.innerText = "LOGIN / CARRINHO";
     } else if (tela === 'painel' && painel) {
         painel.style.display = 'block';
-        titulo.innerText = "MEU CARRINHO";
+        titulo.innerText = "PAINEL DO CLIENTE";
         atualizarCarrinhoVisual();
     }
 };
 
-// 6. CARRINHO
+// 6. CARRINHO (Adicionar, Remover e Somar)
 window.adicionarAoCarrinho = function(id) {
     const p = produtosLoja.find(item => item.id === id);
     if (p) {
         itensNoCarrinho.push(p);
-        alert(`${p.name} adicionado!`);
         const win = document.getElementById('login-window');
         if(win) win.style.display = 'block';
         atualizarCarrinhoVisual();
@@ -157,4 +154,22 @@ function atualizarCarrinhoVisual() {
 
     const soma = itensNoCarrinho.reduce((acc, p) => {
         let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
-        return
+        return acc + valor;
+    }, 0);
+    
+    if (totalTxt) {
+        totalTxt.innerText = `R$ ${soma.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    }
+}
+
+// 7. FINALIZAR (WHATSAPP)
+document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'btn-finalizar') {
+        if (itensNoCarrinho.length === 0) return alert("Carrinho vazio!");
+        let msg = "Olá TZAD! Pedido:%0A";
+        itensNoCarrinho.forEach(i => msg += `- ${i.name} (R$ ${i.price})%0A`);
+        const total = document.getElementById('total-carrinho').innerText;
+        msg += `%0A*Total: ${total}*`;
+        window.open(`https://wa.me/5511999999999?text=${msg}`, '_blank');
+    }
+});
