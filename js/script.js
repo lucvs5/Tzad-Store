@@ -1,10 +1,12 @@
+// 1. ADICIONE ISSO AQUI (Logo no topo, fora do DOMContentLoaded)
+let itensNoCarrinho = []; 
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- 1. SELETORES PRINCIPAIS ---
     const cartIcon = document.querySelector('.cart-icon');
     const loginWindow = document.getElementById('login-window');
     const minimizeBtn = document.querySelector('.minimize-btn');
     
-    // Seletores de Estados (Telas internas do modal)
     const estadoLogin = document.getElementById('estado-login');
     const estadoCadastro = document.getElementById('estado-cadastro');
     const estadoPainel = document.getElementById('estado-painel');
@@ -49,20 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (formLogin) {
         formLogin.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Simulação de transição para o Painel
             estadoLogin.style.display = 'none';
             estadoCadastro.style.display = 'none';
             estadoPainel.style.display = 'block';
-            
             tituloJanela.innerText = "MINHA CONTA";
-            document.getElementById('user-name-display').innerText = "João"; // Nome mockado
-            
-            console.log("Usuário logado com sucesso.");
+            document.getElementById('user-name-display').innerText = "João";
         });
     }
 
-    // Botão Sair (Logout)
     const btnLogout = document.getElementById('btn-logout');
     if (btnLogout) {
         btnLogout.onclick = () => {
@@ -72,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // --- 5. GERENCIAMENTO DE PRODUTOS (VITRINE) ---
+    // --- 5. GERENCIAMENTO DE PRODUTOS ---
     const produtosPromocao = [
         { id: 1, name: "Camiseta Nocta Gold", price: "189,90", img: "img/produto1.png" },
         { id: 2, name: "Shorts Stüssy Black", price: "159,00", img: "img/produto2.png" },
@@ -83,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderizarVitrine(lista, containerId) {
         const container = document.getElementById(containerId);
         if (!container) return;
-
         container.innerHTML = lista.map(p => `
             <div class="produto">
                 <img src="${p.img}" alt="${p.name}">
@@ -99,18 +94,53 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarVitrine(produtosPromocao, 'vitrine-promocoes');
 });
 
-// --- 6. FUNÇÕES GLOBAIS (MODAIS DE DETALHES) ---
+// --- 6. FUNÇÕES GLOBAIS ATUALIZADAS (AUTOMAÇÃO DO CARRINHO) ---
+
+// 2. SUBSTITUA SUA window.abrirDetalhes POR ESTA:
 window.abrirDetalhes = function(produtoId) {
-    const modal = document.querySelector('.modal-overlay');
-    if (modal) {
-        modal.style.display = 'flex';
-        console.log("Detalhes do produto: " + produtoId);
+    // Lista para o script achar os dados do produto clicado
+    const bancoDeDados = [
+        { id: 1, name: "Camiseta Nocta Gold", price: "189,90", img: "img/produto1.png" },
+        { id: 2, name: "Shorts Stüssy Black", price: "159,00", img: "img/produto2.png" },
+        { id: 3, name: "Nike Air Force 1 Rep", price: "349,00", img: "img/produto3.png" },
+        { id: 4, name: "Moletom Essential", price: "220,00", img: "img/produto4.png" }
+    ];
+
+    const produto = bancoDeDados.find(p => p.id == produtoId);
+
+    if (produto) {
+        itensNoCarrinho.push(produto); // Adiciona na lista
+        atualizarCarrinhoVisual();     // Chama a função de desenho
+        
+        // Abre o modal do carrinho
+        document.getElementById('login-window').style.display = 'block';
     }
 };
 
+// 3. ADICIONE ESTA NOVA FUNÇÃO PARA DESENHAR OS ITENS
+function atualizarCarrinhoVisual() {
+    const listaHtml = document.getElementById('carrinho-lista');
+    const totalHtml = document.getElementById('total-carrinho');
+    
+    if (!listaHtml) return;
+
+    // Gera o HTML com a foto à esquerda, nome e preço
+    listaHtml.innerHTML = itensNoCarrinho.map(item => `
+        <div class="item-carrinho-demo">
+            <img src="${item.img}" style="width:45px; height:45px; object-fit:cover; border-radius:4px;">
+            <div class="item-info">
+                <span>${item.name}</span>
+                <strong>R$ ${item.price}</strong>
+            </div>
+        </div>
+    `).join('');
+
+    // Soma o Total
+    const soma = itensNoCarrinho.reduce((acc, item) => acc + parseFloat(item.price.replace(',', '.')), 0);
+    if (totalHtml) totalHtml.innerText = `R$ ${soma.toFixed(2).replace('.', ',')}`;
+}
+
 window.fecharDetalhes = function() {
     const modal = document.querySelector('.modal-overlay');
-    if (modal) {
-        modal.style.display = 'none';
-    }
+    if (modal) modal.style.display = 'none';
 };
