@@ -1,10 +1,11 @@
-// TZAD STORE - SCRIPT DE AUTOMAÇÃO (ATO 2)
+// TZAD STORE - AUTOMACÃO ATO 2
 
 function abrirCarrinho() {
     const janela = document.getElementById('login-window');
     if (janela) {
-        // Mostra a janela forçando prioridade
+        // Altera o estilo diretamente para garantir visibilidade
         janela.style.display = 'block';
+        console.log("Carrinho aberto.");
     }
 }
 
@@ -12,8 +13,9 @@ function fecharCarrinho() {
     const janela = document.getElementById('login-window');
     if (janela) {
         janela.style.display = 'none';
+        console.log("Carrinho fechado.");
     }
 }
 
-// Log para confirmar que o arquivo carregou
-console.log("Automação de Carrinho carregada.");
+// Log para confirmar que o script carregou no navegador
+console.log("script.js carregado com sucesso.");
