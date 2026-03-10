@@ -1,4 +1,4 @@
-/* RESET E FONTES */
+/* CONFIGURAÇÕES GERAIS */
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +9,7 @@
 body {
     background-color: #000;
     color: #fff;
+    overflow-x: hidden;
 }
 
 /* HEADER */
@@ -16,8 +17,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background: #000;
+    padding: 15px 20px;
+    background-color: #000;
     border-bottom: 1px solid #222;
     position: sticky;
     top: 0;
@@ -25,7 +26,7 @@ body {
 }
 
 .logo {
-    height: 50px;
+    height: 45px;
 }
 
 .cart-icon {
@@ -36,42 +37,72 @@ body {
 .cart-icon img {
     height: 35px;
     cursor: pointer;
+    pointer-events: auto;
 }
 
-/* BANNER E CONTEÚDO */
+/* CONTEÚDO PRINCIPAL E BANNER */
+.main-content {
+    width: 100%;
+}
+
 .banner img {
     width: 100%;
     display: block;
 }
 
 .cabecalho-produtos {
-    padding: 40px 20px;
+    padding: 30px 20px;
     text-align: center;
 }
 
 .redes-produtos img {
     height: 30px;
-    margin: 10px;
+    margin: 0 10px;
 }
 
-/* MODAL / JANELA (ATO 2) */
+/* SEÇÕES DE PRODUTOS */
+.colecao {
+    padding: 20px;
+}
+
+.titulo-colecao {
+    margin-bottom: 20px;
+    border-left: 4px solid #DAA520;
+    padding-left: 10px;
+}
+
+.produtos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* VÍDEO */
+.video-loja video {
+    width: 100%;
+    max-height: 400px;
+    background: #000;
+}
+
+/* JANELA DE LOGIN (ATO 2) */
 .login-window {
-    display: none; /* Começa oculto */
+    display: none;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 300px;
-    background: #111;
+    width: 320px;
+    background-color: #111;
     border: 1px solid #DAA520;
-    border-radius: 8px;
-    z-index: 9999 !important; /* Força ficar na frente de tudo */
-    box-shadow: 0 0 20px rgba(218, 165, 32, 0.2);
+    border-radius: 12px;
+    z-index: 10000 !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.9);
 }
 
 .login-header {
-    background: #DAA520;
+    background-color: #DAA520;
     color: #000;
-    padding: 10px;
+    padding: 10px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -81,8 +112,9 @@ body {
 .minimize-btn {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
+    color: #000;
 }
 
 .login-body {
@@ -94,29 +126,35 @@ body {
     flex-direction: column;
 }
 
+.login-form label {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
 .login-form input {
-    margin: 10px 0;
-    padding: 8px;
+    margin-bottom: 15px;
+    padding: 12px;
     background: #222;
     border: 1px solid #333;
     color: #fff;
+    border-radius: 8px;
 }
 
 .login-button {
-    background: #DAA520;
+    background-color: #DAA520;
     color: #000;
     border: none;
-    padding: 10px;
+    padding: 12px;
+    border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 .links {
+    margin-top: 15px;
     display: flex;
     justify-content: space-between;
-    font-size: 11px;
-    margin-top: 15px;
+    font-size: 12px;
 }
 
 .links a {
@@ -124,11 +162,12 @@ body {
     text-decoration: none;
 }
 
-/* MOBILE */
+/* AJUSTE MOBILE */
 @media (max-width: 600px) {
     .login-window {
         width: 90%;
         left: 5%;
         right: 5%;
+        bottom: 10px;
     }
 }
