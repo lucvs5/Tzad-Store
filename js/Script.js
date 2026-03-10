@@ -1,63 +1,61 @@
-// Aguarda o DOM carregar completamente
+/**
+ * TZAD STORE - SCRIPT.JS (COMPLETO E DEFINITIVO)
+ * Gerencia a interatividade da interface (Carrinho, Login e Modais)
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Referência da Janela (ID fixo)
+    // Seleciona os elementos principais da interface
     const loginWindow = document.getElementById('login-window');
+    const modalOverlay = document.querySelector('.modal-overlay');
 
-    // 1. ESCUTA DE CLIQUES GLOBAL (Mais seguro para botões/imagens)
+    // --- GESTÃO GLOBAL DE CLIQUES (Método infalível por delegação) ---
     document.addEventListener('click', (e) => {
         
-        // Verifica se clicou no botão do carrinho ou em qualquer imagem dentro dele
+        // 1. ABRIR CARRINHO / LOGIN (Detecta clique no ícone ou na imagem do carrinho)
         if (e.target.closest('.cart-icon')) {
-            e.preventDefault();
+            e.preventDefault(); // Impede que a página recarregue
             if (loginWindow) {
                 loginWindow.style.display = 'block';
-                console.log("Carrinho aberto via delegação.");
+                console.log("Carrinho aberto com sucesso!");
             }
         }
 
-        // Verifica se clicou no botão de minimizar (_)
+        // 2. MINIMIZAR CARRINHO (Detecta clique no botão _)
         if (e.target.closest('.minimize-btn')) {
+            e.preventDefault();
             if (loginWindow) {
                 loginWindow.style.display = 'none';
             }
         }
-        
-        // Ato 5: Fechar o Modal Principal (o X grosso)
+
+        // 3. FECHAR MODAL DE DETALHES (Detecta clique no X preto e grosso)
         if (e.target.closest('.close-modal')) {
-            const modal = document.querySelector('.modal-overlay');
-            if (modal) modal.style.display = 'none';
+            e.preventDefault();
+            if (modalOverlay) {
+                modalOverlay.style.display = 'none';
+            }
         }
     });
 
-    // 2. RENDERIZAÇÃO AUTOMÁTICA DA VITRINE
-    // (Exemplo para manter os produtos ativos no fundo dourado)
-    const produtos = [
-        { id: 1, name: "Produto Tzad 1", price: "199,90", img: "img/produto1.png" },
-        { id: 2, name: "Produto Tzad 2", price: "249,90", img: "img/produto2.png" }
-    ];
+    // --- FECHAR MODAL CLICANDO FORA ---
+    // Se o usuário clicar no fundo escuro (fora da caixa de detalhes), o modal fecha
+    window.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            modalOverlay.style.display = 'none';
+        }
+    });
 
-    function carregarVitrine(lista, containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        container.innerHTML = lista.map(p => `
-            <div class="produto">
-                <img src="${p.img}" alt="${p.name}">
-                <h3>${p.name}</h3>
-                <p>R$ ${p.price}</p>
-                <button class="btn-comprar" onclick="abrirModalDetalhes('${p.id}')">
-                    Comprar
-                </button>
-            </div>
-        `).join('');
-    }
-
-    carregarVitrine(produtos, 'vitrine-promocoes');
 });
 
-// Função Global para o Modal de Detalhes
-function abrirModalDetalhes(id) {
+/**
+ * FUNÇÃO GLOBAL: ABRIR MODAL DE DETALHES
+ * Esta função é chamada pelos botões "Comprar" ou "Ver Produto" gerados na vitrine (shop.js)
+ */
+function abrirModal(dadosProduto) {
     const modal = document.querySelector('.modal-overlay');
-    if (modal) modal.style.display = 'flex';
+    if (modal) {
+        modal.style.display = 'flex'; // Usamos flex para centralizar o conteúdo na tela
+        console.log("Modal aberto para o produto:", dadosProduto);
+    }
 }
