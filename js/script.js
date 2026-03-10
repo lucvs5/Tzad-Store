@@ -1,5 +1,11 @@
-// 1. ADICIONE ISSO AQUI (Logo no topo, fora do DOMContentLoaded)
+// --- DADOS GLOBAIS ---
 let itensNoCarrinho = []; 
+const produtosLoja = [
+    { id: 1, name: "Camiseta Nocta Gold", price: "189,90", img: "img/produto1.png" },
+    { id: 2, name: "Shorts Stüssy Black", price: "159,00", img: "img/produto2.png" },
+    { id: 3, name: "Nike Air Force 1 Rep", price: "349,00", img: "img/produto3.png" },
+    { id: 4, name: "Moletom Essential", price: "220,00", img: "img/produto4.png" }
+];
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- 1. SELETORES PRINCIPAIS ---
@@ -68,79 +74,110 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // --- 5. GERENCIAMENTO DE PRODUTOS ---
-    const produtosPromocao = [
-        { id: 1, name: "Camiseta Nocta Gold", price: "189,90", img: "img/produto1.png" },
-        { id: 2, name: "Shorts Stüssy Black", price: "159,00", img: "img/produto2.png" },
-        { id: 3, name: "Nike Air Force 1 Rep", price: "349,00", img: "img/produto3.png" },
-        { id: 4, name: "Moletom Essential", price: "220,00", img: "img/produto4.png" }
-    ];
-
+    // --- 5. GERENCIAMENTO DE PRODUTOS (VITRINE) ---
     function renderizarVitrine(lista, containerId) {
         const container = document.getElementById(containerId);
         if (!container) return;
+        
         container.innerHTML = lista.map(p => `
             <div class="produto">
                 <img src="${p.img}" alt="${p.name}">
                 <h3>${p.name}</h3>
                 <p>R$ ${p.price}</p>
-                <button class="btn-comprar" onclick="window.abrirDetalhes('${p.id}')">
-                    Adicionar ao Carrinho
+                <button class="btn-comprar" onclick="window.abrirDetalhes(${p.id})">
+                    Comprar
                 </button>
             </div>
         `).join('');
     }
 
-    renderizarVitrine(produtosPromocao, 'vitrine-promocoes');
+    renderizarVitrine(produtosLoja, 'vitrine-promocoes');
 });
 
-// --- 6. FUNÇÕES GLOBAIS ATUALIZADAS (AUTOMAÇÃO DO CARRINHO) ---
-
-// 2. SUBSTITUA SUA window.abrirDetalhes POR ESTA:
+// --- 6. FUNÇÕES DO MODAL (ESCOLHER TAMANHO) ---
 window.abrirDetalhes = function(produtoId) {
-    // Lista para o script achar os dados do produto clicado
-    const bancoDeDados = [
-        { id: 1, name: "Camiseta Nocta Gold", price: "189,90", img: "img/produto1.png" },
-        { id: 2, name: "Shorts Stüssy Black", price: "159,00", img: "img/produto2.png" },
-        { id: 3, name: "Nike Air Force 1 Rep", price: "349,00", img: "img/produto3.png" },
-        { id: 4, name: "Moletom Essential", price: "220,00", img: "img/produto4.png" }
-    ];
+    const produto = produtosLoja.find(p => p.id == produtoId);
+    if (!produto) return;
 
-    const produto = bancoDeDados.find(p => p.id == produtoId);
+    const modal = document.querySelector('.modal-overlay');
+    const modalContent = document.querySelector('.modal-content');
 
-    if (produto) {
-        itensNoCarrinho.push(produto); // Adiciona na lista
-        atualizarCarrinhoVisual();     // Chama a função de desenho
-        
-        // Abre o modal do carrinho
-        document.getElementById('login-window').style.display = 'block';
+    if (modal && modalContent) {
+        // Monta o visual do modal central dinamicamente
+        modalContent.innerHTML = `
+            <button class="close-modal" onclick="window.fecharDetalhes()">X</button>
+            <div style="text-align: center;">
+                <img src="${produto.img}" style="width: 100%; max-width: 250px; border-radius: 10px; margin-bottom: 15px;">
+                <h3 style="color: #DAA520; margin-bottom: 5px;">${produto.name}</h3>
+                <p style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">R$ ${produto.price}</p>
+                
+                <label style="display: block; text-align: left; font-size: 14px; margin-bottom: 8px; color: #bbb;">Escolha o Tamanho:</label>
+                <select id="select-tamanho" style="width: 100%; padding: 12px; margin-bottom: 20px; background: #111; color: #fff; border: 1px solid #DAA520; border-radius: 5px; font-size: 16px;">
+                    <option value="P">Tamanho P</option>
+                    <option value="M">Tamanho M</option>
+                    <option value="G">Tamanho G</option>
+                    <option value="GG">Tamanho GG</option>
+                </select>
+
+                <button class="login-button" onclick="window.confirmarCompra(${produto.id})" style="background: #28a745; color: white;">
+                    CONFIRMAR NO CARRINHO
+                </button>
+            </div>
+        `;
+        modal.style.display = 'flex';
     }
 };
 
-// 3. ADICIONE ESTA NOVA FUNÇÃO PARA DESENHAR OS ITENS
+window.fecharDetalhes = function() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) modal.style.display = 'none';
+};
+
+// --- 7. FINALIZAR COMPRA E ENVIAR AO CARRINHO LATERAL ---
+window.confirmarCompra = function(produtoId) {
+    const produto = produtosLoja.find(p => p.id == produtoId);
+    const selectTamanho = document.getElementById('select-tamanho');
+    const tamanhoEscolhido = selectTamanho ? selectTamanho.value : 'Único';
+
+    if (produto) {
+        // Salva o produto + o tamanho escolhido
+        const itemParaAdicionar = {
+            ...produto,
+            tamanho: tamanhoEscolhido
+        };
+
+        itensNoCarrinho.push(itemParaAdicionar);
+        window.fecharDetalhes(); 
+        atualizarCarrinhoVisual(); 
+        
+        // Abre o painel lateral automaticamente para mostrar o item
+        const loginWindow = document.getElementById('login-window');
+        const estadoLogin = document.getElementById('estado-login');
+        const estadoPainel = document.getElementById('estado-painel');
+        
+        if(loginWindow) loginWindow.style.display = 'block';
+        if(estadoLogin) estadoLogin.style.display = 'none';
+        if(estadoPainel) estadoPainel.style.display = 'block';
+    }
+};
+
+// --- 8. DESENHAR OS ITENS NO CARRINHO ---
 function atualizarCarrinhoVisual() {
     const listaHtml = document.getElementById('carrinho-lista');
     const totalHtml = document.getElementById('total-carrinho');
     
     if (!listaHtml) return;
 
-    // Gera o HTML com a foto à esquerda, nome e preço
     listaHtml.innerHTML = itensNoCarrinho.map(item => `
         <div class="item-carrinho-demo">
-            <img src="${item.img}" style="width:45px; height:45px; object-fit:cover; border-radius:4px;">
+            <img src="${item.img}" style="width:50px; height:50px; object-fit:cover; border-radius:4px; border:1px solid #DAA520;">
             <div class="item-info">
-                <span>${item.name}</span>
+                <span>${item.name} <strong style="color:#aaa;">(Tam: ${item.tamanho})</strong></span>
                 <strong>R$ ${item.price}</strong>
             </div>
         </div>
     `).join('');
 
-    // Soma o Total
     const soma = itensNoCarrinho.reduce((acc, item) => acc + parseFloat(item.price.replace(',', '.')), 0);
     if (totalHtml) totalHtml.innerText = `R$ ${soma.toFixed(2).replace('.', ',')}`;
 }
-
-window.fecharDetalhes = function() {
-    const modal = document.querySelector('.modal-overlay');
-    if (modal) modal.style.display = 'none';
-};
