@@ -41,6 +41,8 @@ body {
     background: none;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .cart-icon img {
@@ -86,7 +88,7 @@ body {
     height: auto;
 }
 
-/* 3. A VITRINE NOBRE (FUNDO DOURADO UNIFICADO) */
+/* 3. VITRINE NOBRE (FUNDO DOURADO UNIFICADO) */
 .titulo-colecao {
     font-size: 22px;
     border-left: 4px solid #DAA520;
@@ -96,9 +98,8 @@ body {
     text-transform: uppercase;
 }
 
-/* O BLOCO QUE UNE TODOS OS PRODUTOS */
 .categoria {
-    background-color: #DAA520; /* Fundo dourado unificado */
+    background-color: #DAA520; /* Fundo que une todos os produtos */
     padding: 25px;
     border-radius: 15px;
     margin-bottom: 40px;
@@ -110,7 +111,6 @@ body {
     gap: 25px;
 }
 
-/* O CARD INDIVIDUAL (AGORA TRANSPARENTE PARA MOSTRAR O DOURADO DA CATEGORIA) */
 .produto {
     text-align: center;
     padding: 10px;
@@ -121,11 +121,11 @@ body {
     width: 100%;
     border-radius: 8px;
     margin-bottom: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Sombra para destacar a foto no dourado */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .produto h3 {
-    color: #000000; /* Texto preto para contraste no fundo dourado */
+    color: #000000;
     font-size: 16px;
     margin-bottom: 5px;
 }
@@ -136,7 +136,6 @@ body {
     margin-bottom: 12px;
 }
 
-/* BOTÃO COMPRAR (PRETO DENTRO DO BLOCO DOURADO) */
 .btn-comprar {
     background-color: #000000;
     color: #DAA520;
@@ -150,12 +149,11 @@ body {
     font-size: 11px;
 }
 
-/* BOTÃO VER TODOS (ESTILIZADO PARA FICAR FORA OU DENTRO COM DESTAQUE) */
 .ver-todos {
     display: block;
     margin: 25px auto 0;
     padding: 12px 40px;
-    background-color: #000000; /* Preto para destacar do fundo dourado da categoria */
+    background-color: #000000;
     color: #DAA520;
     border: none;
     border-radius: 5px;
@@ -164,7 +162,7 @@ body {
     text-transform: uppercase;
 }
 
-/* 4. VÍDEO NOCTA (FORA DO BLOCO DOURADO) */
+/* 4. VÍDEO NOCTA */
 .video-loja {
     display: flex;
     justify-content: center;
@@ -177,27 +175,85 @@ body {
     border-radius: 15px;
 }
 
-/* 5. JANELA LOGIN/CARRINHO (ATO 2 PREPARAÇÃO) */
+/* 5. JANELA LOGIN/CARRINHO (ATO 2) */
 .login-window {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 300px;
+    width: 320px;
     background: #000;
-    border: 1px solid #DAA520;
+    border: 2px solid #DAA520;
     z-index: 2000;
-    display: none; 
+    display: none; /* Inicia oculto */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
 .login-header {
     background: #DAA520;
     color: #000;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.minimize-btn {
+    cursor: pointer;
+    background: #000;
+    color: #DAA520;
+    border: none;
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-body {
+    padding: 20px;
+}
+
+.login-form input {
+    width: 100%;
     padding: 10px;
+    margin-bottom: 15px;
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.login-button {
+    width: 100%;
+    background: #DAA520;
+    color: #000;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.links {
+    font-size: 12px;
+    margin-top: 15px;
     display: flex;
     justify-content: space-between;
 }
 
-/* 6. MODAL ADICIONAR AO CARRINHO (COM X PRETO E GROSSO) */
+.links a {
+    color: #DAA520;
+    text-decoration: none;
+}
+
+/* 6. MODAL ADICIONAR AO CARRINHO (X PRETO E GROSSO) */
 .modal-overlay {
     position: fixed;
     top: 0;
