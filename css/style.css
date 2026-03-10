@@ -300,3 +300,44 @@ body {
     .produtos { grid-template-columns: repeat(2, 1fr); }
     .categoria { padding: 15px; }
 }
+
+/* ESTILOS DO PAINEL DO USUÁRIO */
+.user-welcome { margin-bottom: 20px; font-size: 16px; color: #DAA520; }
+.divisor { border: 0; border-top: 1px solid #333; margin: 15px 0; }
+.section-label { font-size: 12px; color: #888; margin-bottom: 10px; letter-spacing: 1px; }
+
+.user-menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.menu-item-btn {
+    background: #111;
+    border: 1px solid #DAA520;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* ITEM DO CARRINHO DENTRO DO MODAL */
+.item-carrinho-demo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #0a0a0a;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.item-carrinho-demo img { width: 40px; height: 40px; border-radius: 3px; }
+.item-info { display: flex; flex-direction: column; font-size: 13px; }
+.item-info span { color: #bbb; }
+.item-info strong { color: #DAA520; }
+
+.carrinho-resumo { font-size: 14px; }
+.resumo-linha { display: flex; justify-content: space-between; margin-bottom: 5px; }
