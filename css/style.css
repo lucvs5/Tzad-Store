@@ -1,79 +1,77 @@
-/* CONFIGURAÇÕES GERAIS */
+/* RESET E FONTES */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Playfair Display', serif;
 }
 
 body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #000;
+    color: #fff;
 }
 
-/* HEADER / TOPO */
+/* HEADER */
 .topo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    background-color: #000000;
-    border-bottom: 1px solid #333;
+    padding: 10px 20px;
+    background: #000;
+    border-bottom: 1px solid #222;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
 .logo {
-    height: 40px;
+    height: 50px;
 }
 
-.menu-icon, .cart-icon {
+.cart-icon {
     background: none;
     border: none;
-    color: #DAA520;
-    font-size: 24px;
-    cursor: pointer;
 }
 
 .cart-icon img {
-    height: 30px;
+    height: 35px;
+    cursor: pointer;
+}
+
+/* BANNER E CONTEÚDO */
+.banner img {
+    width: 100%;
     display: block;
-    pointer-events: auto; /* Garante que a imagem receba o toque */
 }
 
-/* VITRINE DE PRODUTOS */
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 20px;
+.cabecalho-produtos {
+    padding: 40px 20px;
+    text-align: center;
 }
 
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+.redes-produtos img {
+    height: 30px;
+    margin: 10px;
 }
 
-/* JANELA DE LOGIN / CARRINHO (ATO 2) */
+/* MODAL / JANELA (ATO 2) */
 .login-window {
-    display: none; /* Escondido por padrão */
+    display: none; /* Começa oculto */
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 320px;
-    background-color: #111;
-    border: 2px solid #DAA520;
-    border-radius: 12px;
-    z-index: 9999; /* Fica acima de tudo */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    overflow: hidden;
+    width: 300px;
+    background: #111;
+    border: 1px solid #DAA520;
+    border-radius: 8px;
+    z-index: 9999 !important; /* Força ficar na frente de tudo */
+    box-shadow: 0 0 20px rgba(218, 165, 32, 0.2);
 }
 
 .login-header {
-    background-color: #DAA520;
+    background: #DAA520;
     color: #000;
-    padding: 10px 15px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,7 +82,6 @@ body {
     background: none;
     border: none;
     font-size: 20px;
-    font-weight: bold;
     cursor: pointer;
 }
 
@@ -97,35 +94,29 @@ body {
     flex-direction: column;
 }
 
-.login-form label {
-    margin-bottom: 5px;
-    font-size: 14px;
-}
-
 .login-form input {
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #333;
+    margin: 10px 0;
+    padding: 8px;
     background: #222;
-    color: white;
+    border: 1px solid #333;
+    color: #fff;
 }
 
 .login-button {
-    background-color: #DAA520;
+    background: #DAA520;
     color: #000;
     border: none;
     padding: 10px;
-    border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .links {
-    margin-top: 15px;
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 11px;
+    margin-top: 15px;
 }
 
 .links a {
@@ -133,56 +124,11 @@ body {
     text-decoration: none;
 }
 
-/* MODAL DE DETALHES (ATO 5) */
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    z-index: 10000;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: #111;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 500px;
-    width: 90%;
-    position: relative;
-    border: 1px solid #DAA520;
-}
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 25px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-/* RODAPÉ */
-.rodape {
-    text-align: center;
-    padding: 20px;
-    font-size: 14px;
-    color: #666;
-    margin-top: 40px;
-}
-
-/* RESPONSIVIDADE MOBILE */
+/* MOBILE */
 @media (max-width: 600px) {
     .login-window {
         width: 90%;
-        right: 5%;
         left: 5%;
-        bottom: 10px;
+        right: 5%;
     }
 }
