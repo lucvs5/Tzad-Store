@@ -3,37 +3,28 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Selecionamos os elementos necessários
+    // Referências dos elementos
     const cartIcon = document.querySelector('.cart-icon');
     const loginWindow = document.getElementById('login-window');
     const minimizeBtn = document.querySelector('.minimize-btn');
 
-    // 1. FUNÇÃO PARA ABRIR O CARRINHO
+    // 1. ABRIR CARRINHO (Ato 2)
     if (cartIcon && loginWindow) {
         cartIcon.addEventListener('click', (e) => {
-            e.preventDefault(); // Impede qualquer comportamento indesejado
-            loginWindow.style.display = 'block'; // Mostra a janela
+            e.preventDefault();
+            loginWindow.style.display = 'block';
+            console.log("Carrinho visualizado.");
         });
     }
 
-    // 2. FUNÇÃO PARA MINIMIZAR (_)
+    // 2. MINIMIZAR CARRINHO (_) (Ato 2)
     if (minimizeBtn && loginWindow) {
         minimizeBtn.addEventListener('click', () => {
-            loginWindow.style.display = 'none'; // Esconde a janela
+            loginWindow.style.display = 'none';
         });
     }
 
-    // 3. FECHAR AO CLICAR FORA (OPCIONAL)
-    // Se o usuário clicar no fundo escuro, a janela também pode fechar
-    window.addEventListener('click', (e) => {
-        if (e.target === loginWindow) {
-            loginWindow.style.display = 'none';
-        }
-    });
-});
-    }
-
-    // FECHAR AO CLICAR FORA (Opcional, para melhorar a experiência)
+    // Fechar ao clicar fora da janela (Opcional)
     window.addEventListener('click', (e) => {
         if (e.target === loginWindow) {
             loginWindow.style.display = 'none';
