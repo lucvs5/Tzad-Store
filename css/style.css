@@ -378,3 +378,24 @@ body {
     .produtos { grid-template-columns: repeat(2, 1fr); }
     .categoria { padding: 15px; }
     }
+
+/* ========================================================
+   CORREÇÃO DA IMAGEM NO LOGIN DO CARRINHO
+======================================================== */
+
+/* Contêiner da imagem: centraliza e dá um espaçamento */
+.login-image-container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente (se necessário) */
+    padding: 20px 0;         /* Adiciona um espaço acima e abaixo da imagem */
+    width: 100%;             /* Garante que o contêiner ocupe toda a largura */
+}
+
+/* A imagem em si: limita o tamanho e mantém a proporção */
+.login-image-container img {
+    max-width: 80%;          /* A imagem não pode ser maior que 80% da largura da janela */
+    max-height: 200px;       /* Limita a altura máxima para não empurrar o formulário para baixo */
+    height: auto;            /* Mantém a proporção da imagem (não achata) */
+    object-fit: contain;     /* Garante que a imagem inteira apareça dentro do espaço definido */
+}
