@@ -176,18 +176,28 @@ body {
 }
 
 /* 5. JANELA LOGIN/CARRINHO (ATO 2) */
+/* 5. JANELA LOGIN/CARRINHO ATUALIZADA (+25% ALTURA) */
 .login-window {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 320px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 350px; /* Aumentamos um pouco a largura para acompanhar a altura */
+    height: 550px; /* Definimos uma altura fixa maior ou use 75vh */
     background: #000;
     border: 2px solid #DAA520;
     z-index: 2000;
-    display: none; /* Inicia oculto */
+    display: none;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+/* Ajuste no corpo para permitir scroll caso o conteúdo passe da nova altura */
+.login-body {
+    padding: 20px;
+    height: calc(100% - 45px); /* Desconta a altura do header */
+    overflow-y: auto; 
 }
 
 .login-header {
