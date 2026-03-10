@@ -1,29 +1,20 @@
-// Função simples para abrir
-function abrirCarrinho() {
-    const janela = document.getElementById('login-window');
-    if (janela) {
-        janela.style.display = 'block';
-    }
-}
-
-// Função simples para fechar
-function fecharCarrinho() {
-    const janela = document.getElementById('login-window');
-    if (janela) {
-        janela.style.display = 'none';
-    }
-}
-
-// Vincula os botões assim que a página carregar
-window.onload = function() {
-    const btnAbrir = document.querySelector('.cart-icon');
-    const btnFechar = document.querySelector('.minimize-btn');
-
-    if (btnAbrir) {
-        btnAbrir.onclick = abrirCarrinho;
+// AUTOMACÃO ATO 2 - CONEXÃO DIRETA
+document.addEventListener('click', function(e) {
+    // 1. PROCURA O CLIQUE NO CARRINHO
+    if (e.target.closest('.cart-icon')) {
+        const janela = document.getElementById('login-window');
+        if (janela) {
+            janela.style.display = 'block';
+            console.log("Link de abertura ativado.");
+        }
     }
 
-    if (btnFechar) {
-        btnFechar.onclick = fecharCarrinho;
+    // 2. PROCURA O CLIQUE NO MINIMIZAR (_)
+    if (e.target.closest('.minimize-btn')) {
+        const janela = document.getElementById('login-window');
+        if (janela) {
+            janela.style.display = 'none';
+            console.log("Link de fechamento ativado.");
+        }
     }
-};
+});
