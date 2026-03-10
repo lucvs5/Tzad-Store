@@ -178,16 +178,31 @@ function atualizarCarrinhoVisual() {
     
     if (!listaHtml) return;
 
-    listaHtml.innerHTML = itensNoCarrinho.map(item => `
+    if (itensNoCarrinho.length === 0) {
+        listaHtml.innerHTML = '<p style="text-align:center; color:#666; font-size:12px; padding:20px;">Seu carrinho está vazio.</p>';
+        if (totalHtml) totalHtml.innerText = 'R$ 0,00';
+        return;
+    }
+
+    // Renderiza cada item com a foto minificada
+    listaHtml.innerHTML = itensNoCarrinho.map((item, index) => `
         <div class="item-carrinho-demo">
-            <img src="${item.img}" style="width:50px; height:50px; object-fit:cover; border-radius:4px; border:1px solid #DAA520;">
+            <img src="${item.img}" class="img-carrinho-min" alt="${item.name}">
             <div class="item-info">
-                <span>${item.name} <strong style="color:#aaa;">(Tam: ${item.tamanho})</strong></span>
+                <span>${item.name} <small style="color:#DAA520;">(${item.tamanho})</small></span>
                 <strong>R$ ${item.price}</strong>
             </div>
+            <button onclick="removerDoCarrinho(${index})" style="background:none; border:none; color:#ff4444; cursor:pointer; font-weight:bold; margin-left:auto;">X</button>
         </div>
     `).join('');
 
+    // Calcula o Total Real
     const soma = itensNoCarrinho.reduce((acc, item) => acc + parseFloat(item.price.replace(',', '.')), 0);
     if (totalHtml) totalHtml.innerText = `R$ ${soma.toFixed(2).replace('.', ',')}`;
 }
+
+// Função extra para o cliente poder remover itens
+window.removerDoCarrinho = function(index) {
+    itensNoCarrinho.splice(index, 1);
+    atualizarCarrinhoVisual();
+};
