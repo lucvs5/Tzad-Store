@@ -1,42 +1,26 @@
-/**
- * TZAD STORE - SCRIPT.JS (COMPLETO E DEFINITIVO)
- * Gerencia a interatividade da interface (Carrinho, Login e Modais)
- */
+// TZAD STORE - SOLUÇÃO FINAL ATO 2
+console.log("Sistema Tzad Store Iniciado...");
 
-document.addEventListener('DOMContentLoaded', () => {
+// 1. Forçamos a escuta de cliques em toda a página
+document.addEventListener('click', function (event) {
     
-    // 1. Identifica os elementos exatamente como estão no seu HTML
-    const botaoCarrinho = document.querySelector('.cart-icon'); // O botão com o carrinho.png
-    const janelaLogin = document.getElementById('login-window');
-    const botaoMinimizar = document.querySelector('.minimize-btn');
-
-    // 2. Ação de ABRIR (Ao clicar no ícone do topo)
-    if (botaoCarrinho && janelaLogin) {
-        botaoCarrinho.onclick = function(e) {
-            e.preventDefault(); // Evita que a página recarregue ou suba
-            janelaLogin.style.display = 'block'; // Mostra a janela
-            console.log("Carrinho aberto com sucesso.");
-        };
-    } else {
-        console.error("Erro: Ícone do carrinho ou Janela de Login não encontrados.");
+    // 2. Verifica se o que foi clicado é o botão do carrinho (ou a imagem dentro dele)
+    if (event.target.closest('.cart-icon')) {
+        event.preventDefault();
+        const janela = document.getElementById('login-window');
+        if (janela) {
+            janela.style.setProperty('display', 'block', 'important');
+            console.log("Sucesso: Janela aberta!");
+        } else {
+            console.error("Erro: A div #login-window não existe no HTML.");
+        }
     }
 
-    // 3. Ação de MINIMIZAR (Ao clicar no _ )
-    if (botaoMinimizar && janelaLogin) {
-        botaoMinimizar.onclick = function() {
-            janelaLogin.style.display = 'none'; // Esconde a janela
-        };
+    // 3. Verifica se o que foi clicado é o botão de minimizar (_)
+    if (event.target.closest('.minimize-btn')) {
+        const janela = document.getElementById('login-window');
+        if (janela) {
+            janela.style.display = 'none';
+        }
     }
-});
-
-/**
- * FUNÇÃO GLOBAL: ABRIR MODAL DE DETALHES
- * Esta função é chamada pelos botões "Comprar" ou "Ver Produto" gerados na vitrine (shop.js)
- */
-function abrirModal(dadosProduto) {
-    const modal = document.querySelector('.modal-overlay');
-    if (modal) {
-        modal.style.display = 'flex'; // Usamos flex para centralizar o conteúdo na tela
-        console.log("Modal aberto para o produto:", dadosProduto);
-    }
-}
+}, false);
