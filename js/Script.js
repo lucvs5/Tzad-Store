@@ -3,31 +3,34 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleção dos elementos do DOM
-    const loginWindow = document.getElementById('login-window');
+    // Selecionamos os elementos necessários
     const cartIcon = document.querySelector('.cart-icon');
+    const loginWindow = document.getElementById('login-window');
     const minimizeBtn = document.querySelector('.minimize-btn');
 
     // 1. FUNÇÃO PARA ABRIR O CARRINHO
-    // Ao clicar no ícone do carrinho no topo, a janela aparece
-    if (cartIcon) {
+    if (cartIcon && loginWindow) {
         cartIcon.addEventListener('click', (e) => {
-            e.preventDefault(); // Evita comportamento padrão de link
-            if (loginWindow) {
-                loginWindow.style.display = 'block';
-                console.log("Carrinho TZAD aberto com sucesso.");
-            }
+            e.preventDefault(); // Impede qualquer comportamento indesejado
+            loginWindow.style.display = 'block'; // Mostra a janela
         });
     }
 
-    // 2. FUNÇÃO PARA MINIMIZAR / FECHAR (_)
-    // Ao clicar no botão de sublinhado, a janela é ocultada
-    if (minimizeBtn) {
+    // 2. FUNÇÃO PARA MINIMIZAR (_)
+    if (minimizeBtn && loginWindow) {
         minimizeBtn.addEventListener('click', () => {
-            if (loginWindow) {
-                loginWindow.style.display = 'none';
-            }
+            loginWindow.style.display = 'none'; // Esconde a janela
         });
+    }
+
+    // 3. FECHAR AO CLICAR FORA (OPCIONAL)
+    // Se o usuário clicar no fundo escuro, a janela também pode fechar
+    window.addEventListener('click', (e) => {
+        if (e.target === loginWindow) {
+            loginWindow.style.display = 'none';
+        }
+    });
+});
     }
 
     // FECHAR AO CLICAR FORA (Opcional, para melhorar a experiência)
