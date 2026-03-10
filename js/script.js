@@ -24,18 +24,17 @@ const produtosLoja = [
 
 let itensNoCarrinho = [];
 
-// 2. INICIALIZAÇÃO SEGURA
+// 2. INICIALIZAÇÃO (Aguardando todos os scripts e DOM)
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Sistema TZAD Reps ativo.");
     renderizarVitrines();
     configurarInterface();
 });
 
 // 3. RENDERIZAR VITRINES
 function renderizarVitrines() {
-    const ids = ['promocoes', 'nocta', 'stussy'];
+    const categorias = ['promocoes', 'nocta', 'stussy'];
     
-    ids.forEach(cat => {
+    categorias.forEach(cat => {
         const elemento = document.getElementById(`vitrine-${cat}`);
         if (elemento) {
             const produtosFiltrados = produtosLoja.filter(p => p.categoria === cat);
@@ -58,17 +57,17 @@ function configurarInterface() {
     const minimizeBtn = document.querySelector('.minimize-btn');
     const formLogin = document.getElementById('form-executa-login');
 
-    if (cartIcon) {
-        cartIcon.addEventListener('click', (e) => {
+    if (cartIcon && loginWindow) {
+        cartIcon.onclick = (e) => {
             e.preventDefault();
             loginWindow.style.display = 'block';
-        });
+        };
     }
 
-    if (minimizeBtn) {
-        minimizeBtn.addEventListener('click', () => {
+    if (minimizeBtn && loginWindow) {
+        minimizeBtn.onclick = () => {
             loginWindow.style.display = 'none';
-        });
+        };
     }
 
     if (formLogin) {
@@ -79,7 +78,7 @@ function configurarInterface() {
     }
 }
 
-// 5. TELAS
+// 5. TELAS (Global para ser acessada pelo HTML)
 window.alternarTela = function(tela) {
     const login = document.getElementById('estado-login');
     const cadastro = document.getElementById('estado-cadastro');
@@ -90,26 +89,27 @@ window.alternarTela = function(tela) {
     if (cadastro) cadastro.style.display = 'none';
     if (painel) painel.style.display = 'none';
 
-    if (tela === 'cadastro') {
+    if (tela === 'cadastro' && cadastro) {
         cadastro.style.display = 'block';
         titulo.innerText = "CRIAR CONTA";
-    } else if (tela === 'login') {
+    } else if (tela === 'login' && login) {
         login.style.display = 'block';
         titulo.innerText = "LOGIN / CARRINHO";
-    } else if (tela === 'painel') {
+    } else if (tela === 'painel' && painel) {
         painel.style.display = 'block';
         titulo.innerText = "MEU CARRINHO";
         atualizarCarrinhoVisual();
     }
-}
+};
 
 // 6. CARRINHO
 window.adicionarAoCarrinho = function(id) {
     const p = produtosLoja.find(item => item.id === id);
     if (p) {
         itensNoCarrinho.push(p);
-        alert(`${p.name} adicionado ao carrinho!`);
-        document.getElementById('login-window').style.display = 'block';
+        alert(`${p.name} adicionado!`);
+        const win = document.getElementById('login-window');
+        if(win) win.style.display = 'block';
         atualizarCarrinhoVisual();
     }
 };
@@ -126,7 +126,7 @@ function atualizarCarrinhoVisual() {
     if (!lista) return;
 
     if (itensNoCarrinho.length === 0) {
-        lista.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Seu carrinho está vazio.</p>';
+        lista.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Carrinho vazio.</p>';
         if (totalTxt) totalTxt.innerText = "R$ 0,00";
         return;
     }
@@ -134,31 +134,29 @@ function atualizarCarrinhoVisual() {
     lista.innerHTML = itensNoCarrinho.map((item, index) => `
         <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid #333; padding:10px 0;">
             <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
-            <div style="flex:1; color:white; font-size:12px;">
+            <div style="flex:1; color:white; font-size:11px;">
                 ${item.name}<br><strong style="color:#DAA520;">R$ ${item.price}</strong>
             </div>
-            <button onclick="removerItem(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
+            <button onclick="removerItem(${index})" style="background:none; border:none; color:red; cursor:pointer;">X</button>
         </div>
     `).join('');
 
     const soma = itensNoCarrinho.reduce((acc, p) => {
-        let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
+        let valor = parseFloat(p.price.replace(',', '.'));
         return acc + valor;
     }, 0);
     
-    if (totalTxt) {
-        totalTxt.innerText = `R$ ${soma.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    }
+    if (totalTxt) totalTxt.innerText = `R$ ${soma.toFixed(2).replace('.', ',')}`;
 }
 
-// 7. WHATSAPP (Apenas um evento no final)
+// 7. FINALIZAR (WHATSAPP)
 document.addEventListener('click', (e) => {
     if (e.target && e.target.id === 'btn-finalizar') {
         if (itensNoCarrinho.length === 0) return alert("Carrinho vazio!");
-        let texto = "Olá TZAD! Gostaria de pedir:%0A";
-        itensNoCarrinho.forEach(i => texto += `- ${i.name} (R$ ${i.price})%0A`);
+        let msg = "Olá TZAD! Pedido:%0A";
+        itensNoCarrinho.forEach(i => msg += `- ${i.name}%0A`);
         const total = document.getElementById('total-carrinho').innerText;
-        texto += `%0A*Total: ${total}*`;
-        window.open(`https://wa.me/5511999999999?text=${texto}`, '_blank');
+        msg += `%0ATotal: ${total}`;
+        window.open(`https://wa.me/5511999999999?text=${msg}`, '_blank');
     }
 });
