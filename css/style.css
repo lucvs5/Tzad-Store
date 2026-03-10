@@ -11,7 +11,7 @@ body {
     color: #ffffff;
 }
 
-/* CABEÇALHO */
+/* 1. CABEÇALHO */
 .topo {
     display: flex;
     justify-content: space-between;
@@ -79,6 +79,7 @@ body {
     color: #DAA520;
 }
 
+/* AJUSTE DOS ÍCONES SOCIAIS (REMOVIDO FILTRO BRANCO) */
 .redes-produtos {
     display: flex;
     justify-content: center;
@@ -86,10 +87,11 @@ body {
     margin-top: 15px;
 }
 
-.redes-produtos img {
-    width: 22px;
+.redes-produtos a img {
+    width: 25px; /* Tamanho que você aprovou */
     height: auto;
-    filter: brightness(0) invert(1);
+    display: block;
+    /* Filtro removido para as imagens aparecerem corretamente */
 }
 
 /* GRID E PRODUTOS */
@@ -127,7 +129,6 @@ body {
     border-radius: 5px;
 }
 
-/* BOTÃO COMPRAR (VITRINE) */
 .btn-comprar {
     background-color: #DAA520;
     color: #000000;
@@ -141,24 +142,19 @@ body {
     font-size: 12px;
 }
 
-/* AJUSTE SOLICITADO: BOTÃO VER TODOS */
+/* BOTÃO VER TODOS (DOURADO) */
 .ver-todos {
     display: block;
     margin: 20px auto;
     padding: 12px 40px;
-    background-color: #DAA520; /* Cor solicitada */
-    color: #000000;            /* Texto preto para contraste */
+    background-color: #DAA520;
+    color: #000000;
     border: none;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
     font-size: 14px;
-    transition: opacity 0.2s;
-}
-
-.ver-todos:hover {
-    opacity: 0.8;
 }
 
 /* VÍDEO NOCTA */
@@ -236,7 +232,7 @@ body {
     text-decoration: none;
 }
 
-/* MODAL OVERLAY */
+/* MODAL OVERLAY (X PRETO E GROSSO) */
 .modal-overlay {
     position: fixed;
     top: 0;
