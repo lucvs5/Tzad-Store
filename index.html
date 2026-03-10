@@ -131,53 +131,81 @@
             <strong id="total-carrinho" style="color: #DAA520; font-size: 18px;">R$ 0,00</strong>
         </div>
     </div>
-
-    <div class="divisor"></div>
-
-    <button class="login-button" style="margin-bottom: 10px; background: #DAA520; color: #000;">
-        FINALIZAR COMPRA
-    </button>
-    
-    <div class="user-menu-grid">
-        <button class="menu-item-btn">Meu Perfil</button>
-        <button class="menu-item-btn">Pedidos</button>
+<div id="login-window" class="login-window">
+    <div class="login-header">
+        <span id="titulo-janela">LOGIN / CARRINHO</span>
+        <button class="minimize-btn">_</button>
     </div>
+    
+    <div class="login-body">
+        <div id="estado-login">
+            <form class="login-form" id="form-executa-login">
+                <label>E-mail</label>
+                <input type="email" id="login-email" placeholder="Digite seu e-mail" required>
+                <label>Senha</label>
+                <input type="password" id="login-senha" placeholder="Digite sua senha" required>
+                <button type="submit" class="login-button">Entrar</button>
+            </form>
+            <div class="links">
+                <a href="#">Esqueceu a senha?</a>
+                <a href="javascript:void(0)" id="btn-ir-cadastro">Criar conta</a>
+            </div>
+        </div>
 
-    <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 10px; border-color: #ff4444; color: #ff4444;">
-        SAIR DA CONTA
-    </button>
-</div>
-            
-            <div class="user-menu-grid">
-                <button class="menu-item-btn">Meu Perfil</button>
-                <button class="menu-item-btn">Mensagens</button>
-                <button class="menu-item-btn">Endereços</button>
-                <button class="menu-item-btn">Rastrear Pedidos</button>
+        <div id="estado-cadastro" style="display: none;">
+            <form class="login-form">
+                <label>Nome Completo</label>
+                <input type="text" placeholder="Seu nome">
+                <label>E-mail</label>
+                <input type="email" placeholder="Seu melhor e-mail">
+                <label>Senha</label>
+                <input type="password" placeholder="Mínimo 6 dígitos">
+                <button type="submit" class="login-button">Cadastrar</button>
+            </form>
+            <div class="links">
+                <a href="javascript:void(0)" id="btn-ir-login">Já tenho conta (Login)</a>
+            </div>
+        </div>
+
+        <div id="estado-painel" style="display: none;">
+            <div class="user-welcome">
+                <p>Bem-vindo, <strong id="user-name-display">João</strong>.</p>
             </div>
 
-            <hr class="divisor">
-            <p class="section-label">CARRINHO</p>
-            
+            <div class="divisor"></div>
+            <p class="section-label">MEU CARRINHO</p>
+
             <div id="carrinho-lista">
-                <div class="item-carrinho-demo">
-                    <img src="img/produto1.png" alt="Produto">
-                    <div class="item-info">
-                
-                    </div>
+                <p style="text-align:center; color:#666; font-size:12px; padding:20px;">Seu carrinho está vazio.</p>
+            </div>
+
+            <div class="divisor"></div>
+
+            <div class="carrinho-resumo">
+                <div class="resumo-linha">
+                    <span>Total:</span>
+                    <strong id="total-carrinho" style="color: #DAA520; font-size: 18px;">R$ 0,00</strong>
                 </div>
             </div>
 
-            <hr class="divisor">
-            <div class="carrinho-resumo">
-                <div class="resumo-linha"><span>Descontos:</span> <span>R$ 0,00</span></div>
-                <div class="resumo-linha"><span>Total:</span> <strong id="total-carrinho">R$ 189,90</strong></div>
+            <button class="login-button" style="margin-top: 15px; background: #DAA520; color: #000; font-weight: bold;">
+                FINALIZAR COMPRA
+            </button>
+            
+            <div class="divisor"></div>
+
+            <div class="user-menu-grid">
+                <button class="menu-item-btn">Meu Perfil</button>
+                <button class="menu-item-btn">Pedidos</button>
+                <button class="menu-item-btn">Endereços</button>
+                <button class="menu-item-btn">Suporte</button>
             </div>
 
-            <button class="login-button" style="margin-top: 15px; background: #28a745; color: white;">PAGAR</button>
-            <a href="javascript:void(0)" id="btn-logout" style="display:block; text-align:center; margin-top:10px; color:#ff4444; font-size:12px; text-decoration:none;">Sair da conta</a>
+            <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 15px; border-color: #ff4444; color: #ff4444;">
+                SAIR DA CONTA
+            </button>
         </div>
     </div>
-</div>
 </div>
 
 <script src="js/shop.js"></script>
