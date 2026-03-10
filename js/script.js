@@ -1,33 +1,54 @@
-// TZAD STORE - AUTOMAÇÃO ATO 2
+// TZAD STORE - SCRIPT UNIFICADO (ATÉ ATO 3)
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Seleção de Elementos com IDs e Classes do seu HTML
+    
+    // --- 1. CONTROLE DA JANELA DE LOGIN/CARRINHO ---
     const cartIcon = document.querySelector('.cart-icon');
     const loginWindow = document.getElementById('login-window');
     const minimizeBtn = document.querySelector('.minimize-btn');
 
-    console.log("Script carregado. Verificando elementos...");
-
-    // 2. Abre a janela ao clicar no ícone do carrinho
+    // Abre a janela
     if (cartIcon && loginWindow) {
         cartIcon.addEventListener('click', (e) => {
             e.preventDefault();
             loginWindow.style.display = 'block';
             console.log("Interface de login/carrinho ativada.");
         });
-    } else {
-        console.error("Erro: .cart-icon ou #login-window não encontrados no HTML.");
     }
 
-    // 3. Minimiza a janela ao clicar no botão (_)
+    // Minimiza a janela
     if (minimizeBtn && loginWindow) {
         minimizeBtn.addEventListener('click', () => {
             loginWindow.style.display = 'none';
-            console.log("Interface minimizada.");
         });
     }
 
-    // --- GERENCIAMENTO DE PRODUTOS ---
+    // --- 2. TROCA DE TELAS (LOGIN <-> CADASTRO) ---
+    const formLogin = document.getElementById('form-login');
+    const formCadastro = document.getElementById('form-cadastro');
+    const btnIrCadastro = document.getElementById('btn-ir-cadastro');
+    const btnIrLogin = document.getElementById('btn-ir-login');
+
+    if (btnIrCadastro && btnIrLogin) {
+        // Mudar para Cadastro
+        btnIrCadastro.addEventListener('click', (e) => {
+            e.preventDefault();
+            formLogin.style.display = 'none';
+            formCadastro.style.display = 'block';
+            console.log("Mudando para tela de Cadastro.");
+        });
+
+        // Voltar para Login
+        btnIrLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            formCadastro.style.display = 'none';
+            formLogin.style.display = 'block';
+            console.log("Voltando para tela de Login.");
+        });
+    }
+
+    // --- 3. GERENCIAMENTO DE PRODUTOS (VITRINES) ---
+    // Você pode adicionar mais produtos aqui seguindo o mesmo padrão
     const produtosPromocao = [
         { id: 1, name: "Camiseta Nocta Gold", price: "189,90", img: "img/produto1.png" },
         { id: 2, name: "Shorts Stüssy Black", price: "159,00", img: "img/produto2.png" },
@@ -44,17 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${p.img}" alt="${p.name}">
                 <h3>${p.name}</h3>
                 <p>R$ ${p.price}</p>
-                <button class="btn-comprar" onclick="abrirDetalhes('${p.id}')">
+                <button class="btn-comprar" onclick="window.abrirDetalhes('${p.id}')">
                     Adicionar ao Carrinho
                 </button>
             </div>
         `).join('');
     }
 
+    // Carrega a vitrine inicial
     renderizarVitrine(produtosPromocao, 'vitrine-promocoes');
 });
 
-// 4. Função Global para o Modal de Detalhes (Ato 5)
+// --- 4. FUNÇÕES GLOBAIS (MODAL DE DETALHES) ---
+// Definidas no objeto window para garantir que o 'onclick' do HTML as encontre
 window.abrirDetalhes = function(produtoId) {
     const modal = document.querySelector('.modal-overlay');
     if (modal) {
@@ -62,3 +85,12 @@ window.abrirDetalhes = function(produtoId) {
         console.log("Abrindo detalhes do produto: " + produtoId);
     }
 };
+
+window.fecharDetalhes = function() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+};
+
+console.log("Tzad Store Engine: Online e atualizada para o Ato 3.");
