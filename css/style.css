@@ -1,116 +1,331 @@
-/* GERAL */
-body {
+/* RESET BÁSICO */
+* {
     margin: 0;
     padding: 0;
-    background-color: #000;
-    color: #fff;
+    box-sizing: border-box;
     font-family: 'Playfair Display', serif;
 }
 
-/* HEADER */
+body {
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* 1. CABEÇALHO (TOPO) */
 .topo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #000;
-    border-bottom: 1px solid #333;
+    padding: 10px 5%;
+    background: #000000;
+    border-bottom: 2px solid #1a1a1a;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
+.menu-icon {
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: #DAA520;
+}
+
 .logo {
-    height: 40px;
+    height: 35px;
+    object-fit: contain;
 }
 
 .cart-icon {
     background: none;
     border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .cart-icon img {
-    cursor: pointer;
+    width: 45px;
+    height: auto;
+    mix-blend-mode: screen; /* Remove fundos indesejados se a imagem for preta */
 }
 
-/* JANELA DE LOGIN (ATO 2) */
+/* 2. CONTEÚDO PRINCIPAL E BANNER */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.banner img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+/* 3. CABEÇALHO DE BOAS-VINDAS (SIMETRIA CORRIGIDA) */
+.cabecalho-produtos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 40px auto;
+    max-width: 850px;
+}
+
+.textos-produtos h2 {
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: #DAA520;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.textos-produtos p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+.redes-produtos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.redes-produtos a img {
+    width: 28px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.redes-produtos a img:hover {
+    transform: scale(1.1);
+}
+
+/* 4. VITRINE NOBRE (FUNDO DOURADO UNIFICADO) */
+.titulo-colecao {
+    font-size: 22px;
+    border-left: 4px solid #DAA520;
+    padding-left: 15px;
+    margin: 40px 0 20px;
+    color: #DAA520;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.categoria {
+    background-color: #DAA520; /* Bloco unificado dourado */
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+}
+
+.produto {
+    text-align: center;
+    padding: 10px;
+    background: transparent;
+}
+
+.produto img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.produto h3 {
+    color: #000000; /* Texto preto para o fundo dourado */
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.produto p {
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.btn-comprar {
+    background-color: #000000; /* Botão preto contrastante */
+    color: #DAA520;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 11px;
+    transition: background 0.3s;
+}
+
+.btn-comprar:hover {
+    background-color: #1a1a1a;
+}
+
+.ver-todos {
+    display: block;
+    margin: 25px auto 0;
+    padding: 12px 40px;
+    background-color: #000000;
+    color: #DAA520;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.2s;
+}
+
+.ver-todos:hover {
+    transform: scale(1.05);
+}
+
+/* 5. VÍDEO NOCTA */
+.video-loja {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.video-loja video {
+    width: 90%;
+    max-width: 750px;
+    border-radius: 15px;
+    border: 2px solid #1a1a1a;
+}
+
+/* 6. JANELA LOGIN/CARRINHO (MINIMIZÁVEL) */
 .login-window {
-    display: none; /* Inicia oculta */
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 320px;
-    background-color: #111;
-    border: 1px solid #DAA520;
-    border-radius: 8px;
-    z-index: 9999;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    background: #000000;
+    border: 2px solid #DAA520;
+    z-index: 2000;
+    display: none; /* Controlado pelo JS */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
 }
 
 .login-header {
-    background-color: #DAA520;
-    color: #000;
-    padding: 10px;
+    background: #DAA520;
+    color: #000000;
+    padding: 12px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
+    font-size: 14px;
 }
 
 .minimize-btn {
-    background: none;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
     cursor: pointer;
+    background: #000000;
+    color: #DAA520;
+    border: none;
+    width: 24px;
+    height: 24px;
+    font-weight: bold;
+    border-radius: 4px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-body {
-    padding: 20px;
+    padding: 25px;
 }
 
-.login-form {
-    display: flex;
-    flex-direction: column;
+.login-form label {
+    display: block;
+    color: #DAA520;
+    font-size: 12px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .login-form input {
-    margin: 10px 0;
-    padding: 10px;
-    background: #222;
-    border: 1px solid #444;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    background: #0a0a0a;
+    border: 1px solid #333;
     color: #fff;
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 .login-button {
-    background-color: #DAA520;
+    width: 100%;
+    background: #DAA520;
     color: #000;
     border: none;
-    padding: 10px;
-    font-weight: bold;
+    padding: 14px;
     cursor: pointer;
-    margin-top: 10px;
+    font-weight: bold;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: 13px;
 }
 
 .links {
+    font-size: 12px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    margin-top: 15px;
 }
 
 .links a {
     color: #DAA520;
     text-decoration: none;
+    font-weight: 500;
 }
 
-/* AJUSTE PARA MOBILE */
+/* 7. MODAL DETALHES (X PRETO E GROSSO) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none; justify-content: center; align-items: center;
+    z-index: 3000;
+}
+
+.modal-content {
+    background: #111; color: white; width: 90%; max-width: 450px;
+    padding: 30px; border-radius: 20px; border: 1px solid #DAA520;
+    position: relative;
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute; top: 15px; right: 15px;
+    background: #DAA520; color: #000000;
+    font-size: 32px; font-weight: 900; /* X Grosso */
+    width: 45px; height: 45px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    border: none; cursor: pointer;
+}
+
+/* RESPONSIVIDADE */
 @media (max-width: 600px) {
-    .login-window {
-        width: 90%;
-        left: 5%;
-        right: 5%;
-        bottom: 10px;
-    }
+    .produtos { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .categoria { padding: 15px; }
+    .titulo-colecao { font-size: 18px; }
+    .logo { height: 28px; }
+    .login-window { width: 90%; right: 5%; left: 5%; bottom: 10px; }
 }
