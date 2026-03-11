@@ -242,6 +242,50 @@
 
     <button class="menu-item-btn" onclick="abrirSubPagina('carrinho')" style="width: 100%; margin-top: 10px;">Voltar ao Carrinho</button>
 </div>
+
+<button class="menu-item-btn" onclick="abrirSubPagina('carrinho')" style="width: 100%; margin-top: 10px;">Voltar ao Carrinho</button>
+</div> <div id="aba-enderecos" style="display:none; padding: 10px;">
+    <h3 style="color: #DAA520; font-size: 16px; margin-bottom: 15px; text-align: center;">MEUS ENDEREÇOS</h3>
+
+    <div style="background: #111; border: 1px solid #333; padding: 12px; border-radius: 8px;">
+        <p style="font-size: 11px; color: #DAA520; margin-bottom: 10px; font-weight: bold;">+ NOVO ENDEREÇO</p>
+        <div class="user-info-fields" style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="info-group">
+                <label>Rua:</label>
+                <input type="text" id="end-rua" placeholder="Nome da rua">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div class="info-group"><label>Número:</label><input type="text" id="end-numero"></div>
+                <div class="info-group"><label>Bairro:</label><input type="text" id="end-bairro"></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div class="info-group"><label>Estado:</label><input type="text" id="end-estado" maxlength="2"></div>
+                <div class="info-group"><label>Referência:</label><input type="text" id="end-ref"></div>
+            </div>
+            <button onclick="salvarEndereco()" class="login-button" style="margin-top: 10px;">SALVAR ENDEREÇO</button>
+        </div>
+    </div>
+
+    <div class="divisor" style="margin: 20px 0;"></div>
+
+    <p class="section-label">ENDEREÇOS SALVOS</p>
+    <div id="lista-enderecos-salvos">
+        <p style="text-align: center; color: #555; font-size: 11px;">Nenhum endereço cadastrado.</p>
+    </div>
+
+    <button class="menu-item-btn" onclick="abrirSubPagina('carrinho')" style="width: 100%; margin-top: 15px;">Voltar ao Carrinho</button>
+</div>
+
+<div id="aba-mensagens" style="display:none; padding: 20px; text-align: center; color: #888;">
+    <p>Você não possui mensagens no momento.</p>
+    <button class="menu-item-btn" onclick="abrirSubPagina('carrinho')" style="width: 100%; margin-top: 15px;">Voltar</button>
+</div>
+
+<div id="aba-rastrear" style="display:none; padding: 20px; text-align: center; color: #888;">
+    <p>Nenhum pedido em transporte.</p>
+    <button class="menu-item-btn" onclick="abrirSubPagina('carrinho')" style="width: 100%; margin-top: 15px;">Voltar</button>
+</div>
+            
     <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 20px; color: #ff4444; border-color: #551111;">
         Sair da conta
     </button>
