@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarEnderecos();
 });
 
-// 3. RENDERIZAR VITRINES
+// 3. RENDERIZAR VITRINES (Atualizado para o novo Modal)
 function renderizarVitrines() {
     const categorias = ['promocoes', 'nocta', 'stussy'];
     categorias.forEach(cat => {
@@ -40,7 +40,7 @@ function renderizarVitrines() {
             const produtosFiltrados = produtosLoja.filter(p => p.categoria === cat);
             elemento.innerHTML = produtosFiltrados.map(p => `
                 <div class="produto">
-                    <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=TZAD'">
+                    <img src="${p.img}" alt="${p.name}">
                     <h4>R$ ${p.price}</h4>
                     <p>${p.name}</p>
                     <button class="btn-comprar" onclick="abrirModalZoom('${p.name}', '${p.price}', '${p.img}')">Ver Detalhes</button>
@@ -49,6 +49,65 @@ function renderizarVitrines() {
         }
     });
 }
+
+// 3.1. FUNÇÃO DO MODAL DE ZOOM COM CARROSSEL
+window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
+    const modal = document.getElementById('modal-produto');
+    const imgMain = document.getElementById('img-principal-zoom');
+    const nomeTxt = document.getElementById('zoom-nome-produto');
+    const containerThumbs = document.getElementById('miniaturas-container');
+    const btnAdd = document.getElementById('btn-add-zoom');
+
+    // Preenche os textos básicos
+    nomeTxt.innerText = nome;
+    imgMain.src = imgPrincipal;
+
+    // LÓGICA DO CARROSSEL: 
+    // Se não houver fotos extras, repetimos a principal 6x para o design ficar bonito.
+    let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
+
+    containerThumbs.innerHTML = listaDeFotos.map((foto, index) => `
+        <img src="${foto}" 
+             class="thumb-item ${index === 0 ? 'thumb-active' : ''}" 
+             onclick="trocarImagemZoom('${foto}', this)">
+    `).join('');
+
+    // Configura o botão de adicionar ao carrinho de dentro do modal
+    btnAdd.onclick = () => {
+        const tamanhoSelecionado = document.getElementById('zoom-tamanho').value;
+        
+        // Adiciona ao array do carrinho
+        itensNoCarrinho.push({
+            name: nome,
+            price: preco,
+            img: imgPrincipal,
+            size: tamanhoSelecionado
+        });
+
+        fecharModalZoom(); // Fecha o zoom
+        
+        // Abre o Carrinho/Painel automaticamente para mostrar o item
+        const loginWin = document.getElementById('login-window');
+        if(loginWin) loginWin.style.display = 'block';
+        
+        abrirSubPagina('carrinho'); // Garante que caia na aba do carrinho
+        atualizarCarrinhoVisual();  // Atualiza preços e lista
+    };
+
+    modal.style.display = 'flex'; // Mostra o modal
+};
+
+// FUNÇÕES AUXILIARES DO ZOOM
+window.fecharModalZoom = function() {
+    document.getElementById('modal-produto').style.display = 'none';
+};
+
+window.trocarImagemZoom = function(src, elemento) {
+    document.getElementById('img-principal-zoom').src = src;
+    // Remove o destaque de todas as miniaturas e coloca na clicada
+    document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('thumb-active'));
+    elemento.classList.add('thumb-active');
+};
 
 // 4. INTERFACE E ABERTURA DA JANELA (CARRINHO)
 function configurarInterface() {
