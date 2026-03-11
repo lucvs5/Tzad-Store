@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarInterface();
 });
 
-// 3. RENDERIZAR VITRINES
+// 3. RENDERIZAR VITRINES (Atualizado para abrir o Modal Profissional)
 function renderizarVitrines() {
     const categorias = ['promocoes', 'nocta', 'stussy'];
     categorias.forEach(cat => {
@@ -70,7 +70,9 @@ function renderizarVitrines() {
                     <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=TZAD'">
                     <h4>R$ ${p.price}</h4>
                     <p>${p.name}</p>
-                    <button class="btn-comprar" onclick="adicionarAoCarrinho(${p.id})">Adicionar ao carrinho</button>
+                    <button class="btn-comprar" onclick="abrirModalZoom('${p.name}', '${p.price}', '${p.img}', ${JSON.stringify(p.galeria || [])})">
+                        Ver Detalhes
+                    </button>
                 </div>
             `).join('');
         }
