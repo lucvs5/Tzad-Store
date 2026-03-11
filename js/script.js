@@ -261,4 +261,46 @@ window.salvarDadosPerfil = function() {
         btn.style.color = "#DAA520";
         btn.style.borderColor = "#DAA520";
     }, 2000);
+}
+
+// MÁSCARA CPF
+window.mascaraCPF = function(i) {
+    let v = i.value.replace(/\D/g, "");
+    if (v.length > 11) v = v.slice(0, 11);
+    v = v.replace(/(\d{3})(\d)/, "$1.$2");
+    v = v.replace(/(\d{3})(\d)/, "$1.$2");
+    v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    i.value = v;
+};
+
+// MÁSCARA TELEFONE
+window.mascaraTel = function(i) {
+    let v = i.value.replace(/\D/g, "");
+    if (v.length > 11) v = v.slice(0, 11);
+    v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+    v = v.replace(/(\d{5})(\d)/, "$1-$2");
+    i.value = v;
+};
+
+// FUNÇÃO SALVAR COM FEEDBACK
+window.salvarDadosPerfil = function() {
+    const cpf = document.getElementById('perfil-cpf').value;
+    const tel = document.getElementById('perfil-tel').value;
+
+    if (cpf.length < 14 || tel.length < 14) {
+        alert("⚠️ Por favor, preencha o CPF e o Telefone completos.");
+        return;
+    }
+
+    // Simulação de salvamento
+    const btn = event.target;
+    btn.innerText = "DADOS SALVOS! ✓";
+    btn.style.borderColor = "#4CAF50";
+    btn.style.color = "#4CAF50";
+
+    setTimeout(() => {
+        btn.innerText = "SALVAR DADOS";
+        btn.style.borderColor = "#DAA520";
+        btn.style.color = "#DAA520";
+    }, 2000);
 };
