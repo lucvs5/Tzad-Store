@@ -129,16 +129,23 @@ window.alternarTela = function(tela) {
 
 // 6. NAVEGAÇÃO INTERNA DO PAINEL (ADICIONE ISSO AQUI)
 window.abrirSubPagina = function(abaId) {
-    // Lista de todas as abas que criamos no HTML
     const abas = ['carrinho', 'perfil', 'mensagens', 'enderecos', 'rastrear'];
+    const menuNavegacao = document.getElementById('menu-navegacao-painel');
     
+    // 1. Esconde ou Mostra as abas de conteúdo
     abas.forEach(aba => {
         const elemento = document.getElementById(`aba-${aba}`);
         if (elemento) {
-            // Se for a aba clicada, mostra. Se não, esconde.
             elemento.style.display = (aba === abaId) ? 'block' : 'none';
         }
     });
+
+    // 2. Lógica do Menu de Botões:
+    // Se estiver no 'carrinho', o menu aparece (grid). 
+    // Se entrar em qualquer outra subpágina, o menu some (none).
+    if (menuNavegacao) {
+        menuNavegacao.style.display = (abaId === 'carrinho') ? 'grid' : 'none';
+    }
 };
 
 // 7. CARRINHO (Adicionar, Remover e Somar)
