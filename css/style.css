@@ -437,8 +437,16 @@ body {
 }
 
 .modal-zoom {
-    position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center;
+    display: none; /* Mude de flex para none aqui */
+    position: fixed; 
+    z-index: 10000; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.95); 
+    align-items: center; 
+    justify-content: center;
 }
 .modal-zoom-content {
     width: 90%; max-width: 500px; background: #0a0a0a; border: 1px solid #333;
@@ -462,4 +470,4 @@ body {
 .sel-tam {
     width: 100%; background: #111; color: #fff; border: 1px solid #444;
     padding: 10px; border-radius: 6px; margin: 10px 0;
-}
+    }
