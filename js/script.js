@@ -71,7 +71,42 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
              class="thumb-item ${index === 0 ? 'thumb-active' : ''}" 
              onclick="trocarImagemZoom('${foto}', this)">
     `).join('');
+// Configura o botão de adicionar ao carrinho de dentro do modal
+    btnAdd.onclick = () => {
+        const tamanhoSelecionado = document.getElementById('zoom-tamanho').value;
+        
+        // Adiciona ao array do carrinho
+        itensNoCarrinho.push({
+            name: nome,
+            price: preco,
+            img: imgPrincipal,
+            size: tamanhoSelecionado
+        });
 
+        fecharModalZoom(); // Fecha o zoom
+
+        // Abre o Carrinho/Painel automaticamente para mostrar o item
+        const loginWin = document.getElementById('login-window');
+        if(loginWin) loginWin.style.display = 'block';
+        
+        abrirSubPagina('carrinho'); // Garante que caia na aba do carrinho
+        atualizarCarrinhoVisual();  // Atualiza preços e lista
+    };
+
+    modal.style.display = 'flex'; // Mostra o modal
+};
+
+// FUNÇÕES AUXILIARES DO ZOOM
+window.fecharModalZoom = function() {
+    document.getElementById('modal-produto').style.display = 'none';
+};
+
+window.trocarImagemZoom = function(src, elemento) {
+    document.getElementById('img-principal-zoom').src = src;
+    // Remove o destaque de todas as miniaturas e coloca na clicada
+    document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('thumb-active'));
+    elemento.classList.add('thumb-active');
+};
     // Configura o botão de adicionar ao carrinho de dentro do modal
     btnAdd.onclick = () => {
         const tamanhoSelecionado = document.getElementById('zoom-tamanho').value;
