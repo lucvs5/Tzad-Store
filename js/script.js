@@ -27,72 +27,7 @@ const produtosLoja = [
 
 let itensNoCarrinho = [];
 
-window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
-    const modal = document.getElementById('modal-produto');
-    const imgMain = document.getElementById('img-principal-zoom');
-    const nomeTxt = document.getElementById('zoom-nome-produto');
-    const containerThumbs = document.getElementById('miniaturas-container');
-    const btnAdd = document.getElementById('btn-add-zoom');
 
-    if (!modal) return;
-
-    nomeTxt.innerText = nome;
-    imgMain.src = imgPrincipal;
-
-    // Lógica para repetir a foto 6x se não houver fotos extras
-    let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
-
-    let htmlThumbs = '';
-    listaDeFotos.forEach((foto, index) => {
-        htmlThumbs += `
-            <img src="${foto}" 
-                 class="thumb-item ${index === 0 ? 'thumb-active' : ''}" 
-                 onclick="trocarImagemZoom('${foto}', this)">
-        `;
-    });
-    
-    containerThumbs.innerHTML = htmlThumbs;
-
-    // AQUI ESTÁ O QUE VOCÊ NÃO LOCALIZOU: O comportamento do botão ADICIONAR
-    btnAdd.onclick = () => {
-        const tamanho = document.getElementById('zoom-tamanho').value;
-        
-        // Adiciona ao carrinho com todas as informações necessárias
-        itensNoCarrinho.push({ 
-            name: nome, 
-            price: preco, 
-            img: imgPrincipal, 
-            size: tamanho 
-        });
-
-        // 1. Fecha o modal de zoom
-        fecharModalZoom();
-        
-        // 2. Abre a janela de login/painel automaticamente
-        const win = document.getElementById('login-window');
-        if(win) win.style.display = 'block';
-
-        // 3. Garante que dentro do painel ele mostre a aba do carrinho
-        abrirSubPagina('carrinho'); 
-        
-        // 4. Atualiza os valores e o desconto Stüssy
-        atualizarCarrinhoVisual(); 
-    };
-
-    modal.style.display = 'flex';
-};
-
-// Funções Auxiliares do Modal (Coloque logo abaixo se não tiver)
-window.fecharModalZoom = function() {
-    const modal = document.getElementById('modal-produto');
-    if(modal) modal.style.display = 'none';
-};
-
-window.trocarImagemZoom = function(src, el) {
-    document.getElementById('img-principal-zoom').src = src;
-    document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('thumb-active'));
-    el.classList.add('thumb-active');
-};
 
 // 2. INICIALIZAÇÃO
 document.addEventListener('DOMContentLoaded', () => {
@@ -461,6 +396,8 @@ window.removerEndereco = function(id) {
     renderizarEnderecos();
 };
 
+// 9. FUNÇÕES DO MODAL PROFISSIONAL (CARROSSEL)
+
 window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
     const modal = document.getElementById('modal-produto');
     const imgMain = document.getElementById('img-principal-zoom');
@@ -468,12 +405,15 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
     const containerThumbs = document.getElementById('miniaturas-container');
     const btnAdd = document.getElementById('btn-add-zoom');
 
+    if (!modal) {
+        console.error("Erro: O modal-produto não foi encontrado no HTML.");
+        return;
+    }
+
     nomeTxt.innerText = nome;
     imgMain.src = imgPrincipal;
 
-    // LÓGICA AUTOMÁTICA:
-    // Se fotosExtras estiver vazio, criamos um array com a foto principal repetida 6x
-    // Se fotosExtras TIVER fotos, usamos as fotos que você colocar lá
+    // Lógica para repetir a foto 6x se não houver fotos extras
     let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
 
     let htmlThumbs = '';
@@ -487,19 +427,47 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
     
     containerThumbs.innerHTML = htmlThumbs;
 
-    // Configura o botão de adicionar
+    // Lógica do botão ADICIONAR dentro do modal
     btnAdd.onclick = () => {
-        const tamanho = document.getElementById('zoom-tamanho').value;
-        // Aqui garantimos que o item vai para o carrinho com o TAMANHO selecionado
+        // Pega o valor do seletor de tamanho do modal
+        const seletorTamanho = document.getElementById('zoom-tamanho');
+        const tamanhoEscolhido = seletorTamanho ? seletorTamanho.value : 'P';
+        
+        // Adiciona ao carrinho
         itensNoCarrinho.push({ 
             name: nome, 
             price: preco, 
             img: imgPrincipal, 
-            size: tamanho 
+            size: tamanhoEscolhido 
         });
-        fecharModalZoom();
-        atualizarCarrinhoVisual(); // Chama sua função que calcula os descontos Stüssy
+
+        fecharModalZoom(); // Fecha o modal após adicionar
+        
+        // Abre o carrinho automaticamente
+        const win = document.getElementById('login-window');
+        if(win) win.style.display = 'block';
+        abrirSubPagina('carrinho'); 
+        
+        atualizarCarrinhoVisual(); 
     };
 
     modal.style.display = 'flex';
 };
+
+// Função para fechar o modal
+window.fecharModalZoom = function() {
+    const modal = document.getElementById('modal-produto');
+    if(modal) {
+        modal.style.display = 'none';
+    }
+};
+
+// Função para trocar a imagem principal ao clicar na miniatura
+window.trocarImagemZoom = function(src, el) {
+    const imgMain = document.getElementById('img-principal-zoom');
+    if(imgMain) imgMain.src = src;
+    
+    // Remove a borda dourada de todas e coloca na clicada
+    document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('thumb-active'));
+    el.classList.add('thumb-active');
+}; 
