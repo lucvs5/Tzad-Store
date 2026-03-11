@@ -27,29 +27,71 @@ const produtosLoja = [
 
 let itensNoCarrinho = [];
 
-window.abrirModalProduto = function(nome, preco, img) {
-    const modal = document.getElementById('modal-detalhe-produto'); // Certifique-se de ter esse ID no HTML
+window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
+    const modal = document.getElementById('modal-produto');
+    const imgMain = document.getElementById('img-principal-zoom');
+    const nomeTxt = document.getElementById('zoom-nome-produto');
+    const containerThumbs = document.getElementById('miniaturas-container');
+    const btnAdd = document.getElementById('btn-add-zoom');
+
+    if (!modal) return;
+
+    nomeTxt.innerText = nome;
+    imgMain.src = imgPrincipal;
+
+    // Lógica para repetir a foto 6x se não houver fotos extras
+    let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
+
+    let htmlThumbs = '';
+    listaDeFotos.forEach((foto, index) => {
+        htmlThumbs += `
+            <img src="${foto}" 
+                 class="thumb-item ${index === 0 ? 'thumb-active' : ''}" 
+                 onclick="trocarImagemZoom('${foto}', this)">
+        `;
+    });
     
-    // Injeta o conteúdo no modal
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close" onclick="fecharModal()">&times;</span>
-            <img src="${img}" style="width:100%; max-width:300px;">
-            <h3>${nome}</h3>
-            <p style="color: #DAA520; font-weight: bold;">R$ ${preco.toFixed(2)}</p>
-            
-            <label>Escolha o Tamanho:</label>
-            <select id="escolha-tamanho" style="width: 100%; padding: 5px; margin: 10px 0; background: #222; color: #fff; border: 1px solid #444;">
-                <option value="P">P</option>
-                <option value="M">M</option>
-                <option value="G">G</option>
-                <option value="GG">GG</option>
-            </select>
-            
-            <button class="login-button" onclick="adicionarAoCarrinho('${nome}', ${preco})">ADICIONAR AO CARRINHO</button>
-        </div>
-    `;
-    modal.style.display = "block";
+    containerThumbs.innerHTML = htmlThumbs;
+
+    // AQUI ESTÁ O QUE VOCÊ NÃO LOCALIZOU: O comportamento do botão ADICIONAR
+    btnAdd.onclick = () => {
+        const tamanho = document.getElementById('zoom-tamanho').value;
+        
+        // Adiciona ao carrinho com todas as informações necessárias
+        itensNoCarrinho.push({ 
+            name: nome, 
+            price: preco, 
+            img: imgPrincipal, 
+            size: tamanho 
+        });
+
+        // 1. Fecha o modal de zoom
+        fecharModalZoom();
+        
+        // 2. Abre a janela de login/painel automaticamente
+        const win = document.getElementById('login-window');
+        if(win) win.style.display = 'block';
+
+        // 3. Garante que dentro do painel ele mostre a aba do carrinho
+        abrirSubPagina('carrinho'); 
+        
+        // 4. Atualiza os valores e o desconto Stüssy
+        atualizarCarrinhoVisual(); 
+    };
+
+    modal.style.display = 'flex';
+};
+
+// Funções Auxiliares do Modal (Coloque logo abaixo se não tiver)
+window.fecharModalZoom = function() {
+    const modal = document.getElementById('modal-produto');
+    if(modal) modal.style.display = 'none';
+};
+
+window.trocarImagemZoom = function(src, el) {
+    document.getElementById('img-principal-zoom').src = src;
+    document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('thumb-active'));
+    el.classList.add('thumb-active');
 };
 
 // 2. INICIALIZAÇÃO
