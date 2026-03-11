@@ -42,19 +42,17 @@ function renderizarVitrines() {
         const elemento = document.getElementById(`vitrine-${cat}`);
         if (elemento) {
             const produtosFiltrados = produtosLoja.filter(p => p.categoria === cat);
-            elemento.innerHTML = produtosFiltrados.map(p => `
-                <div class="produto">
-                    <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=TZAD'">
-                    <h4>R$ ${p.price}</h4>
-                    <p>${p.name}</p>
-                    <button class="btn-comprar" onclick="abrirModalZoom('${p.name}', '${p.price}', '${p.img}', ${JSON.stringify(p.galeria || [])})">
-                        Ver Detalhes
-                    </button>
-                </div>
-            `).join('');
-        }
-    });
-}
+            // Substitua o map da sua renderizarVitrines por este:
+elemento.innerHTML = produtosFiltrados.map(p => `
+    <div class="produto">
+        <img src="${p.img}" alt="${p.name}">
+        <h4>R$ ${p.price}</h4>
+        <p>${p.name}</p>
+        <button class="btn-comprar" onclick="abrirModalZoom(${p.id})">
+            Ver Detalhes
+        </button>
+    </div>
+`).join('');
 
 // 4. INTERFACE E ABERTURA DA JANELA
 function configurarInterface() {
@@ -398,23 +396,23 @@ window.removerEndereco = function(id) {
 
 // 9. FUNÇÕES DO MODAL PROFISSIONAL (CARROSSEL)
 
-window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
+window.abrirModalZoom = function(idProduto) {
+    // 1. O sistema procura o produto pelo ID lá no produtosLoja
+    const p = produtosLoja.find(item => item.id === idProduto);
+    if (!p) return; // Se não achar, não faz nada
+
     const modal = document.getElementById('modal-produto');
     const imgMain = document.getElementById('img-principal-zoom');
     const nomeTxt = document.getElementById('zoom-nome-produto');
     const containerThumbs = document.getElementById('miniaturas-container');
     const btnAdd = document.getElementById('btn-add-zoom');
 
-    if (!modal) {
-        console.error("Erro: O modal-produto não foi encontrado no HTML.");
-        return;
-    }
+    // 2. Preenche os dados na tela
+    nomeTxt.innerText = p.name;
+    imgMain.src = p.img;
 
-    nomeTxt.innerText = nome;
-    imgMain.src = imgPrincipal;
-
-    // Lógica para repetir a foto 6x se não houver fotos extras
-    let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
+    // 3. Lógica da Galeria (Se p.galeria estiver vazia, repete a img principal)
+    let listaDeFotos = (p.galeria && p.galeria.length > 0) ? p.galeria : Array(6).fill(p.img);
 
     let htmlThumbs = '';
     listaDeFotos.forEach((foto, index) => {
@@ -424,26 +422,22 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
                  onclick="trocarImagemZoom('${foto}', this)">
         `;
     });
-    
     containerThumbs.innerHTML = htmlThumbs;
 
-    // Lógica do botão ADICIONAR dentro do modal
+    // 4. Lógica do botão ADICIONAR
     btnAdd.onclick = () => {
-        // Pega o valor do seletor de tamanho do modal
         const seletorTamanho = document.getElementById('zoom-tamanho');
         const tamanhoEscolhido = seletorTamanho ? seletorTamanho.value : 'P';
         
-        // Adiciona ao carrinho
         itensNoCarrinho.push({ 
-            name: nome, 
-            price: preco, 
-            img: imgPrincipal, 
+            name: p.name, 
+            price: p.price, 
+            img: p.img, 
             size: tamanhoEscolhido 
         });
 
-        fecharModalZoom(); // Fecha o modal após adicionar
+        fecharModalZoom();
         
-        // Abre o carrinho automaticamente
         const win = document.getElementById('login-window');
         if(win) win.style.display = 'block';
         abrirSubPagina('carrinho'); 
@@ -451,6 +445,7 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
         atualizarCarrinhoVisual(); 
     };
 
+    // 5. Mostra o modal na tela
     modal.style.display = 'flex';
 };
 
