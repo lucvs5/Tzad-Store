@@ -399,3 +399,23 @@ body {
     height: auto;            /* Mantém a proporção da imagem (não achata) */
     object-fit: contain;     /* Garante que a imagem inteira apareça dentro do espaço definido */
 }
+
+/* --- ESTILOS DA ABA PERFIL --- */
+.user-info-fields label {
+    font-weight: bold;
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 10px; /* Dica: um tamanho menor deixa mais elegante */
+    color: #888;
+}
+
+.compra-card {
+    transition: 0.3s;
+    cursor: default;
+}
+
+.compra-card:hover {
+    border-color: #DAA520 !important;
+    background-color: #1a1a1a !important; /* Dá um leve destaque ao passar o mouse */
+}
