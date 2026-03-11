@@ -211,6 +211,7 @@ document.addEventListener('click', (e) => {
         if (itensNoCarrinho.length === 0) return alert("Carrinho vazio!");
         let msg = "Olá TZAD! Pedido:%0A";
         itensNoCarrinho.forEach(i => msg += `- ${i.name}%0A`);
+    
         
         const total = document.getElementById('total-carrinho').innerText;
         msg += `%0A*Total a pagar: ${total}*`;
@@ -218,3 +219,19 @@ document.addEventListener('click', (e) => {
         window.open(`https://wa.me/5511999999999?text=${msg}`, '_blank');
     }
 });
+
+// Função para abrir/fechar detalhes da compra
+window.toggleDetalhes = function(id) {
+    const detalhe = document.getElementById(`detalhe-compra-${id}`);
+    const btn = document.getElementById(`btn-ver-${id}`);
+    
+    if (detalhe) {
+        if (detalhe.style.display === "none" || detalhe.style.display === "") {
+            detalhe.style.display = "block";
+            btn.innerText = "[ recolher ]";
+        } else {
+            detalhe.style.display = "none";
+            btn.innerText = "[ ver mais ]";
+        }
+    }
+};
