@@ -24,6 +24,31 @@ const produtosLoja = [
 
 let itensNoCarrinho = [];
 
+window.abrirModalProduto = function(nome, preco, img) {
+    const modal = document.getElementById('modal-detalhe-produto'); // Certifique-se de ter esse ID no HTML
+    
+    // Injeta o conteúdo no modal
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <img src="${img}" style="width:100%; max-width:300px;">
+            <h3>${nome}</h3>
+            <p style="color: #DAA520; font-weight: bold;">R$ ${preco.toFixed(2)}</p>
+            
+            <label>Escolha o Tamanho:</label>
+            <select id="escolha-tamanho" style="width: 100%; padding: 5px; margin: 10px 0; background: #222; color: #fff; border: 1px solid #444;">
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="G">G</option>
+                <option value="GG">GG</option>
+            </select>
+            
+            <button class="login-button" onclick="adicionarAoCarrinho('${nome}', ${preco})">ADICIONAR AO CARRINHO</button>
+        </div>
+    `;
+    modal.style.display = "block";
+};
+
 // 2. INICIALIZAÇÃO
 document.addEventListener('DOMContentLoaded', () => {
     renderizarVitrines();
