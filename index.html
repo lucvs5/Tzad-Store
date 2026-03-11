@@ -171,27 +171,42 @@
     <h3 style="color: #DAA520; font-size: 16px; margin-bottom: 15px; text-align: center;">MEU PERFIL</h3>
     
     <div class="user-info-fields" style="font-size: 12px; display: flex; flex-direction: column; gap: 8px;">
-        <div class="info-group">
-            <label>Nome:</label>
-            <span id="perfil-nome" style="color: #fff; font-weight: bold;">---</span>
-        </div>
-        <div class="info-group">
-            <label>CPF:</label>
-            <input type="text" id="perfil-cpf" placeholder="000.000.000-00" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 5px; border-radius: 4px;">
-        </div>
-        <div class="info-group">
-            <label>Telefone:</label>
-            <input type="text" id="perfil-tel" placeholder="(00) 00000-0000" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 5px; border-radius: 4px;">
-        </div>
-        <button onclick="salvarDadosPerfil()" class="login-button" style="margin-top: 5px; padding: 8px; font-size: 12px; background: #222; border: 1px solid #DAA520; color: #DAA520;">
-            SALVAR DADOS
-        </button>
-
-        <div class="info-group" style="margin-top: 5px;">
-            <label>E-mail:</label>
-            <span id="perfil-email" style="color: #fff; opacity: 0.7;">---</span>
-        </div>
+    <div class="user-info-fields" style="font-size: 12px; display: flex; flex-direction: column; gap: 8px;">
+    
+    <div class="info-group">
+        <label>Nome:</label>
+        <span id="perfil-nome" style="color: #fff; font-weight: bold;">---</span>
     </div>
+
+    <div class="info-group">
+        <label>CPF:</label>
+        <input type="text" 
+               id="perfil-cpf" 
+               oninput="mascaraCPF(this)" 
+               maxlength="14" 
+               placeholder="000.000.000-00" 
+               style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 5px; border-radius: 4px;">
+    </div>
+
+    <div class="info-group">
+        <label>Telefone:</label>
+        <input type="text" 
+               id="perfil-tel" 
+               oninput="mascaraTel(this)" 
+               maxlength="15" 
+               placeholder="(00) 00000-0000" 
+               style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 5px; border-radius: 4px;">
+    </div>
+
+    <button onclick="salvarDadosPerfil()" class="login-button" style="margin-top: 5px; padding: 10px; font-size: 12px; background: transparent; border: 1px solid #DAA520; color: #DAA520; cursor: pointer; transition: 0.3s;">
+        SALVAR DADOS
+    </button>
+
+    <div class="info-group" style="margin-top: 5px; opacity: 0.7;">
+        <label>E-mail:</label>
+        <span id="perfil-email">---</span>
+    </div>
+</div>
 
     <div class="divisor"></div>
 
