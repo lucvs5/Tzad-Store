@@ -413,3 +413,46 @@ window.removerEndereco = function(id) {
     meusEnderecos = meusEnderecos.filter(e => e.id !== id);
     renderizarEnderecos();
 };
+
+window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
+    const modal = document.getElementById('modal-produto');
+    const imgMain = document.getElementById('img-principal-zoom');
+    const nomeTxt = document.getElementById('zoom-nome-produto');
+    const containerThumbs = document.getElementById('miniaturas-container');
+    const btnAdd = document.getElementById('btn-add-zoom');
+
+    nomeTxt.innerText = nome;
+    imgMain.src = imgPrincipal;
+
+    // LÓGICA AUTOMÁTICA:
+    // Se fotosExtras estiver vazio, criamos um array com a foto principal repetida 6x
+    // Se fotosExtras TIVER fotos, usamos as fotos que você colocar lá
+    let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
+
+    let htmlThumbs = '';
+    listaDeFotos.forEach((foto, index) => {
+        htmlThumbs += `
+            <img src="${foto}" 
+                 class="thumb-item ${index === 0 ? 'thumb-active' : ''}" 
+                 onclick="trocarImagemZoom('${foto}', this)">
+        `;
+    });
+    
+    containerThumbs.innerHTML = htmlThumbs;
+
+    // Configura o botão de adicionar
+    btnAdd.onclick = () => {
+        const tamanho = document.getElementById('zoom-tamanho').value;
+        // Aqui garantimos que o item vai para o carrinho com o TAMANHO selecionado
+        itensNoCarrinho.push({ 
+            name: nome, 
+            price: preco, 
+            img: imgPrincipal, 
+            size: tamanho 
+        });
+        fecharModalZoom();
+        atualizarCarrinhoVisual(); // Chama sua função que calcula os descontos Stüssy
+    };
+
+    modal.style.display = 'flex';
+};
