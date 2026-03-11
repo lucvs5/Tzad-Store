@@ -210,30 +210,46 @@ function atualizarCarrinhoVisual() {
         return;
     }
 
+    // 1. RENDERIZAÇÃO DA LISTA (Adicionado o campo Tamanho)
     lista.innerHTML = itensNoCarrinho.map((item, index) => `
         <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid #333; padding:10px 0;">
             <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
             <div style="flex:1; color:white; font-size:11px;">
-                ${item.name}<br><strong style="color:#DAA520;">R$ ${item.price}</strong>
+                ${item.name} <span style="color:#888;">(Tam: ${item.size || 'N/A'})</span><br>
+                <strong style="color:#DAA520;">R$ ${item.price}</strong>
             </div>
             <button onclick="removerItem(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
         </div>
     `).join('');
 
-    // --- LÓGICA DE CÁLCULO ---
+    // 2. LÓGICA DE CÁLCULO BRUTO
     const somaBruta = itensNoCarrinho.reduce((acc, p) => {
-        let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
-        return acc + valor;
+        // Remove pontos de milhar e troca vírgula por ponto para o cálculo
+        let valorLimpo = p.price.toString().replace(/\./g, '').replace(',', '.');
+        return acc + parseFloat(valorLimpo);
     }, 0);
     
-    const percDesconto = (itensNoCarrinho.length >= 2) ? 5 : 0;
+    // 3. CONTAGEM DE CAMISETAS STÜSSY PARA DESCONTO PROGRESSIVO
+    let qtdStussy = itensNoCarrinho.filter(item => item.name.includes("Stüssy")).length;
+    
+    // Desconto Base: 5% se tiver 2 ou mais itens quaisquer
+    let percDesconto = (itensNoCarrinho.length >= 2) ? 5 : 0;
+
+    // Bônus Progressivo Stüssy (Soma ao desconto base)
+    if (qtdStussy === 2) percDesconto = 16.67;
+    else if (qtdStussy === 3) percDesconto = 21.67;
+    else if (qtdStussy === 4) percDesconto = 28.33;
+    else if (qtdStussy >= 5) percDesconto = 30.00;
+
+    // 4. CÁLCULOS FINAIS
     const valorAbatido = somaBruta * (percDesconto / 100);
     const totalComDesconto = somaBruta - valorAbatido;
     
-    if(precoBrutoTxt) precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    if(percDescTxt) percDescTxt.innerText = percDesconto;
-    if(valorDescTxt) valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    if(totalTxt) totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    // 5. ATUALIZAÇÃO DOS TEXTOS
+    if(precoBrutoTxt) precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    if(percDescTxt) percDescTxt.innerText = percDesconto.toFixed(2);
+    if(valorDescTxt) valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    if(totalTxt) totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 }
 
 // 8. FINALIZAR (WHATSAPP)
