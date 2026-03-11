@@ -114,13 +114,32 @@ window.alternarTela = function(tela) {
     }
 };
 
-// 6. CARRINHO (Adicionar, Remover e Somar)
+// ... (mantenha os pontos 1 ao 5 como já estão)
+
+// 6. NAVEGAÇÃO INTERNA DO PAINEL (ADICIONE ISSO AQUI)
+window.abrirSubPagina = function(abaId) {
+    // Lista de todas as abas que criamos no HTML
+    const abas = ['carrinho', 'perfil', 'mensagens', 'enderecos', 'rastrear'];
+    
+    abas.forEach(aba => {
+        const elemento = document.getElementById(`aba-${aba}`);
+        if (elemento) {
+            // Se for a aba clicada, mostra. Se não, esconde.
+            elemento.style.display = (aba === abaId) ? 'block' : 'none';
+        }
+    });
+};
+
+// 7. CARRINHO (Adicionar, Remover e Somar)
 window.adicionarAoCarrinho = function(id) {
     const p = produtosLoja.find(item => item.id === id);
     if (p) {
         itensNoCarrinho.push(p);
         const win = document.getElementById('login-window');
         if(win) win.style.display = 'block';
+        
+        // Garante que ao adicionar, ele mostre a aba do carrinho
+        abrirSubPagina('carrinho'); 
         atualizarCarrinhoVisual();
     }
 };
@@ -139,7 +158,6 @@ function atualizarCarrinhoVisual() {
     
     if (!lista) return;
 
-    // Se o carrinho estiver vazio
     if (itensNoCarrinho.length === 0) {
         lista.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Seu carrinho está vazio.</p>';
         if(precoBrutoTxt) precoBrutoTxt.innerText = "R$ 0,00";
@@ -149,7 +167,6 @@ function atualizarCarrinhoVisual() {
         return;
     }
 
-    // Renderiza os itens na lista
     lista.innerHTML = itensNoCarrinho.map((item, index) => `
         <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid #333; padding:10px 0;">
             <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
@@ -161,43 +178,32 @@ function atualizarCarrinhoVisual() {
     `).join('');
 
     // --- LÓGICA DE CÁLCULO ---
-    
-    // 1. Soma o valor bruto (Preço cheio)
     const somaBruta = itensNoCarrinho.reduce((acc, p) => {
         let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
         return acc + valor;
     }, 0);
     
-    // 2. Define o percentual (5% se tiver 2 ou mais itens, senão 0)
     const percDesconto = (itensNoCarrinho.length >= 2) ? 5 : 0;
-
-    // 3. Calcula os valores finais
     const valorAbatido = somaBruta * (percDesconto / 100);
     const totalComDesconto = somaBruta - valorAbatido;
     
-    // 4. Injeta os valores nos IDs correspondentes do HTML
-    if(precoBrutoTxt) {
-        precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    }
-    if(percDescTxt) {
-        percDescTxt.innerText = percDesconto;
-    }
-    if(valorDescTxt) {
-        valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    }
-    if(totalTxt) {
-        totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    }
+    if(precoBrutoTxt) precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    if(percDescTxt) percDescTxt.innerText = percDesconto;
+    if(valorDescTxt) valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    if(totalTxt) totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
 }
 
-// 7. FINALIZAR (WHATSAPP)
+// 8. FINALIZAR (WHATSAPP)
 document.addEventListener('click', (e) => {
-    if (e.target && e.target.id === 'btn-finalizar') {
+    // Note que mudei para e.target.closest ou e.target.id para ser mais preciso
+    if (e.target && (e.target.id === 'btn-finalizar' || e.target.innerText === 'PAGAR')) {
         if (itensNoCarrinho.length === 0) return alert("Carrinho vazio!");
         let msg = "Olá TZAD! Pedido:%0A";
-        itensNoCarrinho.forEach(i => msg += `- ${i.name} (R$ ${i.price})%0A`);
+        itensNoCarrinho.forEach(i => msg += `- ${i.name}%0A`);
+        
         const total = document.getElementById('total-carrinho').innerText;
-        msg += `%0A*Total: ${total}*`;
+        msg += `%0A*Total a pagar: ${total}*`;
+        
         window.open(`https://wa.me/5511999999999?text=${msg}`, '_blank');
     }
 });
