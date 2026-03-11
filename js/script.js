@@ -315,39 +315,38 @@ window.salvarDadosPerfil = function() {
 let meusEnderecos = [];
 
 window.salvarEndereco = function() {
-window.salvarEndereco = function() {
-    const destinatario = document.getElementById('end-destinatario').value; // Novo campo
     const rua = document.getElementById('end-rua').value;
     const num = document.getElementById('end-numero').value;
     const bairro = document.getElementById('end-bairro').value;
     const estado = document.getElementById('end-estado').value;
     const ref = document.getElementById('end-ref').value;
 
-    if (!destinatario || !rua || !num || !bairro || !estado) {
-        alert("Preencha todos os campos, incluindo o destinatário!");
+    // Validação simples (Referência é opcional)
+    if (!rua || !num || !bairro || !estado) {
+        alert("Por favor, preencha todos os campos obrigatórios.");
         return;
     }
 
-    const novoEnd = { 
-        id: Date.now(), 
-        destinatario, 
-        rua, num, bairro, estado, ref 
+    // Criar objeto do endereço
+    const novoEnd = {
+        id: Date.now(),
+        rua, num, bairro, estado, ref
     };
-    
+
+    // Adicionar à lista e limpar campos
     meusEnderecos.push(novoEnd);
-    
-    // Limpar campos
-    document.getElementById('end-destinatario').value = "";
+    limparCamposEndereco();
+    renderizarEnderecos();
+};
+
+function limparCamposEndereco() {
     document.getElementById('end-rua').value = "";
     document.getElementById('end-numero').value = "";
     document.getElementById('end-bairro').value = "";
     document.getElementById('end-estado').value = "";
     document.getElementById('end-ref').value = "";
+}
 
-    renderizarEnderecos();
-};
-
-// Atualize a função de renderizar para mostrar o destinatário em destaque
 function renderizarEnderecos() {
     const container = document.getElementById('lista-enderecos-salvos');
     if (!container) return;
@@ -358,11 +357,12 @@ function renderizarEnderecos() {
     }
 
     container.innerHTML = meusEnderecos.map(end => `
-        <div style="background: #0a0a0a; border: 1px solid #222; padding: 10px; border-radius: 6px; position: relative; font-size: 11px; color: #fff; margin-bottom: 8px;">
-            <strong style="color: #DAA520; text-transform: uppercase;">A/C: ${end.destinatario}</strong><br>
-            <span>${end.rua}, ${end.num}</span><br>
-            <span>${end.bairro} - ${end.estado.toUpperCase()}</span><br>
-            ${end.ref ? `<small style="color: #888;">Ref: ${end.ref}</small>` : ''}
+        <div class="compra-card" style="background: #0a0a0a; border: 1px solid #222; padding: 10px; border-radius: 6px; position: relative;">
+            <div style="font-size: 11px; color: #fff; line-height: 1.4;">
+                <strong>${end.rua}, ${end.num}</strong><br>
+                ${end.bairro} - ${end.estado.toUpperCase()}<br>
+                ${end.ref ? `<small style="color: #888;">Ref: ${end.ref}</small>` : ''}
+            </div>
             <button onclick="removerEndereco(${end.id})" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #ff4444; cursor: pointer; font-weight: bold;">X</button>
         </div>
     `).join('');
