@@ -311,3 +311,64 @@ window.salvarDadosPerfil = function() {
         btn.style.color = "#DAA520";
     }, 2000);
 };
+
+let meusEnderecos = [];
+
+window.salvarEndereco = function() {
+    const rua = document.getElementById('end-rua').value;
+    const num = document.getElementById('end-numero').value;
+    const bairro = document.getElementById('end-bairro').value;
+    const estado = document.getElementById('end-estado').value;
+    const ref = document.getElementById('end-ref').value;
+
+    // Validação simples (Referência é opcional)
+    if (!rua || !num || !bairro || !estado) {
+        alert("Por favor, preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    // Criar objeto do endereço
+    const novoEnd = {
+        id: Date.now(),
+        rua, num, bairro, estado, ref
+    };
+
+    // Adicionar à lista e limpar campos
+    meusEnderecos.push(novoEnd);
+    limparCamposEndereco();
+    renderizarEnderecos();
+};
+
+function limparCamposEndereco() {
+    document.getElementById('end-rua').value = "";
+    document.getElementById('end-numero').value = "";
+    document.getElementById('end-bairro').value = "";
+    document.getElementById('end-estado').value = "";
+    document.getElementById('end-ref').value = "";
+}
+
+function renderizarEnderecos() {
+    const container = document.getElementById('lista-enderecos-salvos');
+    if (!container) return;
+
+    if (meusEnderecos.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #555; font-size: 11px; padding: 10px;">Nenhum endereço cadastrado.</p>';
+        return;
+    }
+
+    container.innerHTML = meusEnderecos.map(end => `
+        <div class="compra-card" style="background: #0a0a0a; border: 1px solid #222; padding: 10px; border-radius: 6px; position: relative;">
+            <div style="font-size: 11px; color: #fff; line-height: 1.4;">
+                <strong>${end.rua}, ${end.num}</strong><br>
+                ${end.bairro} - ${end.estado.toUpperCase()}<br>
+                ${end.ref ? `<small style="color: #888;">Ref: ${end.ref}</small>` : ''}
+            </div>
+            <button onclick="removerEndereco(${end.id})" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #ff4444; cursor: pointer; font-weight: bold;">X</button>
+        </div>
+    `).join('');
+}
+
+window.removerEndereco = function(id) {
+    meusEnderecos = meusEnderecos.filter(e => e.id !== id);
+    renderizarEnderecos();
+};
