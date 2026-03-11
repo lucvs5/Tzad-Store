@@ -69,14 +69,25 @@ function configurarInterface() {
     }
 
     // Lógica de Login (Pega nome do e-mail e muda de tela)
+    // Lógica de Login (Pega nome do e-mail e muda de tela)
     if (formLogin) {
         formLogin.onsubmit = (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const nomeUser = email.split('@')[0];
+            
+            // 1. Atualiza a saudação lá no topo do painel
             const displayNome = document.getElementById('user-name-display');
             if (displayNome) displayNome.innerText = nomeUser.toUpperCase();
             
+            // 2. Preenche automaticamente os dados na aba "Meu Perfil"
+            const perfilEmail = document.getElementById('perfil-email');
+            const perfilNome = document.getElementById('perfil-nome');
+            
+            if (perfilEmail) perfilEmail.innerText = email;
+            if (perfilNome) perfilNome.innerText = nomeUser.toUpperCase();
+            
+            // 3. Muda para a tela do painel
             alternarTela('painel');
         };
     }
