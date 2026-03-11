@@ -1,4 +1,6 @@
-/* RESET BÁSICO */
+/* ========================================================
+   1. RESET E CONFIGURAÇÕES GERAIS
+   ======================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -9,9 +11,12 @@
 body {
     background-color: #000000;
     color: #ffffff;
+    overflow-x: hidden;
 }
 
-/* 1. CABEÇALHO */
+/* ========================================================
+   2. CABEÇALHO (Layer 1000)
+   ======================================================== */
 .topo {
     display: flex;
     justify-content: space-between;
@@ -51,7 +56,9 @@ body {
     mix-blend-mode: screen;
 }
 
-/* 2. CONTEÚDO PRINCIPAL */
+/* ========================================================
+   3. VITRINE E PRODUTOS
+   ======================================================== */
 .main-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -64,31 +71,6 @@ body {
     margin-bottom: 30px;
 }
 
-/* SEÇÃO DE BOAS VINDAS */
-.cabecalho-produtos {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.textos-produtos h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #DAA520;
-}
-
-.redes-produtos {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.redes-produtos a img {
-    width: 25px;
-    height: auto;
-}
-
-/* 3. VITRINE NOBRE (FUNDO DOURADO UNIFICADO) */
 .titulo-colecao {
     font-size: 22px;
     border-left: 4px solid #DAA520;
@@ -99,7 +81,7 @@ body {
 }
 
 .categoria {
-    background-color: #DAA520; /* Fundo que une todos os produtos */
+    background-color: #DAA520;
     padding: 25px;
     border-radius: 15px;
     margin-bottom: 40px;
@@ -114,7 +96,6 @@ body {
 .produto {
     text-align: center;
     padding: 10px;
-    background: transparent; 
 }
 
 .produto img {
@@ -122,22 +103,18 @@ body {
     border-radius: 8px;
     margin-bottom: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
 }
 
-.produto h3 {
-    color: #000000;
-    font-size: 16px;
-    margin-bottom: 5px;
+.produto img:hover {
+    transform: scale(1.02);
 }
 
-.produto p {
-    color: #000000;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
+.produto h3 { color: #000; font-size: 16px; margin-bottom: 5px; }
+.produto p { color: #000; font-weight: bold; margin-bottom: 12px; }
 
 .btn-comprar {
-    background-color: #000000;
+    background-color: #000;
     color: #DAA520;
     border: none;
     padding: 12px;
@@ -149,49 +126,24 @@ body {
     font-size: 11px;
 }
 
-.ver-todos {
-    display: block;
-    margin: 25px auto 0;
-    padding: 12px 40px;
-    background-color: #000000;
-    color: #DAA520;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-/* 4. VÍDEO NOCTA */
-.video-loja {
-    display: flex;
-    justify-content: center;
-    padding: 40px 0;
-}
-
-.video-loja video {
-    width: 80%;
-    max-width: 700px;
-    border-radius: 15px;
-}
-
-    /* ========================================================
-   5. JANELA LOGIN / CARRINHO / PAINEL (ATO 2)
-======================================================== */
+/* ========================================================
+   4. JANELA CARRINHO / LOGIN (Layer 2000)
+   ======================================================== */
 .login-window {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
-    width: 350px; 
-    height: 550px; 
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 350px;
+    height: 550px;
     background: #000;
     border: 2px solid #DAA520;
     z-index: 2000;
     display: none;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    box-shadow: 0 0 50px rgba(0,0,0,0.9);
 }
 
 .login-header {
@@ -204,45 +156,91 @@ body {
     font-weight: bold;
 }
 
-.minimize-btn {
-    cursor: pointer;
-    background: #000;
-    color: #DAA520;
-    border: none;
-    width: 25px;
-    height: 25px;
-    font-weight: bold;
-    border-radius: 5px;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.3s;
-}
-
-.minimize-btn:hover {
-    background: #333;
-}
-
 .login-body {
     padding: 20px;
-    height: calc(100% - 45px); 
-    overflow-y: auto; 
+    height: calc(100% - 45px);
+    overflow-y: auto;
     background-color: #0c0c0c;
-    color: #fff;
 }
 
-.login-form input {
+/* Custom Scrollbar para o Carrinho */
+.login-body::-webkit-scrollbar { width: 5px; }
+.login-body::-webkit-scrollbar-thumb { background: #DAA520; border-radius: 10px; }
+
+/* ========================================================
+   5. MODAL DE ZOOM PROFISSIONAL (Layer 10000 - TOPO)
+   ======================================================== */
+.modal-zoom {
+    display: none; /* Controlado pelo JS */
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    background: #111;
-    border: 1px solid #333;
-    color: #fff;
-    border-radius: 5px;
-    box-sizing: border-box; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.98);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
 }
 
+.modal-zoom-content {
+    width: 95%;
+    max-width: 500px;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 15px;
+    position: relative;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-img-container img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.thumbnails {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 15px 0;
+    justify-content: center;
+}
+
+.thumb-item {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid #333;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.thumb-active, .thumb-item:hover {
+    border-color: #DAA520;
+    transform: translateY(-2px);
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: #fff;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+/* ========================================================
+   6. UTILITÁRIOS E FORMULÁRIOS
+   ======================================================== */
 .login-button {
     width: 100%;
     background: #DAA520;
@@ -253,221 +251,24 @@ body {
     font-weight: bold;
     border-radius: 5px;
     text-transform: uppercase;
-    transition: 0.3s;
 }
 
-.login-button:hover {
-    background: #b8860b;
-}
+.divisor { height: 1px; background: #333; margin: 15px 0; }
 
-.links {
-    font-size: 12px;
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.links a {
-    color: #DAA520;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.links a:hover {
-    text-decoration: underline;
-    color: #fff;
-}
-
-/* ========================================================
-   ESTILOS DO PAINEL DO USUÁRIO E CARRINHO (DENTRO DO LOGIN)
-======================================================== */
-.user-welcome { 
-    margin-bottom: 20px; 
-    font-size: 16px; 
-    color: #DAA520; 
-}
-
-.divisor { 
-    height: 1px; 
-    background: #333; 
-    margin: 15px 0; 
-    border: none;
-}
-
-.section-label { 
-    font-size: 12px; 
-    color: #888; 
-    margin-bottom: 10px; 
-    letter-spacing: 1px; 
-}
-
-.user-menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.menu-item-btn { 
-    background: transparent; 
-    border: 1px solid #444; 
-    color: #fff; 
-    padding: 8px; 
-    cursor: pointer; 
-    transition: 0.3s;
-    border-radius: 4px;
-    font-size: 12px;
-}
-
-.menu-item-btn:hover {
-    background: #222;
-    border-color: #DAA520; 
-}
-
-/* LISTA DO CARRINHO E SCROLLBAR CUSTOMIZADA */
-#carrinho-lista {
-    max-height: 220px; 
-    overflow-y: auto;  
-    padding-right: 5px;
-    margin-bottom: 10px;
-}
-
-#carrinho-lista::-webkit-scrollbar { width: 5px; }
-#carrinho-lista::-webkit-scrollbar-track { background: #111; }
-#carrinho-lista::-webkit-scrollbar-thumb { background: #DAA520; border-radius: 10px; }
-
-.carrinho-resumo { font-size: 14px; margin-top: 10px; }
-.resumo-linha { display: flex; justify-content: space-between; margin-bottom: 5px; }
-
-/* ========================================================
-   6. MODAL ANTIGO (CASO AINDA ESTEJA EM USO NO SEU SCRIPT)
-======================================================== */
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: none;
-    justify-content: center; align-items: center;
-    z-index: 3000;
-}
-
-.modal-content {
-    background: #111;
-    color: white;
-    width: 90%; max-width: 450px;
-    padding: 25px;
-    border-radius: 15px;
-    border: 1px solid #DAA520;
-    position: relative;
-}
-
-.close-modal {
-    position: absolute; 
-    top: 15px; right: 15px; 
-    background: #DAA520; 
-    color: #000;     
-    font-size: 32px; font-weight: 900;   
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    border: none; cursor: pointer;
-}
-
-/* AJUSTE MOBILE */
-@media (max-width: 600px) {
-    .produtos { grid-template-columns: repeat(2, 1fr); }
-    .categoria { padding: 15px; }
-    }
-
-/* ========================================================
-   CORREÇÃO DA IMAGEM NO LOGIN DO CARRINHO
-======================================================== */
-
-/* Contêiner da imagem: centraliza e dá um espaçamento */
-.login-image-container {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente (se necessário) */
-    padding: 20px 0;         /* Adiciona um espaço acima e abaixo da imagem */
-    width: 100%;             /* Garante que o contêiner ocupe toda a largura */
-}
-
-/* A imagem em si: limita o tamanho e mantém a proporção */
-.login-image-container img {
-    max-width: 80%;          /* A imagem não pode ser maior que 80% da largura da janela */
-    max-height: 200px;       /* Limita a altura máxima para não empurrar o formulário para baixo */
-    height: auto;            /* Mantém a proporção da imagem (não achata) */
-    object-fit: contain;     /* Garante que a imagem inteira apareça dentro do espaço definido */
-}
-
-/* --- ESTILOS DA ABA PERFIL --- */
-.user-info-fields label {
-    font-weight: bold;
-    margin-top: 5px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 10px; /* Dica: um tamanho menor deixa mais elegante */
-    color: #888;
-}
-
-.compra-card {
-    transition: 0.3s;
-    cursor: default;
-}
-
-.compra-card:hover {
-    border-color: #DAA520 !important;
-    background-color: #1a1a1a !important; /* Dá um leve destaque ao passar o mouse */
-}
-
-.info-group input {
+.sel-tam {
     width: 100%;
     background: #111;
-    border: 1px solid #333;
     color: #fff;
-    padding: 6px;
-    border-radius: 4px;
-    font-size: 11px;
-    margin-top: 3px;
-    outline: none;
+    border: 1px solid #DAA520;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-family: inherit;
 }
 
-.info-group input:focus {
-    border-color: #DAA520;
-}
-
-.modal-zoom {
-    display: none; /* Mude de flex para none aqui */
-    position: fixed; 
-    z-index: 10000; 
-    left: 0; 
-    top: 0; 
-    width: 100%; 
-    height: 100%;
-    background-color: rgba(0,0,0,0.95); 
-    align-items: center; 
-    justify-content: center;
-}
-.modal-zoom-content {
-    width: 90%; max-width: 500px; background: #0a0a0a; border: 1px solid #333;
-    border-radius: 12px; position: relative; padding: 20px;
-}
-.main-img-container img {
-    width: 100%; border-radius: 8px; cursor: crosshair; transition: 0.3s;
-}
-.thumbnails {
-    display: flex; gap: 8px; overflow-x: auto; padding: 10px 0;
-    scrollbar-width: thin;
-}
-.thumb-item {
-    width: 60px; height: 60px; object-fit: cover; border: 2px solid #333;
-    border-radius: 4px; cursor: pointer; flex-shrink: 0;
-}
-.thumb-item:hover, .thumb-active { border-color: #DAA520; }
-.close-modal {
-    position: absolute; top: 10px; right: 15px; color: #fff; font-size: 30px; cursor: pointer;
-}
-.sel-tam {
-    width: 100%; background: #111; color: #fff; border: 1px solid #444;
-    padding: 10px; border-radius: 6px; margin: 10px 0;
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .produtos { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .login-window { width: 95%; height: 90vh; }
+    .close-modal { top: 10px; right: 15px; color: #DAA520; }
 }
