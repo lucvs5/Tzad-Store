@@ -1,56 +1,28 @@
 // 1. BANCO DE DADOS
 const produtosLoja = [
-    // PROMOÇÕES
-    { id: 101, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", galeria: ["img/cjbl.jpg"] },
-    { id: 102, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", galeria: [] },
-    { id: 103, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", galeria: [] },
-    { id: 104, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", galeria: [] },
-    { id: 105, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", galeria: [] },
-    { id: 106, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", galeria: [] },
+    { id: 101, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes" },
+    { id: 102, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes" },
+    { id: 103, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes" },
+    { id: 104, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes" },
+    { id: 105, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes" },
+    { id: 106, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes" },
 
-    // NOCTA
-    { id: 201, name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png", categoria: "nocta", galeria: [] },
-    { id: 202, name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png", categoria: "nocta", galeria: [] },
-    { id: 203, name: "Conjunto Nike Nocta Tech Fleece Preto.", price: "450,00", img: "img/nktc.jpg", categoria: "nocta", galeria: [] },
-    { id: 204, name: "Pulseira Classic", price: "150,00", img: "img/PulseiraClassic.jpg", categoria: "nocta", galeria: [] },
-    { id: 205, name: "Pulseira Gold Line", price: "150,00", img: "img/PulseiraGoldLine.jpg", categoria: "nocta", galeria: [] },
-    { id: 206, name: "Pulseira Deluxe", price: "150,00", img: "img/PulseiraDeluxe.jpg", categoria: "nocta", galeria: [] },
+    { id: 201, name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: "img/nntc.png", categoria: "nocta" },
+    { id: 202, name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: "img/nkcv.png", categoria: "nocta" },
+    { id: 203, name: "Conjunto Nike Nocta Tech Fleece Preto.", price: "450,00", img: "img/nktc.jpg", categoria: "nocta" },
+    { id: 204, name: "Pulseira Classic", price: "150,00", img: "img/PulseiraClassic.jpg", categoria: "nocta" },
+    { id: 205, name: "Pulseira Gold Line", price: "150,00", img: "img/PulseiraGoldLine.jpg", categoria: "nocta" },
+    { id: 206, name: "Pulseira Deluxe", price: "150,00", img: "img/PulseiraDeluxe.jpg", categoria: "nocta" },
 
-    // STÜSSY
-    { id: 301, name: "STÜSSY METALHEADZ (refletiva)", price: "150,00", img: "img/stmtb.jpg", categoria: "stussy", galeria: [] },
-    { id: 302, name: "Stüssy Logo Padrão P.", price: "150,00", img: "img/stlpp.jpg", categoria: "stussy", galeria: [] },
-    { id: 303, name: "Stüssy Veludo B", price: "150,00", img: "img/stvlb.jpg", categoria: "stussy", galeria: [] },
-    { id: 304, name: "Stüssy Veludo P", price: "150,00", img: "img/stvlp.jpg", categoria: "stussy", galeria: [] },
-    { id: 305, name: "Stüssy Logo Padrão B.", price: "150,00", img: "img/stlpb.jpg", categoria: "stussy", galeria: [] },
-    { id: 306, name: "Stüssy Bordada B", price: "150,00", img: "img/stbdb.jpg", categoria: "stussy", galeria: [] }
+    { id: 301, name: "STÜSSY METALHEADZ (refletiva)", price: "150,00", img: "img/stmtb.jpg", categoria: "stussy" },
+    { id: 302, name: "Stüssy Logo Padrão P.", price: "150,00", img: "img/stlpp.jpg", categoria: "stussy" },
+    { id: 303, name: "Stüssy Veludo B", price: "150,00", img: "img/stvlb.jpg", categoria: "stussy" },
+    { id: 304, name: "Stüssy Veludo P", price: "150,00", img: "img/stvlp.jpg", categoria: "stussy" },
+    { id: 305, name: "Stüssy Logo Padrão B.", price: "150,00", img: "img/stlpb.jpg", categoria: "stussy" },
+    { id: 306, name: "Stüssy Bordada B", price: "150,00", img: "img/stbdb.jpg", categoria: "stussy" }
 ];
 
 let itensNoCarrinho = [];
-
-window.abrirModalProduto = function(nome, preco, img) {
-    const modal = document.getElementById('modal-detalhe-produto'); // Certifique-se de ter esse ID no HTML
-    
-    // Injeta o conteúdo no modal
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close" onclick="fecharModal()">&times;</span>
-            <img src="${img}" style="width:100%; max-width:300px;">
-            <h3>${nome}</h3>
-            <p style="color: #DAA520; font-weight: bold;">R$ ${preco.toFixed(2)}</p>
-            
-            <label>Escolha o Tamanho:</label>
-            <select id="escolha-tamanho" style="width: 100%; padding: 5px; margin: 10px 0; background: #222; color: #fff; border: 1px solid #444;">
-                <option value="P">P</option>
-                <option value="M">M</option>
-                <option value="G">G</option>
-                <option value="GG">GG</option>
-            </select>
-            
-            <button class="login-button" onclick="adicionarAoCarrinho('${nome}', ${preco})">ADICIONAR AO CARRINHO</button>
-        </div>
-    `;
-    modal.style.display = "block";
-};
 
 // 2. INICIALIZAÇÃO
 document.addEventListener('DOMContentLoaded', () => {
@@ -213,46 +185,30 @@ function atualizarCarrinhoVisual() {
         return;
     }
 
-    // 1. RENDERIZAÇÃO DA LISTA (Adicionado o campo Tamanho)
     lista.innerHTML = itensNoCarrinho.map((item, index) => `
         <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid #333; padding:10px 0;">
             <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
             <div style="flex:1; color:white; font-size:11px;">
-                ${item.name} <span style="color:#888;">(Tam: ${item.size || 'N/A'})</span><br>
-                <strong style="color:#DAA520;">R$ ${item.price}</strong>
+                ${item.name}<br><strong style="color:#DAA520;">R$ ${item.price}</strong>
             </div>
             <button onclick="removerItem(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
         </div>
     `).join('');
 
-    // 2. LÓGICA DE CÁLCULO BRUTO
+    // --- LÓGICA DE CÁLCULO ---
     const somaBruta = itensNoCarrinho.reduce((acc, p) => {
-        // Remove pontos de milhar e troca vírgula por ponto para o cálculo
-        let valorLimpo = p.price.toString().replace(/\./g, '').replace(',', '.');
-        return acc + parseFloat(valorLimpo);
+        let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
+        return acc + valor;
     }, 0);
     
-    // 3. CONTAGEM DE CAMISETAS STÜSSY PARA DESCONTO PROGRESSIVO
-    let qtdStussy = itensNoCarrinho.filter(item => item.name.includes("Stüssy")).length;
-    
-    // Desconto Base: 5% se tiver 2 ou mais itens quaisquer
-    let percDesconto = (itensNoCarrinho.length >= 2) ? 5 : 0;
-
-    // Bônus Progressivo Stüssy (Soma ao desconto base)
-    if (qtdStussy === 2) percDesconto = 16.67;
-    else if (qtdStussy === 3) percDesconto = 21.67;
-    else if (qtdStussy === 4) percDesconto = 28.33;
-    else if (qtdStussy >= 5) percDesconto = 30.00;
-
-    // 4. CÁLCULOS FINAIS
+    const percDesconto = (itensNoCarrinho.length >= 2) ? 5 : 0;
     const valorAbatido = somaBruta * (percDesconto / 100);
     const totalComDesconto = somaBruta - valorAbatido;
     
-    // 5. ATUALIZAÇÃO DOS TEXTOS
-    if(precoBrutoTxt) precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-    if(percDescTxt) percDescTxt.innerText = percDesconto.toFixed(2);
-    if(valorDescTxt) valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-    if(totalTxt) totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    if(precoBrutoTxt) precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    if(percDescTxt) percDescTxt.innerText = percDesconto;
+    if(valorDescTxt) valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    if(totalTxt) totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
 }
 
 // 8. FINALIZAR (WHATSAPP)
@@ -415,47 +371,4 @@ function renderizarEnderecos() {
 window.removerEndereco = function(id) {
     meusEnderecos = meusEnderecos.filter(e => e.id !== id);
     renderizarEnderecos();
-};
-
-window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
-    const modal = document.getElementById('modal-produto');
-    const imgMain = document.getElementById('img-principal-zoom');
-    const nomeTxt = document.getElementById('zoom-nome-produto');
-    const containerThumbs = document.getElementById('miniaturas-container');
-    const btnAdd = document.getElementById('btn-add-zoom');
-
-    nomeTxt.innerText = nome;
-    imgMain.src = imgPrincipal;
-
-    // LÓGICA AUTOMÁTICA:
-    // Se fotosExtras estiver vazio, criamos um array com a foto principal repetida 6x
-    // Se fotosExtras TIVER fotos, usamos as fotos que você colocar lá
-    let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
-
-    let htmlThumbs = '';
-    listaDeFotos.forEach((foto, index) => {
-        htmlThumbs += `
-            <img src="${foto}" 
-                 class="thumb-item ${index === 0 ? 'thumb-active' : ''}" 
-                 onclick="trocarImagemZoom('${foto}', this)">
-        `;
-    });
-    
-    containerThumbs.innerHTML = htmlThumbs;
-
-    // Configura o botão de adicionar
-    btnAdd.onclick = () => {
-        const tamanho = document.getElementById('zoom-tamanho').value;
-        // Aqui garantimos que o item vai para o carrinho com o TAMANHO selecionado
-        itensNoCarrinho.push({ 
-            name: nome, 
-            price: preco, 
-            img: imgPrincipal, 
-            size: tamanho 
-        });
-        fecharModalZoom();
-        atualizarCarrinhoVisual(); // Chama sua função que calcula os descontos Stüssy
-    };
-
-    modal.style.display = 'flex';
 };
