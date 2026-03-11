@@ -24,6 +24,31 @@ const produtosLoja = [
 
 let itensNoCarrinho = [];
 
+window.abrirModalProduto = function(nome, preco, img) {
+    const modal = document.getElementById('modal-detalhe-produto'); // Certifique-se de ter esse ID no HTML
+    
+    // Injeta o conteúdo no modal
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <img src="${img}" style="width:100%; max-width:300px;">
+            <h3>${nome}</h3>
+            <p style="color: #DAA520; font-weight: bold;">R$ ${preco.toFixed(2)}</p>
+            
+            <label>Escolha o Tamanho:</label>
+            <select id="escolha-tamanho" style="width: 100%; padding: 5px; margin: 10px 0; background: #222; color: #fff; border: 1px solid #444;">
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="G">G</option>
+                <option value="GG">GG</option>
+            </select>
+            
+            <button class="login-button" onclick="adicionarAoCarrinho('${nome}', ${preco})">ADICIONAR AO CARRINHO</button>
+        </div>
+    `;
+    modal.style.display = "block";
+};
+
 // 2. INICIALIZAÇÃO
 document.addEventListener('DOMContentLoaded', () => {
     renderizarVitrines();
@@ -185,30 +210,46 @@ function atualizarCarrinhoVisual() {
         return;
     }
 
+    // 1. RENDERIZAÇÃO DA LISTA (Adicionado o campo Tamanho)
     lista.innerHTML = itensNoCarrinho.map((item, index) => `
         <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid #333; padding:10px 0;">
             <img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
             <div style="flex:1; color:white; font-size:11px;">
-                ${item.name}<br><strong style="color:#DAA520;">R$ ${item.price}</strong>
+                ${item.name} <span style="color:#888;">(Tam: ${item.size || 'N/A'})</span><br>
+                <strong style="color:#DAA520;">R$ ${item.price}</strong>
             </div>
             <button onclick="removerItem(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
         </div>
     `).join('');
 
-    // --- LÓGICA DE CÁLCULO ---
+    // 2. LÓGICA DE CÁLCULO BRUTO
     const somaBruta = itensNoCarrinho.reduce((acc, p) => {
-        let valor = parseFloat(p.price.replace('.', '').replace(',', '.'));
-        return acc + valor;
+        // Remove pontos de milhar e troca vírgula por ponto para o cálculo
+        let valorLimpo = p.price.toString().replace(/\./g, '').replace(',', '.');
+        return acc + parseFloat(valorLimpo);
     }, 0);
     
-    const percDesconto = (itensNoCarrinho.length >= 2) ? 5 : 0;
+    // 3. CONTAGEM DE CAMISETAS STÜSSY PARA DESCONTO PROGRESSIVO
+    let qtdStussy = itensNoCarrinho.filter(item => item.name.includes("Stüssy")).length;
+    
+    // Desconto Base: 5% se tiver 2 ou mais itens quaisquer
+    let percDesconto = (itensNoCarrinho.length >= 2) ? 5 : 0;
+
+    // Bônus Progressivo Stüssy (Soma ao desconto base)
+    if (qtdStussy === 2) percDesconto = 16.67;
+    else if (qtdStussy === 3) percDesconto = 21.67;
+    else if (qtdStussy === 4) percDesconto = 28.33;
+    else if (qtdStussy >= 5) percDesconto = 30.00;
+
+    // 4. CÁLCULOS FINAIS
     const valorAbatido = somaBruta * (percDesconto / 100);
     const totalComDesconto = somaBruta - valorAbatido;
     
-    if(precoBrutoTxt) precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    if(percDescTxt) percDescTxt.innerText = percDesconto;
-    if(valorDescTxt) valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    if(totalTxt) totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    // 5. ATUALIZAÇÃO DOS TEXTOS
+    if(precoBrutoTxt) precoBrutoTxt.innerText = `R$ ${somaBruta.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    if(percDescTxt) percDescTxt.innerText = percDesconto.toFixed(2);
+    if(valorDescTxt) valorDescTxt.innerText = `- R$ ${valorAbatido.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    if(totalTxt) totalTxt.innerText = `R$ ${totalComDesconto.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 }
 
 // 8. FINALIZAR (WHATSAPP)
@@ -371,4 +412,47 @@ function renderizarEnderecos() {
 window.removerEndereco = function(id) {
     meusEnderecos = meusEnderecos.filter(e => e.id !== id);
     renderizarEnderecos();
+};
+
+window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
+    const modal = document.getElementById('modal-produto');
+    const imgMain = document.getElementById('img-principal-zoom');
+    const nomeTxt = document.getElementById('zoom-nome-produto');
+    const containerThumbs = document.getElementById('miniaturas-container');
+    const btnAdd = document.getElementById('btn-add-zoom');
+
+    nomeTxt.innerText = nome;
+    imgMain.src = imgPrincipal;
+
+    // LÓGICA AUTOMÁTICA:
+    // Se fotosExtras estiver vazio, criamos um array com a foto principal repetida 6x
+    // Se fotosExtras TIVER fotos, usamos as fotos que você colocar lá
+    let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
+
+    let htmlThumbs = '';
+    listaDeFotos.forEach((foto, index) => {
+        htmlThumbs += `
+            <img src="${foto}" 
+                 class="thumb-item ${index === 0 ? 'thumb-active' : ''}" 
+                 onclick="trocarImagemZoom('${foto}', this)">
+        `;
+    });
+    
+    containerThumbs.innerHTML = htmlThumbs;
+
+    // Configura o botão de adicionar
+    btnAdd.onclick = () => {
+        const tamanho = document.getElementById('zoom-tamanho').value;
+        // Aqui garantimos que o item vai para o carrinho com o TAMANHO selecionado
+        itensNoCarrinho.push({ 
+            name: nome, 
+            price: preco, 
+            img: imgPrincipal, 
+            size: tamanho 
+        });
+        fecharModalZoom();
+        atualizarCarrinhoVisual(); // Chama sua função que calcula os descontos Stüssy
+    };
+
+    modal.style.display = 'flex';
 };
