@@ -419,3 +419,19 @@ body {
     border-color: #DAA520 !important;
     background-color: #1a1a1a !important; /* Dá um leve destaque ao passar o mouse */
 }
+
+.info-group input {
+    width: 100%;
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-top: 3px;
+    outline: none;
+}
+
+.info-group input:focus {
+    border-color: #DAA520;
+}
