@@ -226,6 +226,8 @@ window.toggleDetalhes = function(id) {
     const btn = document.getElementById(`btn-ver-${id}`);
     
     if (detalhe) {
+
+        
         if (detalhe.style.display === "none" || detalhe.style.display === "") {
             detalhe.style.display = "block";
             btn.innerText = "[ recolher ]";
@@ -234,4 +236,29 @@ window.toggleDetalhes = function(id) {
             btn.innerText = "[ ver mais ]";
         }
     }
+};// Função para Salvar CPF e Telefone
+window.salvarDadosPerfil = function() {
+    const cpf = document.getElementById('perfil-cpf').value;
+    const tel = document.getElementById('perfil-tel').value;
+
+    if (cpf === "" || tel === "") {
+        alert("Por favor, preencha o CPF e o Telefone antes de salvar.");
+        return;
+    }
+
+    // Aqui no futuro enviaremos para um banco de dados real (Firebase/Node)
+    console.log("Dados salvos no sistema:", { cpf, tel });
+    
+    // Feedback visual para o usuário
+    const btn = event.target;
+    const textoOriginal = btn.innerText;
+    btn.innerText = "DADOS SALVOS! ✓";
+    btn.style.color = "#4CAF50";
+    btn.style.borderColor = "#4CAF50";
+
+    setTimeout(() => {
+        btn.innerText = textoOriginal;
+        btn.style.color = "#DAA520";
+        btn.style.borderColor = "#DAA520";
+    }, 2000);
 };
