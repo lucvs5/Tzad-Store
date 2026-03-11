@@ -276,5 +276,30 @@
 <script src="js/script.js"></script>
 <script src="frontend/modal.js"></script>
 
+    </div> </div> <div id="modal-produto" class="modal-zoom" style="display:none;">
+    <div class="modal-zoom-content">
+        <span class="close-modal-zoom" onclick="fecharModalZoom()">&times;</span>
+        <h3 id="zoom-nome-produto">NOME DO PRODUTO</h3>
+        
+        <img id="img-principal-zoom" src="" alt="Produto">
+
+        <div id="miniaturas-container" class="miniaturas-container">
+            </div>
+
+        <label style="font-size: 11px; color: #888; display: block; margin-bottom: 5px;">TAMANHO DISPONÍVEL:</label>
+        <select id="zoom-tamanho">
+            <option value="P">P - Small</option>
+            <option value="M">M - Medium</option>
+            <option value="G">G - Large</option>
+            <option value="GG">GG - Extra Large</option>
+        </select>
+
+        <button id="btn-add-zoom" class="login-button">ADICIONAR AO CARRINHO</button>
+    </div>
+</div>
+
+<script src="js/shop.js"></script>
+<script src="js/script.js"></script>
+    
 </body>
 </html>
