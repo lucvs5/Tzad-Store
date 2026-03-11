@@ -292,12 +292,38 @@
     <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 20px; color: #ff4444; border-color: #551111;">
         Sair da conta
     </button>
-</div>
-        
+</div        
+
         
 </div> <script src="js/shop.js"></script>
 <script src="js/script.js"></script>
 <script src="frontend/modal.js"></script>
 
+<div id="modal-produto" class="modal-zoom" style="display:none;">
+    <div class="modal-zoom-content">
+        <span class="close-modal" onclick="fecharModalZoom()">&times;</span>
+        
+        <div class="main-img-container">
+            <img id="img-principal-zoom" src="" alt="Produto">
+        </div>
+
+        <div class="footer-carousel">
+            <p id="zoom-nome-produto" style="color: #DAA520; font-size: 14px; margin-bottom: 10px;"></p>
+            <div id="miniaturas-container" class="thumbnails">
+                </div>
+            
+            <div class="zoom-actions">
+                <select id="zoom-tamanho" class="sel-tam">
+                    <option value="P">Tamanho P</option>
+                    <option value="M">Tamanho M</option>
+                    <option value="G">Tamanho G</option>
+                    <option value="GG">Tamanho GG</option>
+                </select>
+                <button id="btn-add-zoom" class="login-button">ADICIONAR AO CARRINHO</button>
+            </div>
+        </div>
+    </div>
+</div>
+            
 </body>
     </html>
