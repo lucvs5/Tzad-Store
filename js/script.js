@@ -151,7 +151,7 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
             alternarTela('login'); 
             
             // Opcional: Alerta suave para o usuário
-            alert("🔒 Quase lá! Faça login para salvar seu carrinho.");
+            alert("🔒 Quase lá! Faça login para adicionar ao carrinho.");
             return; 
         }
 
