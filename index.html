@@ -119,36 +119,67 @@
         </div>
 
         <div id="estado-painel" style="display: none;">
-            <div class="user-welcome">
-                <p>Olá, <strong id="user-name-display">Visitante</strong>!</p>
-            </div>
-            
-            <div id="area-perfil-usuario"></div>
+    <div class="user-welcome">
+        <p style="margin: 0; font-size: 13px; opacity: 0.8;">Bem-vindo à TZAD Store,</p>
+        <strong id="user-name-display" style="font-size: 18px; color: #DAA520;">Visitante</strong>
+    </div>
+    
+    <div class="user-menu-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px;">
+        <button class="menu-item-btn" onclick="abrirSubPagina('perfil')">Meu Perfil</button>
+        <button class="menu-item-btn" onclick="abrirSubPagina('mensagens')">Mensagens</button>
+        <button class="menu-item-btn" onclick="abrirSubPagina('enderecos')">Endereços</button>
+        <button class="menu-item-btn" onclick="abrirSubPagina('rastrear')">Rastrear pedidos</button>
+    </div>
 
-            <div class="divisor"></div>
-            <p class="section-label">ITENS NO CARRINHO</p>
+    <div class="divisor"></div>
+
+    <div id="area-conteudo-painel">
+        
+        <div id="aba-carrinho">
+            <p class="section-label" style="text-align: center; color: #fff;">CARRINHO</p>
             
             <div id="carrinho-lista"></div>
 
             <div class="divisor"></div>
             
             <div class="carrinho-resumo">
-                <div class="resumo-linha">
+                <div class="resumo-linha" style="display: flex; justify-content: space-between; font-size: 13px;">
+                    <span>Preço:</span>
+                    <strong id="preco-bruto">R$ 0,00</strong>
+                </div>
+                <div class="resumo-linha" style="display: flex; justify-content: space-between; font-size: 13px; color: #4CAF50;">
+                    <span>Descontos (<span id="txt-perc-desc">0</span>%):</span>
+                    <strong id="valor-desconto">- R$ 0,00</strong>
+                </div>
+                <div class="resumo-linha" style="display: flex; justify-content: space-between; font-size: 16px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #333;">
                     <span>Total:</span>
-                    <strong id="total-carrinho">R$ 0,00</strong>
+                    <strong id="total-carrinho" style="color: #DAA520;">R$ 0,00</strong>
                 </div>
             </div>
 
-            <button id="btn-finalizar" class="login-button" style="margin-top: 15px;">
-                FINALIZAR PEDIDO
-            </button>
+            <div style="margin-top: 15px;">
+                <p class="section-label" style="margin-bottom: 5px;">Formas de pagamento:</p>
+                <div id="espaco-pagamento" style="height: 35px; border: 1px dashed #444; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 11px;">
+                    Em breve (Gateway)
+                </div>
+            </div>
 
-            <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 10px;">
-                Sair da conta
-            </button>
+            <button id="btn-finalizar" class="login-button" style="margin-top: 15px;">PAGAR</button>
         </div>
-        
-    </div>
+
+        <div id="aba-perfil" style="display:none; text-align: center; padding: 15px;">
+            <p style="font-size: 12px;">Configurações de Perfil</p>
+            <button class="menu-item-btn" onclick="abrirSubPagina('carrinho')">Voltar ao Carrinho</button>
+        </div>
+        <div id="aba-enderecos" style="display:none; text-align: center; padding: 15px;">
+            <p style="font-size: 12px;">Meus Endereços</p>
+            <button class="menu-item-btn" onclick="abrirSubPagina('carrinho')">Voltar ao Carrinho</button>
+        </div>
+        </div>
+
+    <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 20px; color: #ff4444; border-color: #551111;">
+        Sair da conta
+    </button>
 </div>
         
         
