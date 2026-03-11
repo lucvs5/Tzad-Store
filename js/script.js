@@ -110,31 +110,75 @@ window.abrirSubPagina = function(abaId) {
     document.getElementById('menu-navegacao-painel').style.display = (abaId === 'carrinho') ? 'grid' : 'none';
 };
 
-// 6. MODAL ZOOM (CARROSSEL)
+// 6. MODAL ZOOM (CARROSSEL COM VALIDAÇÃO DE LOGIN E TAMANHO)
 window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
     const modal = document.getElementById('modal-produto');
+    const btnAdd = document.getElementById('btn-add-zoom');
+    const selectTamanho = document.getElementById('zoom-tamanho');
+    
+    // 1. Preenche os dados básicos do Modal
     document.getElementById('zoom-nome-produto').innerText = nome;
     document.getElementById('img-principal-zoom').src = imgPrincipal;
 
+    // 2. Cria as 6 miniaturas (se não tiver extras, repete a principal)
     let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
     document.getElementById('miniaturas-container').innerHTML = listaDeFotos.map((foto, idx) => `
-        <img src="${foto}" class="thumb-item ${idx === 0 ? 'thumb-active' : ''}" onclick="trocarImagemZoom('${foto}', this)">
+        <img src="${foto}" class="thumb-item ${idx === 0 ? 'thumb-active' : ''}" 
+             onclick="trocarImagemZoom('${foto}', this)">
     `).join('');
 
-    document.getElementById('btn-add-zoom').onclick = () => {
-        const tamanho = document.getElementById('zoom-tamanho').value;
-        itensNoCarrinho.push({ name: nome, price: preco, img: imgPrincipal, size: tamanho });
-        fecharModalZoom();
-        
-        // Abre o carrinho automaticamente
-        document.getElementById('login-window').style.display = 'block';
-        abrirSubPagina('carrinho');
-        atualizarCarrinhoVisual();
+    // 3. Resetar o botão e o select para o estado inicial toda vez que abrir
+    btnAdd.innerText = "ADICIONAR AO CARRINHO";
+    btnAdd.style.background = "#DAA520";
+    selectTamanho.value = ""; 
+
+    // 4. LÓGICA DO BOTÃO ADICIONAR
+    btnAdd.onclick = () => {
+        const tamanho = selectTamanho.value;
+        const estaLogado = document.getElementById('estado-painel').style.display === 'block';
+
+        // REGRA 1: Validar se selecionou o tamanho
+        if (!tamanho || tamanho === "") {
+            alert("❌ Selecione o tamanho antes de adicionar!");
+            return;
+        }
+
+        // REGRA 2: Validar se está logado
+        if (!estaLogado) {
+            // Abre o modal do carrinho/login por cima
+            const loginWin = document.getElementById('login-window');
+            loginWin.style.display = 'block';
+            alternarTela('login'); 
+            
+            // Opcional: Alerta suave para o usuário
+            alert("🔒 Quase lá! Faça login para salvar seu carrinho.");
+            return; 
+        }
+
+        // REGRA 3: Se passou nas duas, adiciona ao carrinho
+        itensNoCarrinho.push({ 
+            name: nome, 
+            price: preco, 
+            img: imgPrincipal, 
+            size: tamanho 
+        });
+
+        // Feedback de sucesso sem fechar o modal imediatamente
+        btnAdd.innerText = "ADICIONADO! ✓";
+        btnAdd.style.background = "#4CAF50";
+
+        setTimeout(() => {
+            fecharModalZoom();
+            atualizarCarrinhoVisual(); // Calcula o desconto Stüssy em background
+        }, 800);
     };
+
     modal.style.display = 'flex';
 };
 
-window.fecharModalZoom = () => document.getElementById('modal-produto').style.display = 'none';
+window.fecharModalZoom = () => {
+    document.getElementById('modal-produto').style.display = 'none';
+};
 
 window.trocarImagemZoom = (src, el) => {
     document.getElementById('img-principal-zoom').src = src;
