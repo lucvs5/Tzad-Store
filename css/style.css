@@ -430,9 +430,129 @@ body {
     font-size: 11px;
     margin-top: 3px;
     outline: none;
+
 }
 
 .info-group input:focus {
     border-color: #DAA520;
     }
       }
+
+/* ========================================================
+   7. NOVO MODAL DE ZOOM (CARROSSEL PROFISSIONAL)
+======================================================== */
+.modal-zoom {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95); /* Fundo bem escuro para destacar o produto */
+    display: none; /* Controlado pelo JS */
+    justify-content: center;
+    align-items: center;
+    z-index: 4000; /* Acima de TUDO, inclusive do carrinho */
+    padding: 20px;
+}
+
+.modal-zoom-content {
+    background: #000;
+    border: 1px solid #DAA520;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(218, 165, 32, 0.2);
+}
+
+/* Imagem Principal do Zoom */
+#img-principal-zoom {
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #0a0a0a;
+}
+
+/* Container das Miniaturas (Carrossel) */
+.miniaturas-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 fotos por linha */
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.thumb-item {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #333;
+    transition: 0.2s;
+    opacity: 0.6;
+}
+
+.thumb-item:hover {
+    opacity: 1;
+    border-color: #DAA520;
+}
+
+.thumb-active {
+    opacity: 1;
+    border: 2px solid #DAA520;
+}
+
+/* Nome e Controles no Modal */
+#zoom-nome-produto {
+    color: #DAA520;
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+#zoom-tamanho {
+    width: 100%;
+    padding: 10px;
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+#zoom-tamanho:focus {
+    border-color: #DAA520;
+}
+
+/* Botão Fechar do Zoom */
+.close-modal-zoom {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: #DAA520;
+    color: #000;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid #000;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 480px) {
+    .modal-zoom-content {
+        padding: 15px;
+        width: 95%;
+    }
+    .miniaturas-container {
+        gap: 5px;
+    }
+}
