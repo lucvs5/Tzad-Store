@@ -435,3 +435,31 @@ body {
 .info-group input:focus {
     border-color: #DAA520;
 }
+
+.modal-zoom {
+    position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center;
+}
+.modal-zoom-content {
+    width: 90%; max-width: 500px; background: #0a0a0a; border: 1px solid #333;
+    border-radius: 12px; position: relative; padding: 20px;
+}
+.main-img-container img {
+    width: 100%; border-radius: 8px; cursor: crosshair; transition: 0.3s;
+}
+.thumbnails {
+    display: flex; gap: 8px; overflow-x: auto; padding: 10px 0;
+    scrollbar-width: thin;
+}
+.thumb-item {
+    width: 60px; height: 60px; object-fit: cover; border: 2px solid #333;
+    border-radius: 4px; cursor: pointer; flex-shrink: 0;
+}
+.thumb-item:hover, .thumb-active { border-color: #DAA520; }
+.close-modal {
+    position: absolute; top: 10px; right: 15px; color: #fff; font-size: 30px; cursor: pointer;
+}
+.sel-tam {
+    width: 100%; background: #111; color: #fff; border: 1px solid #444;
+    padding: 10px; border-radius: 6px; margin: 10px 0;
+}
