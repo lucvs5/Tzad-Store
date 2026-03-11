@@ -172,45 +172,55 @@
     
     <div class="user-info-fields" style="font-size: 12px; display: flex; flex-direction: column; gap: 8px;">
         <div class="info-group">
-            <label style="color: #888; display: block;">Nome:</label>
+            <label>Nome:</label>
             <span id="perfil-nome" style="color: #fff; font-weight: bold;">---</span>
         </div>
         <div class="info-group">
-            <label style="color: #888; display: block;">CPF:</label>
+            <label>CPF:</label>
             <input type="text" id="perfil-cpf" placeholder="000.000.000-00" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 5px; border-radius: 4px;">
         </div>
         <div class="info-group">
-            <label style="color: #888; display: block;">Telefone:</label>
+            <label>Telefone:</label>
             <input type="text" id="perfil-tel" placeholder="(00) 00000-0000" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 5px; border-radius: 4px;">
         </div>
-        <div class="info-group">
-            <label style="color: #888; display: block;">E-mail:</label>
-            <span id="perfil-email" style="color: #fff;">---</span>
+        <button onclick="salvarDadosPerfil()" class="login-button" style="margin-top: 5px; padding: 8px; font-size: 12px; background: #222; border: 1px solid #DAA520; color: #DAA520;">
+            SALVAR DADOS
+        </button>
+
+        <div class="info-group" style="margin-top: 5px;">
+            <label>E-mail:</label>
+            <span id="perfil-email" style="color: #fff; opacity: 0.7;">---</span>
         </div>
     </div>
 
     <div class="divisor"></div>
 
     <p class="section-label">MINHAS COMPRAS</p>
-    <div id="lista-compras" style="max-height: 200px; overflow-y: auto;">
+    <div id="lista-compras">
         
         <div class="compra-card" style="background: #111; border: 1px solid #333; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
             <div style="font-size: 11px; color: #eee;">
-                <strong>Compra #001</strong> - 2 itens<br>
-                <span>Preço: <span style="color: #DAA520;">R$ 400,00</span></span>
+                <strong>Pedido #7721</strong> - 2 itens<br>
+                <span>Total Pago: <strong style="color: #DAA520;">R$ 380,00</strong></span>
             </div>
             
-            <div id="detalhe-compra-1" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #444; font-size: 10px; color: #bbb;">
+            <div id="detalhe-compra-1" style="display: none; margin-top: 10px; font-size: 10px; color: #bbb;">
+                <div class="divisor" style="margin: 8px 0; opacity: 0.3;"></div>
+                <p style="color: #DAA520; margin-bottom: 5px;"><strong>ENDEREÇO DE ENTREGA:</strong></p>
+                <p id="compra-endereco-info">Rua Exemplo, 123 - Bairro - Cidade/SP</p>
+                
+                <div class="divisor" style="margin: 8px 0; opacity: 0.3;"></div>
+                
                 <p>• Conjunto Nike Nocta - R$ 250,00</p>
                 <p>• Camisa Stussy - R$ 150,00</p>
-                <div style="margin-top: 5px; color: #fff;">
-                    Desconto: R$ 20,00<br>
-                    <strong>Total Pago: R$ 380,00</strong><br>
-                    <small>Forma: Cartão de Crédito</small>
+                <div style="margin-top: 5px; color: #fff; border-top: 1px solid #222; padding-top: 5px;">
+                    Preço Bruto: R$ 400,00<br>
+                    Descontos: R$ 20,00 (5%)<br>
+                    <strong>Pago via: PIX</strong>
                 </div>
             </div>
 
-            <button onclick="toggleDetalhes(1)" id="btn-ver-1" style="background: none; border: none; color: #DAA520; cursor: pointer; font-size: 10px; padding: 5px 0; font-weight: bold;">[ ver mais ]</button>
+            <button onclick="toggleDetalhes(1)" id="btn-ver-1" style="background: none; border: none; color: #DAA520; cursor: pointer; font-size: 10px; padding: 5px 0; font-weight: bold; text-decoration: underline;">[ ver mais ]</button>
         </div>
 
     </div>
