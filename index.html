@@ -243,16 +243,13 @@
     <button class="menu-item-btn" onclick="abrirSubPagina('carrinho')" style="width: 100%; margin-top: 10px;">Voltar ao Carrinho</button>
 </div>
 
-        <div id="aba-enderecos" style="display:none; padding: 10px;">
+<button class="menu-item-btn" onclick="abrirSubPagina('carrinho')" style="width: 100%; margin-top: 10px;">Voltar ao Carrinho</button>
+</div> <div id="aba-enderecos" style="display:none; padding: 10px;">
     <h3 style="color: #DAA520; font-size: 16px; margin-bottom: 15px; text-align: center;">MEUS ENDEREÇOS</h3>
 
     <div style="background: #111; border: 1px solid #333; padding: 12px; border-radius: 8px;">
         <p style="font-size: 11px; color: #DAA520; margin-bottom: 10px; font-weight: bold;">+ NOVO ENDEREÇO</p>
         <div class="user-info-fields" style="display: flex; flex-direction: column; gap: 8px;">
-           <div class="info-group" style="grid-column: span 2; margin-bottom: 5px;">
-                <label>Nome do Destinatário:</label>
-                <input type="text" id="end-destinatario" placeholder="Quem receberá o pacote?" style="width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 5px; border-radius: 4px;">
-           </div>
             <div class="info-group">
                 <label>Rua:</label>
                 <input type="text" id="end-rua" placeholder="Nome da rua">
@@ -292,37 +289,12 @@
     <button id="btn-logout" class="menu-item-btn" style="width: 100%; margin-top: 20px; color: #ff4444; border-color: #551111;">
         Sair da conta
     </button>
-</div              
-
-<div id="modal-produto" class="modal-zoom" style="display:none;">
-    <div class="modal-zoom-content">
-        <span class="close-modal" onclick="fecharModalZoom()">&times;</span>
+</div>
         
-        <div class="main-img-container">
-            <img id="img-principal-zoom" src="" alt="Produto">
-        </div>
-
-        <div class="footer-carousel">
-            <p id="zoom-nome-produto" style="color: #DAA520; font-size: 14px; margin-bottom: 10px;"></p>
-            <div id="miniaturas-container" class="thumbnails">
-                </div>
-            
-            <div class="zoom-actions">
-                <select id="zoom-tamanho" class="sel-tam">
-                    <option value="P">Tamanho P</option>
-                    <option value="M">Tamanho M</option>
-                    <option value="G">Tamanho G</option>
-                    <option value="GG">Tamanho GG</option>
-                </select>
-                <button id="btn-add-zoom" class="login-button">ADICIONAR AO CARRINHO</button>
-            </div>
-        </div>
-
         
-    </div> <script src="js/shop.js"></script>
+</div> <script src="js/shop.js"></script>
 <script src="js/script.js"></script>
 <script src="frontend/modal.js"></script>
 
-            
 </body>
-            </html>
+        </html>
