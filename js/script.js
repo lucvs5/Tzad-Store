@@ -232,7 +232,43 @@ function calcularTotais() {
 
 window.removerItem = (idx) => { itensNoCarrinho.splice(idx, 1); atualizarCarrinhoVisual(); };
 
-// 8. FINALIZAÇÃO E MÁSCARAS (CPF/TEL)
+// 8. LÓGICA DO PERFIL (TRAVAR/DESTRAVAR)
+function habilitarEdicao() {
+    document.getElementById('perfil-cpf').disabled = false;
+    document.getElementById('perfil-tel').disabled = false;
+    document.getElementById('perfil-cpf').classList.add('editando');
+    document.getElementById('perfil-tel').classList.add('editando');
+    
+    document.getElementById('btn-salvar-perfil').style.display = 'block';
+    document.getElementById('btn-alterar-perfil').style.display = 'none';
+}
+
+function salvarDadosPerfil() {
+    // Aqui você travaria de volta
+    document.getElementById('perfil-cpf').disabled = true;
+    document.getElementById('perfil-tel').disabled = true;
+    document.getElementById('perfil-cpf').classList.remove('editando');
+    document.getElementById('perfil-tel').classList.remove('editando');
+
+    document.getElementById('btn-salvar-perfil').style.display = 'none';
+    document.getElementById('btn-alterar-perfil').style.display = 'block';
+    alert("✅ Dados salvos permanentemente!");
+}
+
+// 8.1. LÓGICA DE VER MAIS COMPRAS
+function toggleDetalhes(id) {
+    const info = document.getElementById(`detalhe-compra-${id}`);
+    const btn = document.getElementById(`btn-ver-${id}`);
+    if (info.style.display === 'none') {
+        info.style.display = 'block';
+        btn.innerText = '[ ver menos ]';
+    } else {
+        info.style.display = 'none';
+        btn.innerText = '[ ver mais ]';
+    }
+                            }
+
+// 9. FINALIZAÇÃO E MÁSCARAS (CPF/TEL)
 window.mascaraCPF = (i) => {
     let v = i.value.replace(/\D/g, "").slice(0, 11);
     i.value = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
