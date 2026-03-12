@@ -1,48 +1,68 @@
-window.abrirModal = function(product) {
-    let modal = document.getElementById('modal-compra');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'modal-compra';
-        modal.className = 'modal-overlay';
-        document.body.appendChild(modal);
-    }
+// 1. FUNÇÃO DO CARROSSEL PROFISSIONAL (Dentro do modal.js)
+window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
+    const modal = document.getElementById('modal-produto');
+    const imgMain = document.getElementById('img-principal-zoom');
+    const nomeTxt = document.getElementById('zoom-nome-produto');
+    const containerThumbs = document.getElementById('miniaturas-container');
+    const btnAdd = document.getElementById('btn-add-zoom');
+    const selectTamanho = document.getElementById('zoom-tamanho');
 
-    modal.innerHTML = `
-        <div class="modal-content">
-            <button class="close-modal" onclick="fecharModal()">&times;</button>
-            
-            <div style="text-align:center;">
-                <img src="${product.img}" style="width:100%; max-height:300px; object-fit:contain; border-radius:10px;">
-            </div>
+    // Preenche os dados
+    nomeTxt.innerText = nome;
+    imgMain.src = imgPrincipal;
 
-            <h3 style="margin-top:15px; font-size:22px; color:#DAA520;">${product.name}</h3>
-            <p style="color:#ffffff; font-weight:bold; font-size:20px; margin:10px 0;">R$ ${product.price}</p>
-            
-            <div style="text-align:left; margin-top:15px;">
-                <label style="font-weight:bold; display:block; margin-bottom:5px; color:#DAA520;">Tamanho:</label>
-                <select id="var-tamanho" style="width:100%; padding:12px; border-radius:5px; border:1px solid #DAA520; background:#000; color:#fff;">
-                    <option value="P">P</option>
-                    <option value="M">M</option>
-                    <option value="G">G</option>
-                    <option value="GG">GG</option>
-                </select>
-            </div>
+    // Reseta botões
+    btnAdd.innerText = "ADICIONAR AO CARRINHO";
+    btnAdd.style.background = "#DAA520";
+    if (selectTamanho) selectTamanho.value = "";
 
-            <button onclick="finalizarPedido('${product.id}')" 
-                    style="width:100%; padding:15px; background:#DAA520; color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px; text-transform:uppercase;">
-                Adicionar ao Carrinho
-            </button>
-        </div>
-    `;
+    // Gera as 6 miniaturas (Se não houver extras, repete a principal)
+    let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
+
+    containerThumbs.innerHTML = listaDeFotos.map((foto, index) => `
+        <img src="${foto}" 
+             class="thumb-item ${index === 0 ? 'thumb-active' : ''}" 
+             onclick="trocarImagemZoom('${foto}', this)">
+    `).join('');
+
+    // Lógica do botão adicionar
+    btnAdd.onclick = () => {
+        const tamanho = selectTamanho ? selectTamanho.value : "";
+        const painelUsuario = document.getElementById('estado-painel');
+
+        if (!tamanho || tamanho === "") {
+            alert("⚠️ Selecione o tamanho!");
+            return;
+        }
+
+        if (painelUsuario && painelUsuario.style.display !== 'block') {
+            document.getElementById('login-window').style.display = 'block';
+            if(typeof alternarTela === 'function') alternarTela('login');
+            alert("🔒 Faça login para comprar.");
+            return; 
+        }
+
+        // Adiciona ao carrinho global (itensNoCarrinho está no script.js ou shop.js)
+        if (typeof itensNoCarrinho !== 'undefined') {
+            itensNoCarrinho.push({ name: nome, price: preco, img: imgPrincipal, size: tamanho });
+            btnAdd.innerText = "ADICIONADO! ✓";
+            btnAdd.style.background = "#4CAF50";
+            setTimeout(() => {
+                fecharModalZoom();
+                if(typeof atualizarCarrinhoVisual === 'function') atualizarCarrinhoVisual();
+            }, 800);
+        }
+    };
 
     modal.style.display = 'flex';
 };
 
-window.fecharModal = function() {
-    document.getElementById('modal-compra').style.display = 'none';
+window.fecharModalZoom = function() {
+    document.getElementById('modal-produto').style.display = 'none';
 };
 
-window.finalizarPedido = function(productId) {
-    alert("Produto adicionado com sucesso!");
-    fecharModal();
+window.trocarImagemZoom = function(src, elemento) {
+    document.getElementById('img-principal-zoom').src = src;
+    document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('thumb-active'));
+    elemento.classList.add('thumb-active');
 };
