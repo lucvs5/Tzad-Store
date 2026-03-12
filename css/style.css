@@ -442,45 +442,41 @@ body {
    7. NOVO MODAL DE ZOOM (CARROSSEL PROFISSIONAL)
 ======================================================== */
 /* 7.1. O ESTADO BASE (ESCONDIDO) */
+/* Correção do Modal Zoom */
 .modal-zoom {
-    display: none; /* Mantido para não interferir nos cliques quando fechado */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0); /* Começa transparente */
-    z-index: 99999;
+    display: none; 
+    position: fixed !important; /* Força a posição fixa */
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95); 
+    z-index: 999999 !important; /* Z-index altíssimo */
     justify-content: center;
     align-items: center;
-    transition: background-color 0.4s ease; /* Anima o fundo escurecendo */
-}
-
-/* 7.2. O CONTEÚDO (EFEITO DE SURGIMENTO) */
-.modal-zoom-content {
-    background-color: #111;
-    padding: 25px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 450px;
-    border: 1px solid #333;
-    text-align: center;
-    
-    /* Efeito inicial: Invisível, menor e um pouco abaixo */
     opacity: 0;
-    transform: scale(0.8) translateY(30px);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Transição suave e elegante */
+    transition: opacity 0.4s ease;
 }
 
-/* 7.3. O ESTADO ATIVO (QUANDO ABRE) */
 .modal-zoom.active {
-    display: flex; /* O JS ativa o flex primeiro */
-    background-color: rgba(0, 0, 0, 0.9); /* Fundo escurece */
+    display: flex !important;
+    opacity: 1;
 }
 
-.modal-zoom.active .modal-zoom-content {
-    opacity: 1;
-    transform: scale(1) translateY(0); /* Volta ao tamanho normal e posição original */
+/* Estilo dos Inputs do Perfil */
+.input-perfil-travado {
+    width: 100%;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #DAA520;
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.input-perfil-travado.editando {
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 5px;
 }
 
 /* 7.4. BOTÃO FECHAR */
