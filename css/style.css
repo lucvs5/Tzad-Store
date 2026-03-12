@@ -529,15 +529,15 @@ body {
     border: 2px solid #DAA520;
 }
 
-/* DESIGN DO ZOOM V2 */
+/* DESIGN DO ZOOM V2.1 COM CARROSSEL */
 .zoom-v2-overlay {
-    display: none; /* JS mudará para flex */
+    display: none;
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    background-color: rgba(0, 0, 0, 0.9) !important;
+    background-color: rgba(0, 0, 0, 0.95) !important;
     z-index: 999999 !important;
     justify-content: center;
     align-items: center;
@@ -548,37 +548,78 @@ body {
     padding: 20px;
     border-radius: 12px;
     width: 90%;
-    max-width: 400px;
+    max-width: 450px;
     border: 1px solid #DAA520;
     position: relative;
     text-align: center;
+    color: white;
 }
 
 #zoom-v2-img {
     width: 100%;
-    max-height: 300px;
+    max-height: 350px;
     object-fit: contain;
     border-radius: 8px;
     margin-bottom: 15px;
 }
 
-#zoom-v2-fechar {
+/* ESTILOS DO CARROSSEL */
+.zoom-v2-carrossel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 30px; /* Espaço para as setas */
+}
+
+.zoom-v2-miniaturas {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* Scroll horizontal */
+    scroll-behavior: smooth; /* Scroll suave */
+    padding: 5px 0;
+}
+
+/* Esconde a barra de scroll padrão */
+.zoom-v2-miniaturas::-webkit-scrollbar {
+    display: none;
+}
+
+.zoom-v2-miniaturas img {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid #333;
+    object-fit: cover;
+    transition: 0.3s;
+    flex-shrink: 0; /* Impede que as imagens diminuam */
+}
+
+.zoom-v2-miniaturas img:hover,
+.zoom-v2-miniaturas img.thumb-ativa {
+    border-color: #DAA520;
+}
+
+/* ESTILOS DAS SETAS */
+.zoom-v2-seta {
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     color: #DAA520;
-    font-size: 22px;
+    font-size: 24px;
     cursor: pointer;
+    opacity: 0.5; /* Semi-transparente */
+    transition: 0.3s;
+    padding: 10px;
+    z-index: 10;
 }
 
-#zoom-v2-tamanho {
-    width: 100%;
-    padding: 10px;
-    background: #222;
-    color: #fff;
-    border: 1px solid #444;
-    margin-bottom: 20px;
-    border-radius: 5px;
+.zoom-v2-seta:hover {
+    opacity: 1; /* Opacidade total no hover */
 }
+
+.seta-esq { left: 0; }
+.seta-dir { right: 0; }
