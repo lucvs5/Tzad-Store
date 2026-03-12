@@ -317,3 +317,15 @@ window.mascaraTel = (i) => {
     let v = i.value.replace(/\D/g, "").slice(0, 11);
     i.value = v.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 };
+
+// Executa assim que a página carrega
+document.addEventListener('DOMContentLoaded', () => {
+    // ... suas outras chamadas ...
+    
+    // Recupera CPF e Telefone do LocalStorage
+    const cpfSalvo = localStorage.getItem('user_cpf');
+    const telSalvo = localStorage.getItem('user_tel');
+
+    if (cpfSalvo) document.getElementById('perfil-cpf').value = cpfSalvo;
+    if (telSalvo) document.getElementById('perfil-tel').value = telSalvo;
+});
