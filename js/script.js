@@ -38,14 +38,14 @@ function renderizarVitrines() {
         const elemento = document.getElementById(`vitrine-${cat}`);
         if (elemento) {
             const produtosFiltrados = produtosLoja.filter(p => p.categoria === cat);
-            elemento.innerHTML = produtosFiltrados.map(p => `
-                <div class="produto">
-                    <img src="${p.img}" alt="${p.name}">
-                    <h4>R$ ${p.price}</h4>
-                    <p>${p.name}</p>
-                    <button class="btn-comprar" onclick="abrirModalZoom('${p.name}', '${p.price}', '${p.img}')">Ver Detalhes</button>
-                </div>
-            `).join('');
+         elemento.innerHTML = produtosFiltrados.map(p => `
+    <div class="produto">
+        <img src="${p.img}" alt="${p.name}">
+        <h4>R$ ${p.price}</h4>
+        <p>${p.name}</p>
+        <button class="btn-comprar" onclick="abrirZoomV2('${p.name}', '${p.price}', '${p.img}')">Ver Detalhes</button>
+    </div>
+`).join('');
         }
     });
 }
