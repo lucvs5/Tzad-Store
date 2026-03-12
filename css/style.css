@@ -623,3 +623,31 @@ body {
 
 .seta-esq { left: 0; }
 .seta-dir { right: 0; }
+
+/* Scroll Suave e Escondido */
+.zoom-v2-miniaturas {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.zoom-v2-miniaturas::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* Setinhas Amarelas Meia-Transparentes */
+.zoom-v2-seta {
+    background: none;
+    border: none;
+    color: rgba(218, 165, 32, 0.5); /* Amarelo Ouro com 50% opacidade */
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.zoom-v2-seta:hover {
+    color: rgba(218, 165, 32, 1); /* Fica nítido ao passar o mouse */
+}
