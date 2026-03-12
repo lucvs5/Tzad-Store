@@ -105,3 +105,17 @@ window.onclick = function(event) {
         fecharZoomV2();
     }
 };
+// Função para as setinhas amarelas rolarem o scroll natural
+window.scrollCarrossel = function(direcao) {
+    const container = document.getElementById('zoom-v2-miniaturas');
+    const larguraItem = 70; // Tamanho da miniatura + gap
+    container.scrollLeft += direcao * larguraItem;
+};
+
+// Certifique-se que a função trocarImagemPrincipal também existe
+window.trocarImagemPrincipal = function(src, elemento) {
+    document.getElementById('zoom-v2-img').src = src;
+    // Opcional: destaque a miniatura clicada
+    document.querySelectorAll('.zoom-v2-miniaturas img').forEach(img => img.style.borderColor = '#333');
+    elemento.style.borderColor = '#DAA520';
+};
