@@ -39,17 +39,16 @@ function renderizarVitrines() {
         if (elemento) {
             const produtosFiltrados = produtosLoja.filter(p => p.categoria === cat);
          elemento.innerHTML = produtosFiltrados.map(p => `
-    <div class="produto">
-        <img src="${p.img}" alt="${p.name}">
-        <h4>R$ ${p.price}</h4>
-        <p>${p.name}</p>
-        <button class="btn-comprar" onclick="abrirZoomV2('${p.name}', '${p.price}', '${p.img}')">Ver Detalhes</button>
-    </div>
-`).join('');
-        }
-    });
-}
-
+                <div class="produto">
+                    <img src="${p.img}" alt="${p.name}">
+                    <h4>R$ ${p.price}</h4>
+                    <p>${p.name}</p>
+                    <button class="btn-comprar" onclick="abrirZoomV2('${p.name}', '${p.price}', '${p.img}')">Ver Detalhes</button>
+                </div>
+            `).join(''); // <-- O ponto final da criação dos produtos
+        } // <-- Fecha o IF
+    }); // <-- Fecha o FOREACH
+} // <-- Fecha a FUNÇÃO
 
 // 4. INTERFACE E ABERTURA DA JANELA (CARRINHO)
 function configurarInterface() {
