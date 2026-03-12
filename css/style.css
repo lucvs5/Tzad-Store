@@ -528,3 +528,57 @@ body {
     opacity: 1;
     border: 2px solid #DAA520;
 }
+
+/* DESIGN DO ZOOM V2 */
+.zoom-v2-overlay {
+    display: none; /* JS mudará para flex */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    z-index: 999999 !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.zoom-v2-caixa {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    border: 1px solid #DAA520;
+    position: relative;
+    text-align: center;
+}
+
+#zoom-v2-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+#zoom-v2-fechar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #DAA520;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#zoom-v2-tamanho {
+    width: 100%;
+    padding: 10px;
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
