@@ -250,3 +250,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cpfSalvo) document.getElementById('perfil-cpf').value = cpfSalvo;
     if (telSalvo) document.getElementById('perfil-tel').value = telSalvo;
 });
+
+window.adicionarAoCarrinho = function(nome, preco, img, tamanho) {
+    // 1. Cria o objeto do produto
+    const novoItem = {
+        nome: nome,
+        preco: parseFloat(preco.replace('R$', '').replace(',', '.').trim()),
+        img: img,
+        tamanho: tamanho,
+        quantidade: 1
+    };
+
+    // 2. Adiciona à sua lista de carrinho (supondo que o nome seja itensNoCarrinho)
+    if (typeof itensNoCarrinho !== 'undefined') {
+        itensNoCarrinho.push(novoItem);
+        
+        // 3. Atualiza o visual do carrinho e salva
+        atualizarCarrinho(); 
+        salvarCarrinho();
+        
+        // Feedback visual
+        alert("✅ " + nome + " (Tam: " + tamanho + ") adicionado!");
+    } else {
+        console.error("A variável 'itensNoCarrinho' não foi encontrada.");
+    }
+};
