@@ -267,6 +267,45 @@ function toggleDetalhes(id) {
         btn.innerText = '[ ver mais ]';
     }
                             }
+function salvarDadosPerfil() {
+    const cpf = document.getElementById('perfil-cpf').value;
+    const tel = document.getElementById('perfil-tel').value;
+
+    // 1. Salva no banco de dados local do navegador
+    localStorage.setItem('user_cpf', cpf);
+    localStorage.setItem('user_tel', tel);
+
+    // 2. Trava os campos novamente
+    document.getElementById('perfil-cpf').disabled = true;
+    document.getElementById('perfil-tel').disabled = true;
+    document.getElementById('perfil-cpf').classList.remove('editando');
+    document.getElementById('perfil-tel').classList.remove('editando');
+
+    document.getElementById('btn-salvar-perfil').style.display = 'none';
+    document.getElementById('btn-alterar-perfil').style.display = 'block';
+
+    alert("✅ Dados salvos no seu navegador!");
+}
+
+function carregarDadosSalvos() {
+    const cpfSalvo = localStorage.getItem('user_cpf');
+    const telSalvo = localStorage.getItem('user_tel');
+
+    if (cpfSalvo) {
+        document.getElementById('perfil-cpf').value = cpfSalvo;
+    }
+    if (telSalvo) {
+        document.getElementById('perfil-tel').value = telSalvo;
+    }
+}
+
+// Chame essa função dentro do seu DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    renderizarVitrines();
+    configurarInterface();
+    renderizarEnderecos();
+    carregarDadosSalvos(); // <-- Adicione isso aqui!
+});
 
 // 9. FINALIZAÇÃO E MÁSCARAS (CPF/TEL)
 window.mascaraCPF = (i) => {
