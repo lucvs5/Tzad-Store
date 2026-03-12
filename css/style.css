@@ -567,4 +567,40 @@ body {
     .miniaturas-container {
         gap: 5px;
     }
+    
+    /* 1. BOTÃO DA VITRINE (O seu código atual) */
+.btn-comprar {
+    background-color: #000000;
+    color: #DAA520;
+    border: 1px solid #DAA520; /* Adicionei uma borda fina para dar mais classe */
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 11px;
+    transition: all 0.3s ease; /* Para o efeito de hover */
+}
+
+/* Efeito ao passar o mouse na vitrine */
+.btn-comprar:hover {
+    background-color: #DAA520;
+    color: #000000;
+}
+
+/* 2. BOTÃO DENTRO DO MODAL ZOOM (O botão de ação final) */
+#btn-add-zoom {
+    background-color: #DAA520; /* Invertido: fundo dourado para chamar mais atenção */
+    color: #000000;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 14px; /* Um pouco maior para ser o foco */
+    margin-top: 20px;
+}
 }
