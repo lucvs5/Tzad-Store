@@ -1,4 +1,4 @@
-// 1. FUNÇÃO DO CARROSSEL PROFISSIONAL (Dentro do modal.js)
+// 1. FUNÇÃO DO CARROSSEL PROFISSIONAL (Com Animação)
 window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
     const modal = document.getElementById('modal-produto');
     const imgMain = document.getElementById('img-principal-zoom');
@@ -7,16 +7,13 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
     const btnAdd = document.getElementById('btn-add-zoom');
     const selectTamanho = document.getElementById('zoom-tamanho');
 
-    // Preenche os dados
     nomeTxt.innerText = nome;
     imgMain.src = imgPrincipal;
 
-    // Reseta botões
     btnAdd.innerText = "ADICIONAR AO CARRINHO";
     btnAdd.style.background = "#DAA520";
     if (selectTamanho) selectTamanho.value = "";
 
-    // Gera as 6 miniaturas (Se não houver extras, repete a principal)
     let listaDeFotos = fotosExtras.length > 0 ? fotosExtras : Array(6).fill(imgPrincipal);
 
     containerThumbs.innerHTML = listaDeFotos.map((foto, index) => `
@@ -25,7 +22,6 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
              onclick="trocarImagemZoom('${foto}', this)">
     `).join('');
 
-    // Lógica do botão adicionar
     btnAdd.onclick = () => {
         const tamanho = selectTamanho ? selectTamanho.value : "";
         const painelUsuario = document.getElementById('estado-painel');
@@ -42,7 +38,6 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
             return; 
         }
 
-        // Adiciona ao carrinho global (itensNoCarrinho está no script.js ou shop.js)
         if (typeof itensNoCarrinho !== 'undefined') {
             itensNoCarrinho.push({ name: nome, price: preco, img: imgPrincipal, size: tamanho });
             btnAdd.innerText = "ADICIONADO! ✓";
@@ -54,11 +49,22 @@ window.abrirModalZoom = function(nome, preco, imgPrincipal, fotosExtras = []) {
         }
     };
 
-    modal.style.display = 'flex';
+    // --- INÍCIO DA ANIMAÇÃO DE ABERTURA ---
+    modal.style.display = 'flex'; 
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    // --- FIM DA ANIMAÇÃO ---
 };
 
+// AJUSTE NA FUNÇÃO DE FECHAR (Para esperar a animação acabar)
 window.fecharModalZoom = function() {
-    document.getElementById('modal-produto').style.display = 'none';
+    const modal = document.getElementById('modal-produto');
+    modal.classList.remove('active'); // Remove a classe que dá opacidade e escala
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300); // 300ms é o tempo que definimos no CSS transition
 };
 
 window.trocarImagemZoom = function(src, elemento) {
