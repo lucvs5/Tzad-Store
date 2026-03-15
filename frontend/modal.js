@@ -35,27 +35,10 @@ if (produto.fotos && Array.isArray(produto.fotos)) {
     });
 }
 
-    // 4. Configura o botão de ADICIONAR AO CARRINHO (que está dentro do modal)
+    // 4. Lógica do Botão Adicionar (INTEGRAÇÃO COM CARRINHO)
     const btnAdd = document.getElementById('zoom-v2-btn-add');
-    btnAdd.onclick = function() {
-        const tamanho = document.getElementById('zoom-v2-tamanho').value;
-        
-        if (!tamanho) {
-            alert("Por favor, selecione um tamanho!");
-            return;
-        }
+    const selectTamanho = document.getElementById('zoom-v2-tamanho');
 
-        // Chama a função de adicionar ao carrinho de verdade
-        if (typeof adicionarAoCarrinho === 'function') {
-            adicionarAoCarrinho(produto.name, produto.price, produto.img, tamanho);
-            fecharZoomV2();
-        }
-    };
-
-    overlay.style.display = 'flex';
-};
-
-    // 2. Lógica do Botão Adicionar (INTEGRAÇÃO COM CARRINHO)
     btnAdd.onclick = function() {
         const tamanho = selectTamanho.value;
         const painelUsuario = document.getElementById('estado-painel'); 
@@ -76,28 +59,32 @@ if (produto.fotos && Array.isArray(produto.fotos)) {
                 loginWindow.style.display = 'block';
                 loginWindow.style.zIndex = "20000000"; 
             }
-            return;
+            return; // Para a execução aqui se não estiver logado
         }
 
         // SE CHEGOU AQUI, ESTÁ LOGADO E COM TAMANHO SELECIONADO.
         // ADICIONAR AO CARRINHO DE VERDADE:
-        if (typeof adicionarAoCarrinho === 'function') {
-            // Chamamos a função do carrinho que está no seu script.js
-            adicionarAoCarrinho(nome, preco, img, tamanho);
+        if (typeof window.adicionarAoCarrinho === 'function') {
+            // ATENÇÃO AQUI: Usando as informações do 'produto' buscado pelo ID
+            window.adicionarAoCarrinho(produto.name, produto.price, produto.img, tamanho);
+            
             fecharZoomV2(); // Fecha o modal após adicionar
             
-            // Opcional: Abre o carrinho para mostrar o item
+            // Abre o carrinho para mostrar o item adicionado
             setTimeout(() => {
-                abrirCarrinho();
+                if (typeof window.abrirCarrinho === 'function') {
+                    window.abrirCarrinho();
+                }
             }, 500);
         } else {
             console.error("Erro: A função 'adicionarAoCarrinho' não foi encontrada!");
-            alert("Erro ao adicionar ao carrinho. Tente novamente.");
+            alert("Erro ao adicionar ao carrinho. Verifique o console.");
         }
     };
 
+    // 5. Exibe o modal
     overlay.style.display = 'flex';
-};
+}; // <-- Fim da função abrirZoomV2
 
 // FUNÇÃO PARA TROCAR A IMAGEM PRINCIPAL
 window.trocarImagemPrincipal = function(src, thumb) {
