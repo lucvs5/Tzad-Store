@@ -252,26 +252,39 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.adicionarAoCarrinho = function(nome, preco, img, tamanho) {
-    // 1. Cria o objeto do produto
+    // 1. Criar o objeto garantindo que o preço seja número
+    const precoLimpo = parseFloat(preco.replace('R$', '').replace('.', '').replace(',', '.').trim());
+
     const novoItem = {
         nome: nome,
-        preco: parseFloat(preco.replace('R$', '').replace(',', '.').trim()),
+        preco: precoLimpo,
         img: img,
         tamanho: tamanho,
         quantidade: 1
     };
 
-    // 2. Adiciona à sua lista de carrinho (supondo que o nome seja itensNoCarrinho)
-    if (typeof itensNoCarrinho !== 'undefined') {
-        itensNoCarrinho.push(novoItem);
-        
-        // 3. Atualiza o visual do carrinho e salva
-        atualizarCarrinho(); 
-        salvarCarrinho();
-        
-        // Feedback visual
-        alert("✅ " + nome + " (Tam: " + tamanho + ") adicionado!");
-    } else {
-        console.error("A variável 'itensNoCarrinho' não foi encontrada.");
-    }
+    // 2. Enviar para o servidor (sua lógica atual)
+    fetch('carrinho_operacoes.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `acao=adicionar&nome=${encodeURIComponent(nome)}&preco=${precoLimpo}&img=${encodeURIComponent(img)}&tamanho=${encodeURIComponent(tamanho)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // CORREÇÃO: Atualizar a lista local e DESENHAR o carrinho sem precisar deslogar
+            if (typeof itensNoCarrinho !== 'undefined') {
+                itensNoCarrinho.push(novoItem);
+            }
+            
+            // Força a atualização visual do carrinho
+            if (typeof renderizarCarrinho === 'function') {
+                renderizarCarrinho();
+            }
+            
+            // Abre o painel para mostrar que funcionou
+            window.alternarTela('painel');
+            window.abrirSubPagina('carrinho');
+        }
+    });
 };
