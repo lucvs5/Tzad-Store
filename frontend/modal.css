@@ -1,132 +1,86 @@
-/* Modal Overlay Base */
+/* ESTILO DO MODAL DE COMPRA */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: none;
-    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    display: none; /* Escondido por padrão */
     justify-content: center;
-    z-index: 9999;
-    backdrop-filter: blur(5px);
+    align-items: center;
+    z-index: 3000;
 }
 
 .modal-content {
-    background: #000;
-    border: 2px solid #DAA520;
-    border-radius: 15px;
-    padding: 30px;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
+    background: #fff;
     width: 90%;
+    max-width: 450px;
+    padding: 25px;
+    border-radius: 15px;
+    position: relative;
+    text-align: center;
 }
 
 .close-modal {
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 15px;
+    font-size: 24px;
+    cursor: pointer;
     background: none;
     border: none;
-    font-size: 30px;
-    color: #DAA520;
-    cursor: pointer;
 }
 
-/* Carrossel */
-.carousel-container {
-    position: relative;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.modal-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-title {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.modal-price {
+    font-size: 18px;
+    color: #27ae60;
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
-.carousel-imagens {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+.variant-group {
+    margin-bottom: 15px;
+    text-align: left;
 }
 
-.carousel-img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.carousel-img.active {
-    opacity: 1;
-}
-
-.carousel-prev, .carousel-next {
-    position: absolute;
-    background: rgba(218,165,32,0.8);
-    border: none;
-    color: #000;
-    font-size: 24px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 2;
-}
-
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
-
-/* Tamanho + Botão */
-.tamanho-container {
-    margin: 20px 0;
-}
-
-.tamanho-container label {
-    color: #DAA520;
-    font-weight: bold;
+.variant-group label {
     display: block;
-    margin-bottom: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
 }
 
-#select-tamanho {
+.variant-group select {
     width: 100%;
-    padding: 12px;
-    background: #111;
-    color: #fff;
-    border: 2px solid #DAA520;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f9f9f9;
 }
 
-.btn-add-carrinho {
+.btn-confirmar-pedido {
     width: 100%;
     padding: 15px;
-    background: #DAA520;
-    color: #000;
+    background: #000;
+    color: #fff;
     border: none;
     border-radius: 8px;
-    font-weight: bold;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    text-transform: uppercase;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .modal-content {
-        margin: 20px;
-        padding: 20px;
-    }
-    
-    .carousel-container {
-        height: 250px;
-    }
+    margin-top: 10px;
 }
