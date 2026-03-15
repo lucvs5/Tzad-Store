@@ -43,7 +43,7 @@ function renderizarVitrines() {
                     <img src="${p.img}" alt="${p.name}">
                     <h4>R$ ${p.price}</h4>
                     <p>${p.name}</p>
-                    <button class="btn-comprar" onclick="abrirZoomV2(${p.id})">Ver Detalhes</button>
+                   <button class="btn-comprar" onclick="abrirZoomV2('${p.name}', '${p.price}', '${p.img}', ${JSON.stringify(p.fotos).replace(/"/g, '&quot;')})">Ver Detalhes</button>
                 </div>
             `).join(''); // <-- O ponto final da criação dos produtos
         } // <-- Fecha o IF
