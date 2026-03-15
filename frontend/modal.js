@@ -21,6 +21,20 @@ window.abrirZoomV2 = function(idProduto) {
         `).join('');
     }
 
+    // Dentro da função abrirZoomV2
+const containerMiniaturas = document.getElementById('zoom-v2-miniaturas');
+containerMiniaturas.innerHTML = ""; // Limpa antes de começar
+
+if (produto.fotos && Array.isArray(produto.fotos)) {
+    produto.fotos.forEach(foto => {
+        const mini = document.createElement('img');
+        mini.src = foto;
+        mini.onclick = () => trocarImagemPrincipal(foto, mini);
+        mini.style.cssText = "width:60px; height:60px; cursor:pointer; border:2px solid #333; object-fit:cover; border-radius:5px; flex-shrink:0;";
+        containerMiniaturas.appendChild(mini);
+    });
+}
+
     // 4. Configura o botão de ADICIONAR AO CARRINHO (que está dentro do modal)
     const btnAdd = document.getElementById('zoom-v2-btn-add');
     btnAdd.onclick = function() {
