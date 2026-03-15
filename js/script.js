@@ -229,6 +229,102 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 9. FINALIZAÇÃO E MÁSCARAS (CPF/TEL)
+// 1. BANCO DE DADOS COMPLETO
+const produtosLoja = [
+    { id: 101, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg", "img/bape-2.jpg"] },
+    { id: 102, name: "Conjunto BAPE Azul", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg"] },
+    { id: 103, name: "Conjunto BAPE Verde", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg"] },
+    { id: 104, name: "Conjunto BAPE Preto", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg"] },
+    { id: 105, name: "Conjunto BAPE Branco", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg"] },
+    { id: 106, name: "Conjunto BAPE Camo", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg"] }
+];
+
+// Carrinho Global
+let itensNoCarrinho = [];
+
+// 2. FUNÇÃO PARA GERAR A VITRINE NA TELA
+function renderizarVitrines() {
+    const grid = document.querySelector('.produtos-grid');
+    if (!grid) return;
+
+    grid.innerHTML = produtosLoja.map(p => `
+        <div class="produto-card">
+            <div class="produto-img">
+                <img src="${p.img}" alt="${p.name}">
+            </div>
+            <div class="produto-info">
+                <h3>${p.name}</h3>
+                <p class="preco-original">R$ 350,00</p>
+                <p class="preco-atual">R$ ${p.price}</p>
+                <button class="btn-comprar" onclick="abrirZoomV2(${p.id})">Ver Detalhes</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// 3. FUNÇÃO PARA ADICIONAR AO CARRINHO (Sincronizada)
+window.adicionarAoCarrinho = function(nome, preco, img, tamanho) {
+    // Converte o preço string para número real
+    const precoNum = parseFloat(preco.toString().replace('R$', '').replace('.', '').replace(',', '.').trim());
+
+    const novoItem = {
+        nome: nome,
+        preco: precoNum,
+        img: img,
+        tamanho: tamanho,
+        quantidade: 1
+    };
+
+    itensNoCarrinho.push(novoItem);
+    
+    // ATUALIZA A TELA DO CARRINHO NA HORA
+    window.atualizarCarrinhoHTML();
+
+    // Abre o painel para mostrar o item adicionado
+    if (typeof window.alternarTela === 'function') {
+        window.alternarTela('painel');
+        window.abrirSubPagina('carrinho');
+    }
+};
+
+// 4. FUNÇÃO QUE DESENHA O CARRINHO (Resolve o problema de ter que relogar)
+window.atualizarCarrinhoHTML = function() {
+    const listaUI = document.getElementById('lista-carrinho');
+    const totalUI = document.getElementById('total-carrinho');
+    
+    if (!listaUI) return;
+
+    if (itensNoCarrinho.length === 0) {
+        listaUI.innerHTML = "<p style='text-align:center; padding:20px;'>Seu carrinho está vazio.</p>";
+        if (totalUI) totalUI.innerText = "0,00";
+        return;
+    }
+
+    let subtotal = 0;
+    listaUI.innerHTML = itensNoCarrinho.map((item, index) => {
+        subtotal += item.preco;
+        return `
+            <div class="item-carrinho" style="display:flex; align-items:center; gap:10px; padding:10px; border-bottom:1px solid #222;">
+                <img src="${item.img}" style="width:50px; border-radius:5px;">
+                <div style="flex:1;">
+                    <h4 style="font-size:14px; margin:0;">${item.nome}</h4>
+                    <p style="font-size:12px; color:#DAA520; margin:2px 0;">Tam: ${item.tamanho}</p>
+                    <p style="font-size:13px; margin:0;">R$ ${item.preco.toFixed(2).replace('.', ',')}</p>
+                </div>
+                <button onclick="removerDoCarrinho(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:20px;">&times;</button>
+            </div>
+        `;
+    }).join('');
+
+    if (totalUI) totalUI.innerText = subtotal.toFixed(2).replace('.', ',');
+};
+
+window.removerDoCarrinho = function(index) {
+    itensNoCarrinho.splice(index, 1);
+    window.atualizarCarrinhoHTML();
+};
+
+// 5. MÁSCARAS E INICIALIZAÇÃO
 window.mascaraCPF = (i) => {
     let v = i.value.replace(/\D/g, "").slice(0, 11);
     i.value = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
@@ -239,39 +335,12 @@ window.mascaraTel = (i) => {
     i.value = v.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 };
 
-// Executa assim que a página carrega
 document.addEventListener('DOMContentLoaded', () => {
-    // ... suas outras chamadas ...
+    renderizarVitrines();
     
-    // Recupera CPF e Telefone do LocalStorage
-    const cpfSalvo = localStorage.getItem('user_cpf');
-    const telSalvo = localStorage.getItem('user_tel');
-
-    if (cpfSalvo) document.getElementById('perfil-cpf').value = cpfSalvo;
-    if (telSalvo) document.getElementById('perfil-tel').value = telSalvo;
-});
-
-window.adicionarAoCarrinho = function(nome, preco, img, tamanho) {
-    // 1. Cria o objeto do produto
-    const novoItem = {
-        nome: nome,
-        preco: parseFloat(preco.replace('R$', '').replace(',', '.').trim()),
-        img: img,
-        tamanho: tamanho,
-        quantidade: 1
-    };
-
-    // 2. Adiciona à sua lista de carrinho (supondo que o nome seja itensNoCarrinho)
-    if (typeof itensNoCarrinho !== 'undefined') {
-        itensNoCarrinho.push(novoItem);
-        
-        // 3. Atualiza o visual do carrinho e salva
-        atualizarCarrinho(); 
-        salvarCarrinho();
-        
-        // Feedback visual
-        alert("✅ " + nome + " (Tam: " + tamanho + ") adicionado!");
-    } else {
-        console.error("A variável 'itensNoCarrinho' não foi encontrada.");
+    // Recuperar login salvo para o perfil
+    const cpf = localStorage.getItem('user_cpf');
+    if (cpf && document.getElementById('perfil-cpf')) {
+        document.getElementById('perfil-cpf').value = cpf;
     }
-};
+});
