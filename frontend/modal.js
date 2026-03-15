@@ -1,76 +1,55 @@
 // FUNÇÃO PRINCIPAL: ABRIR MODAL V2
 window.abrirZoomV2 = function(idProduto) {
-    // 1. Encontra o produto na lista pelo ID
     const produto = produtosLoja.find(p => p.id === idProduto);
-    if (!produto) return; // Segurança caso o ID não exista
+    if (!produto) return;
 
     const overlay = document.getElementById('zoom-v2-overlay');
     const imgPrincipal = document.getElementById('zoom-v2-img');
     const containerMiniaturas = document.getElementById('zoom-v2-miniaturas');
-    const btnAdd = document.getElementById('zoom-v2-btn-add');
     const selectTamanho = document.getElementById('zoom-v2-tamanho');
 
-    // 2. Preenche os textos e a imagem principal
+    // CORREÇÃO: Resetar o select para a primeira opção (Selecione o tamanho)
+    selectTamanho.selectedIndex = 0;
+    selectTamanho.style.boxShadow = "none";
+
     document.getElementById('zoom-v2-titulo').innerText = produto.name;
     imgPrincipal.src = produto.img;
 
-    // 3. Cria o Carrossel de Miniaturas
-    containerMiniaturas.innerHTML = ""; // Limpa fotos antigas
-    if (produto.fotos && Array.isArray(produto.fotos)) {
-        produto.fotos.forEach(foto => {
-            const mini = document.createElement('img');
-            mini.src = foto;
-            mini.onclick = () => window.trocarImagemPrincipal(foto, mini);
-            mini.style.cssText = "width:60px; height:60px; cursor:pointer; border:2px solid #333; object-fit:cover; border-radius:5px; flex-shrink:0;";
-            containerMiniaturas.appendChild(mini);
-        });
-    }
+    // CORREÇÃO: Adicionar a foto principal JUNTO com as extras no scroll
+    const todasAsFotos = [produto.img, ...(produto.fotos || [])];
+    
+    containerMiniaturas.innerHTML = ""; 
+    todasAsFotos.forEach(foto => {
+        const mini = document.createElement('img');
+        mini.src = foto;
+        mini.onclick = () => window.trocarImagemPrincipal(foto, mini);
+        // Estilo inline para garantir que apareçam
+        mini.style.cssText = "width:60px; height:60px; cursor:pointer; border:2px solid #333; object-fit:cover; border-radius:5px; flex-shrink:0;";
+        containerMiniaturas.appendChild(mini);
+    });
 
-    // Limpa o evento de clique antigo para não adicionar duplicado
-    btnAdd.onclick = null;
-
-    // 4. Lógica do Botão Adicionar (INTEGRAÇÃO COM LOGIN E CARRINHO)
+    // Reconfigura o clique do botão adicionar
+    const btnAdd = document.getElementById('zoom-v2-btn-add');
     btnAdd.onclick = function() {
         const tamanho = selectTamanho.value;
         const painelUsuario = document.getElementById('estado-painel'); 
 
-        // Validação de Tamanho (Sombra amarela)
         if (!tamanho) {
             selectTamanho.style.boxShadow = "0 0 12px #DAA520";
-            selectTamanho.focus();
             return;
-        } else {
-            selectTamanho.style.boxShadow = "none";
         }
 
-        // Validação de Login SEM ALERT
         if (!painelUsuario || painelUsuario.style.display !== 'block') {
             const loginWindow = document.getElementById('login-window');
-            if (loginWindow) {
-                loginWindow.style.display = 'block';
-                loginWindow.style.zIndex = "20000000"; 
-            }
-            return; // Para a execução até o usuário logar
+            if (loginWindow) loginWindow.style.display = 'block';
+            return;
         }
 
-        // ADICIONAR AO CARRINHO
-        if (typeof window.adicionarAoCarrinho === 'function') {
-            window.adicionarAoCarrinho(produto.name, produto.price, produto.img, tamanho);
-            window.fecharZoomV2(); // Fecha o modal
-            
-            // Abre a janela do carrinho automaticamente
-            setTimeout(() => {
-                const loginWindow = document.getElementById('login-window');
-                if (loginWindow) loginWindow.style.display = 'block';
-                window.alternarTela('painel');
-                window.abrirSubPagina('carrinho');
-            }, 500);
-        } else {
-            console.error("Erro: Função 'adicionarAoCarrinho' não encontrada!");
-        }
+        // CHAMA A FUNÇÃO CORRIGIDA DO SCRIPT.JS
+        window.adicionarAoCarrinho(produto.name, produto.price, produto.img, tamanho);
+        window.fecharZoomV2();
     };
 
-    // 5. Exibe o modal na tela
     overlay.style.display = 'flex';
 };
 
