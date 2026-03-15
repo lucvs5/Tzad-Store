@@ -37,6 +37,7 @@ window.abrirModal = function(product) {
 
     modal.style.display = 'flex';
 };
+
 window.fecharModal = function() {
     document.getElementById('modal-compra').style.display = 'none';
 };
