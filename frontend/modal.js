@@ -1,26 +1,39 @@
-window.abrirModal = function(product) {
-    let modal = document.getElementById('modal-compra');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'modal-compra';
-        modal.className = 'modal-overlay';
-        document.body.appendChild(modal);
+// Modal Zoom/Carrossel (corrigido)
+window.abrirModalZoom = function(product) {
+    // Cria/verifica modal zoom
+    let modalZoom = document.getElementById('modal-zoom');
+    if (!modalZoom) {
+        modalZoom = document.createElement('div');
+        modalZoom.id = 'modal-zoom';
+        modalZoom.className = 'modal-overlay';
+        document.body.appendChild(modalZoom);
     }
 
-    modal.innerHTML = `
+    // Carrossel de imagens (suporte múltiplas imgs)
+    const imagens = product.images || [product.img]; // fallback pra 1 imagem
+    
+    modalZoom.innerHTML = `
         <div class="modal-content">
-            <button class="close-modal" onclick="fecharModal()">&times;</button>
+            <button class="close-modal" onclick="fecharModalZoom()">&times;</button>
             
-            <div style="text-align:center;">
-                <img src="${product.img}" style="width:100%; max-height:300px; object-fit:contain; border-radius:10px;">
+            <!-- Carrossel -->
+            <div class="carousel-container">
+                <button class="carousel-prev" onclick="mudarImagem(-1)">&#8249;</button>
+                <div class="carousel-imagens" id="carousel-imagens">
+                    ${imagens.map((img, index) => 
+                        `<img src="${img}" class="carousel-img ${index === 0 ? 'active' : ''}" alt="${product.name}">`
+                    ).join('')}
+                </div>
+                <button class="carousel-next" onclick="mudarImagem(1)">&#8250;</button>
             </div>
 
-            <h3 style="margin-top:15px; font-size:22px; color:#DAA520;">${product.name}</h3>
-            <p style="color:#ffffff; font-weight:bold; font-size:20px; margin:10px 0;">R$ ${product.price}</p>
+            <h3>${product.name}</h3>
+            <p class="price">R$ ${product.price}</p>
             
-            <div style="text-align:left; margin-top:15px;">
-                <label style="font-weight:bold; display:block; margin-bottom:5px; color:#DAA520;">Tamanho:</label>
-                <select id="var-tamanho" style="width:100%; padding:12px; border-radius:5px; border:1px solid #DAA520; background:#000; color:#fff;">
+            <!-- Seleção de tamanho -->
+            <div class="tamanho-container">
+                <label>Tamanho:</label>
+                <select id="select-tamanho">
                     <option value="P">P</option>
                     <option value="M">M</option>
                     <option value="G">G</option>
@@ -28,21 +41,58 @@ window.abrirModal = function(product) {
                 </select>
             </div>
 
-            <button onclick="finalizarPedido('${product.id}')" 
-                    style="width:100%; padding:15px; background:#DAA520; color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px; text-transform:uppercase;">
+            <button id="btn-adicionar-carrinho" class="btn-add-carrinho">
                 Adicionar ao Carrinho
             </button>
         </div>
     `;
 
-    modal.style.display = 'flex';
+    modalZoom.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Evita scroll
+    
+    // Event listener do botão (MELHOR que onclick global)
+    document.getElementById('btn-adicionar-carrinho').onclick = function() {
+        adicionarAoCarrinho(product);
+    };
 };
 
-window.fecharModal = function() {
-    document.getElementById('modal-compra').style.display = 'none';
+// Fecha modal zoom
+window.fecharModalZoom = function() {
+    const modal = document.getElementById('modal-zoom');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 };
 
-window.finalizarPedido = function(productId) {
-    alert("Produto adicionado com sucesso!");
-    fecharModal();
+// Carrossel navegação
+let currentImageIndex = 0;
+window.mudarImagem = function(direction) {
+    const imgs = document.querySelectorAll('.carousel-img');
+    const total = imgs.length;
+    
+    imgs[currentImageIndex].classList.remove('active');
+    currentImageIndex = (currentImageIndex + direction + total) % total;
+    imgs[currentImageIndex].classList.add('active');
+};
+
+// Adiciona ao carrinho (verifica login)
+window.adicionarAoCarrinho = function(product) {
+    const tamanho = document.getElementById('select-tamanho').value;
+    
+    // Verifica se usuário está logado
+    if (!window.usuarioLogado) {
+        // Abre modal carrinho com login
+        abrirModalCarrinho(product, tamanho);
+        return;
+    }
+    
+    // Já logado: adiciona direto
+    finalizarPedido(product.id, tamanho);
+};
+
+// Modal Carrinho/Login (próximo passo)
+window.abrirModalCarrinho = function(product, tamanho) {
+    // TODO: implementar modal carrinho com login aqui
+    alert(`Faça login para adicionar ${product.name} (tamanho ${tamanho}) ao carrinho`);
 };
