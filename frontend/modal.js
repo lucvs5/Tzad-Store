@@ -1,132 +1,48 @@
-/* Modal Overlay Base */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background: #000;
-    border: 2px solid #DAA520;
-    border-radius: 15px;
-    padding: 30px;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    width: 90%;
-}
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 30px;
-    color: #DAA520;
-    cursor: pointer;
-}
-
-/* Carrossel */
-.carousel-container {
-    position: relative;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.carousel-imagens {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.carousel-img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.carousel-img.active {
-    opacity: 1;
-}
-
-.carousel-prev, .carousel-next {
-    position: absolute;
-    background: rgba(218,165,32,0.8);
-    border: none;
-    color: #000;
-    font-size: 24px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 2;
-}
-
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
-
-/* Tamanho + Botão */
-.tamanho-container {
-    margin: 20px 0;
-}
-
-.tamanho-container label {
-    color: #DAA520;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
-}
-
-#select-tamanho {
-    width: 100%;
-    padding: 12px;
-    background: #111;
-    color: #fff;
-    border: 2px solid #DAA520;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.btn-add-carrinho {
-    width: 100%;
-    padding: 15px;
-    background: #DAA520;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .modal-content {
-        margin: 20px;
-        padding: 20px;
+window.abrirModal = function(product) {
+    let modal = document.getElementById('modal-compra');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modal-compra';
+        modal.className = 'modal-overlay';
+        document.body.appendChild(modal);
     }
-    
-    .carousel-container {
-        height: 250px;
-    }
-}
+
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button class="close-modal" onclick="fecharModal()">&times;</button>
+            
+            <div style="text-align:center;">
+                <img src="${product.img}" style="width:100%; max-height:300px; object-fit:contain; border-radius:10px;">
+            </div>
+
+            <h3 style="margin-top:15px; font-size:22px; color:#DAA520;">${product.name}</h3>
+            <p style="color:#ffffff; font-weight:bold; font-size:20px; margin:10px 0;">R$ ${product.price}</p>
+            
+            <div style="text-align:left; margin-top:15px;">
+                <label style="font-weight:bold; display:block; margin-bottom:5px; color:#DAA520;">Tamanho:</label>
+                <select id="var-tamanho" style="width:100%; padding:12px; border-radius:5px; border:1px solid #DAA520; background:#000; color:#fff;">
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                </select>
+            </div>
+
+            <button onclick="finalizarPedido('${product.id}')" 
+                    style="width:100%; padding:15px; background:#DAA520; color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px; text-transform:uppercase;">
+                Adicionar ao Carrinho
+            </button>
+        </div>
+    `;
+
+    modal.style.display = 'flex';
+};
+
+window.fecharModal = function() {
+    document.getElementById('modal-compra').style.display = 'none';
+};
+
+window.finalizarPedido = function(productId) {
+    alert("Produto adicionado com sucesso!");
+    fecharModal();
+};
