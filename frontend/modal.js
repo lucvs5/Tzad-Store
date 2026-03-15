@@ -1,98 +1,132 @@
-// Modal Zoom/Carrossel (corrigido)
-window.abrirModalZoom = function(product) {
-    // Cria/verifica modal zoom
-    let modalZoom = document.getElementById('modal-zoom');
-    if (!modalZoom) {
-        modalZoom = document.createElement('div');
-        modalZoom.id = 'modal-zoom';
-        modalZoom.className = 'modal-overlay';
-        document.body.appendChild(modalZoom);
+/* Modal Overlay Base */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: #000;
+    border: 2px solid #DAA520;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    width: 90%;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #DAA520;
+    cursor: pointer;
+}
+
+/* Carrossel */
+.carousel-container {
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.carousel-imagens {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.carousel-img.active {
+    opacity: 1;
+}
+
+.carousel-prev, .carousel-next {
+    position: absolute;
+    background: rgba(218,165,32,0.8);
+    border: none;
+    color: #000;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.carousel-prev { left: 10px; }
+.carousel-next { right: 10px; }
+
+/* Tamanho + Botão */
+.tamanho-container {
+    margin: 20px 0;
+}
+
+.tamanho-container label {
+    color: #DAA520;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#select-tamanho {
+    width: 100%;
+    padding: 12px;
+    background: #111;
+    color: #fff;
+    border: 2px solid #DAA520;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.btn-add-carrinho {
+    width: 100%;
+    padding: 15px;
+    background: #DAA520;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 20px;
+        padding: 20px;
     }
-
-    // Carrossel de imagens (suporte múltiplas imgs)
-    const imagens = product.images || [product.img]; // fallback pra 1 imagem
     
-    modalZoom.innerHTML = `
-        <div class="modal-content">
-            <button class="close-modal" onclick="fecharModalZoom()">&times;</button>
-            
-            <!-- Carrossel -->
-            <div class="carousel-container">
-                <button class="carousel-prev" onclick="mudarImagem(-1)">&#8249;</button>
-                <div class="carousel-imagens" id="carousel-imagens">
-                    ${imagens.map((img, index) => 
-                        `<img src="${img}" class="carousel-img ${index === 0 ? 'active' : ''}" alt="${product.name}">`
-                    ).join('')}
-                </div>
-                <button class="carousel-next" onclick="mudarImagem(1)">&#8250;</button>
-            </div>
-
-            <h3>${product.name}</h3>
-            <p class="price">R$ ${product.price}</p>
-            
-            <!-- Seleção de tamanho -->
-            <div class="tamanho-container">
-                <label>Tamanho:</label>
-                <select id="select-tamanho">
-                    <option value="P">P</option>
-                    <option value="M">M</option>
-                    <option value="G">G</option>
-                    <option value="GG">GG</option>
-                </select>
-            </div>
-
-            <button id="btn-adicionar-carrinho" class="btn-add-carrinho">
-                Adicionar ao Carrinho
-            </button>
-        </div>
-    `;
-
-    modalZoom.style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Evita scroll
-    
-    // Event listener do botão (MELHOR que onclick global)
-    document.getElementById('btn-adicionar-carrinho').onclick = function() {
-        adicionarAoCarrinho(product);
-    };
-};
-
-// Fecha modal zoom
-window.fecharModalZoom = function() {
-    const modal = document.getElementById('modal-zoom');
-    if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+    .carousel-container {
+        height: 250px;
     }
-};
-
-// Carrossel navegação
-let currentImageIndex = 0;
-window.mudarImagem = function(direction) {
-    const imgs = document.querySelectorAll('.carousel-img');
-    const total = imgs.length;
-    
-    imgs[currentImageIndex].classList.remove('active');
-    currentImageIndex = (currentImageIndex + direction + total) % total;
-    imgs[currentImageIndex].classList.add('active');
-};
-
-// Adiciona ao carrinho (verifica login)
-window.adicionarAoCarrinho = function(product) {
-    const tamanho = document.getElementById('select-tamanho').value;
-    
-    // Verifica se usuário está logado
-    if (!window.usuarioLogado) {
-        // Abre modal carrinho com login
-        abrirModalCarrinho(product, tamanho);
-        return;
-    }
-    
-    // Já logado: adiciona direto
-    finalizarPedido(product.id, tamanho);
-};
-
-// Modal Carrinho/Login (próximo passo)
-window.abrirModalCarrinho = function(product, tamanho) {
-    // TODO: implementar modal carrinho com login aqui
-    alert(`Faça login para adicionar ${product.name} (tamanho ${tamanho}) ao carrinho`);
-};
+}
