@@ -1,59 +1,32 @@
-window.abrirZoomV2 = function(idProduto) {
-    // 1. Encontra o produto na lista pelo ID
-    const produto = produtosLoja.find(p => p.id === idProduto);
-    
-    if (!produto) return; // Segurança
-
+window.abrirZoomV2 = function(nome, preco, img, fotosExtras = []) {
     const overlay = document.getElementById('zoom-v2-overlay');
     const imgPrincipal = document.getElementById('zoom-v2-img');
+    const selectTamanho = document.getElementById('zoom-v2-tamanho');
     const containerMiniaturas = document.getElementById('zoom-v2-miniaturas');
-
-    // 2. Preenche os textos e a imagem principal
-    document.getElementById('zoom-v2-titulo').innerText = produto.name;
-    imgPrincipal.src = produto.img;
-
-    // 3. Cria o Carrossel de Miniaturas
-    // Usamos as fotos que você cadastrou (fotos: ["img1", "img2"])
-    if (produto.fotos && produto.fotos.length > 0) {
-        containerMiniaturas.innerHTML = produto.fotos.map(f => `
-            <img src="${f}" onclick="trocarImagemPrincipal('${f}', this)" 
-                 style="width: 60px; height: 60px; cursor: pointer; border: 2px solid #333; object-fit: cover; border-radius: 5px;">
-        `).join('');
-    }
-
-    // Dentro da função abrirZoomV2
-const containerMiniaturas = document.getElementById('zoom-v2-miniaturas');
-containerMiniaturas.innerHTML = ""; // Limpa antes de começar
-
-if (produto.fotos && Array.isArray(produto.fotos)) {
-    produto.fotos.forEach(foto => {
-        const mini = document.createElement('img');
-        mini.src = foto;
-        mini.onclick = () => trocarImagemPrincipal(foto, mini);
-        mini.style.cssText = "width:60px; height:60px; cursor:pointer; border:2px solid #333; object-fit:cover; border-radius:5px; flex-shrink:0;";
-        containerMiniaturas.appendChild(mini);
-    });
-}
-
-    // 4. Configura o botão de ADICIONAR AO CARRINHO (que está dentro do modal)
     const btnAdd = document.getElementById('zoom-v2-btn-add');
-    btnAdd.onclick = function() {
-        const tamanho = document.getElementById('zoom-v2-tamanho').value;
-        
-        if (!tamanho) {
-            alert("Por favor, selecione um tamanho!");
-            return;
-        }
 
-        // Chama a função de adicionar ao carrinho de verdade
-        if (typeof adicionarAoCarrinho === 'function') {
-            adicionarAoCarrinho(produto.name, produto.price, produto.img, tamanho);
-            fecharZoomV2();
-        }
-    };
-
-    overlay.style.display = 'flex';
-};
+    // Reset de estilos e dados
+    document.getElementById('zoom-v2-titulo').innerText = nome;
+    imgPrincipal.src = img;
+    selectTamanho.value = "";
+    selectTamanho.style.boxShadow = "none"; 
+    
+    // 1. Lógica de Miniaturas (Carrossel Dinâmico)
+    // Se não houver fotos extras, usamos apenas a principal
+    let fotos = fotosExtras.length > 0 ? fotosExtras : [img];
+    
+    // Se tiver mais de uma foto, criamos o carrossel
+    if (fotos.length > 1) {
+        document.querySelector('.zoom-v2-carrossel-container').style.display = 'flex';
+        containerMiniaturas.innerHTML = fotos.map((f, index) => `
+            <img src="${f}" onclick="trocarImagemPrincipal('${f}', this)" 
+                 class="${index === 0 ? 'thumb-ativa' : ''}"
+                 alt="Miniatura ${index + 1}">
+        `).join('');
+    } else {
+        // Se for só uma foto, esconde o container do carrossel
+        document.querySelector('.zoom-v2-carrossel-container').style.display = 'none';
+    }
 
     // 2. Lógica do Botão Adicionar (INTEGRAÇÃO COM CARRINHO)
     btnAdd.onclick = function() {
