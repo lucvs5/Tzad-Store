@@ -1,57 +1,48 @@
-window.abrirZoomV2 = function(idProduto) {
-    // Busca o produto no banco de dados que está no script.js
-    const produto = produtosLoja.find(p => p.id === idProduto);
-    if (!produto) return;
+window.abrirModal = function(product) {
+    let modal = document.getElementById('modal-compra');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modal-compra';
+        modal.className = 'modal-overlay';
+        document.body.appendChild(modal);
+    }
 
-    const overlay = document.getElementById('zoom-v2-overlay');
-    const imgPrincipal = document.getElementById('zoom-v2-img');
-    const containerMiniaturas = document.getElementById('zoom-v2-miniaturas');
-    const selectTamanho = document.getElementById('zoom-v2-tamanho');
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button class="close-modal" onclick="fecharModal()">&times;</button>
+            
+            <div style="text-align:center;">
+                <img src="${product.img}" style="width:100%; max-height:300px; object-fit:contain; border-radius:10px;">
+            </div>
 
-    // Preenche os dados
-    document.getElementById('zoom-v2-titulo').innerText = produto.name;
-    imgPrincipal.src = produto.img;
-    selectTamanho.value = ""; 
-    selectTamanho.style.boxShadow = "none";
+            <h3 style="margin-top:15px; font-size:22px; color:#DAA520;">${product.name}</h3>
+            <p style="color:#ffffff; font-weight:bold; font-size:20px; margin:10px 0;">R$ ${product.price}</p>
+            
+            <div style="text-align:left; margin-top:15px;">
+                <label style="font-weight:bold; display:block; margin-bottom:5px; color:#DAA520;">Tamanho:</label>
+                <select id="var-tamanho" style="width:100%; padding:12px; border-radius:5px; border:1px solid #DAA520; background:#000; color:#fff;">
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                </select>
+            </div>
 
-    // Cria as miniaturas (Foto principal + extras)
-    const fotos = [produto.img, ...(produto.fotos || [])];
-    const fotosUnicas = [...new Set(fotos)]; // Remove duplicatas
+            <button onclick="finalizarPedido('${product.id}')" 
+                    style="width:100%; padding:15px; background:#DAA520; color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px; text-transform:uppercase;">
+                Adicionar ao Carrinho
+            </button>
+        </div>
+    `;
 
-    containerMiniaturas.innerHTML = fotosUnicas.map((f, i) => `
-        <img src="${f}" onclick="trocarImagemPrincipal('${f}', this)" 
-             class="${i === 0 ? 'thumb-ativa' : ''}" 
-             style="width:60px; height:60px; object-fit:cover; border-radius:5px; cursor:pointer; border:2px solid #333;">
-    `).join('');
-
-    // Configura o botão de Adicionar
-    const btnAdd = document.getElementById('zoom-v2-btn-add');
-    btnAdd.onclick = function() {
-        if (!selectTamanho.value) {
-            selectTamanho.style.boxShadow = "0 0 10px #DAA520";
-            return;
-        }
-
-        const painelUsuario = document.getElementById('estado-painel');
-        if (!painelUsuario || painelUsuario.style.display !== 'block') {
-            document.getElementById('login-window').style.display = 'block';
-            document.getElementById('login-window').style.zIndex = "99999";
-            return;
-        }
-
-        window.adicionarAoCarrinho(produto.id, selectTamanho.value);
-        window.fecharZoomV2();
-    };
-
-    overlay.style.display = 'flex';
+    modal.style.display = 'flex';
 };
 
-window.trocarImagemPrincipal = function(src, el) {
-    document.getElementById('zoom-v2-img').src = src;
-    document.querySelectorAll('#zoom-v2-miniaturas img').forEach(img => img.classList.remove('thumb-ativa'));
-    el.classList.add('thumb-ativa');
+window.fecharModal = function() {
+    document.getElementById('modal-compra').style.display = 'none';
 };
 
-window.fecharZoomV2 = function() {
-    document.getElementById('zoom-v2-overlay').style.display = 'none';
+window.finalizarPedido = function(productId) {
+    alert("Produto adicionado com sucesso!");
+    fecharModal();
 };
