@@ -1,6 +1,6 @@
-// 1. BANCO DE DADOS COMPLETO
+// 1. BANCO DE DADOS COMPLETO (18 Itens)
 const produtosLoja = [
-    // PROMOÇÕES (BAPE)
+    // PROMOÇÕES
     { id: 101, name: "Conjunto BAPE Laranja", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg", "img/bape-2.jpg"] },
     { id: 102, name: "Conjunto BAPE Azul", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg"] },
     { id: 103, name: "Conjunto BAPE Verde", price: "250,00", img: "img/cjbl.jpg", categoria: "promocoes", fotos: ["img/cjbl.jpg"] },
@@ -27,17 +27,19 @@ const produtosLoja = [
 
 let itensNoCarrinho = [];
 
-// 2. FUNÇÃO RENDERIZAR (Gera a vitrine sem erros de aspas)
-function renderizarVitrines() {
-    const categorias = ['promocoes', 'nocta', 'stussy'];
+// 2. RENDERIZAÇÃO AUTOMÁTICA
+function carregarVitrines() {
+    const secoes = ['promocoes', 'nocta', 'stussy'];
     
-    categorias.forEach(cat => {
-        const grid = document.getElementById(`vitrine-${cat}`);
-        if (!grid) return;
+    secoes.forEach(cat => {
+        const container = document.getElementById(`vitrine-${cat}`);
+        if (!container) return;
 
-        const produtosFiltrados = produtosLoja.filter(p => p.categoria === cat);
+        // Filtra os produtos daquela categoria
+        const produtos = produtosLoja.filter(p => p.categoria === cat);
         
-        grid.innerHTML = produtosFiltrados.map(p => `
+        // Gera o HTML (Note que passamos apenas o p.id para evitar erro de aspas)
+        container.innerHTML = produtos.map(p => `
             <div class="produto">
                 <img src="${p.img}" alt="${p.name}">
                 <h4>R$ ${p.price}</h4>
@@ -48,74 +50,67 @@ function renderizarVitrines() {
     });
 }
 
-// 3. CARRINHO (Sincronizado)
+// 3. LOGICA DO CARRINHO (Sincronizada)
 window.adicionarAoCarrinho = function(id, tamanho) {
     const produto = produtosLoja.find(p => p.id === id);
     if (!produto) return;
 
-    const novoItem = {
+    itensNoCarrinho.push({
         ...produto,
         tamanho: tamanho,
         precoNum: parseFloat(produto.price.replace('.', '').replace(',', '.'))
-    };
+    });
 
-    itensNoCarrinho.push(novoItem);
-    window.atualizarCarrinhoHTML();
-    
-    // Abre o painel automaticamente
+    window.atualizarCarrinhoVisual();
     window.alternarTela('painel');
     window.abrirSubPagina('carrinho');
 };
 
-window.atualizarCarrinhoHTML = function() {
-    const listaUI = document.getElementById('carrinho-lista');
-    const totalUI = document.getElementById('total-carrinho');
-    if (!listaUI) return;
+window.atualizarCarrinhoVisual = function() {
+    const lista = document.getElementById('carrinho-lista');
+    const totalEl = document.getElementById('total-carrinho');
+    if (!lista) return;
 
-    let total = 0;
-    listaUI.innerHTML = itensNoCarrinho.map((item, index) => {
-        total += item.precoNum;
+    let subtotal = 0;
+    lista.innerHTML = itensNoCarrinho.map((item, index) => {
+        subtotal += item.precoNum;
         return `
             <div class="item-carrinho" style="display:flex; align-items:center; gap:10px; padding:10px; border-bottom:1px solid #222;">
-                <img src="${item.img}" style="width:50px; border-radius:5px;">
-                <div style="flex:1;">
-                    <p style="margin:0; font-size:13px;">${item.name}</p>
+                <img src="${item.img}" style="width:45px;">
+                <div style="flex:1">
+                    <p style="margin:0; font-size:12px;">${item.name}</p>
                     <p style="margin:0; font-size:11px; color:#DAA520;">Tam: ${item.tamanho} - R$ ${item.price}</p>
                 </div>
-                <button onclick="removerDoCarrinho(${index})" style="background:none; border:none; color:red; cursor:pointer;">&times;</button>
+                <button onclick="removerItem(${index})" style="background:none; border:none; color:red; cursor:pointer;">&times;</button>
             </div>
         `;
     }).join('');
 
-    if (totalUI) totalUI.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    if (totalEl) totalEl.innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
 };
 
-window.removerDoCarrinho = function(index) {
-    itensNoCarrinho.splice(index, 1);
-    window.atualizarCarrinhoHTML();
+window.removerItem = function(i) {
+    itensNoCarrinho.splice(i, 1);
+    window.atualizarCarrinhoVisual();
 };
 
-// 4. NAVEGAÇÃO DE TELAS
+// 4. FUNÇÕES DE TELA
 window.alternarTela = function(tela) {
-    const IDs = ['estado-login', 'estado-cadastro', 'estado-painel'];
-    IDs.forEach(id => {
+    ['estado-login', 'estado-cadastro', 'estado-painel'].forEach(id => {
         const el = document.getElementById(id);
         if(el) el.style.display = 'none';
     });
-
     const destino = tela === 'painel' ? 'estado-painel' : (tela === 'cadastro' ? 'estado-cadastro' : 'estado-login');
-    const elDestino = document.getElementById(destino);
-    if(elDestino) elDestino.style.display = 'block';
+    document.getElementById(destino).style.display = 'block';
 };
 
 window.abrirSubPagina = function(abaId) {
-    const abas = ['carrinho', 'perfil', 'mensagens', 'enderecos', 'rastrear'];
-    abas.forEach(aba => {
+    ['carrinho', 'perfil', 'mensagens', 'enderecos', 'rastrear'].forEach(aba => {
         const el = document.getElementById(`aba-${aba}`);
         if(el) el.style.display = 'none';
     });
-    const elAtiva = document.getElementById(`aba-${abaId}`);
-    if(elAtiva) elAtiva.style.display = 'block';
+    document.getElementById(`aba-${abaId}`).style.display = 'block';
 };
 
-document.addEventListener('DOMContentLoaded', renderizarVitrines);
+// Inicia tudo ao carregar
+document.addEventListener('DOMContentLoaded', carregarVitrines);
