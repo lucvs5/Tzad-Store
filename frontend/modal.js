@@ -1,48 +1,64 @@
-window.abrirModal = function(product) {
-    let modal = document.getElementById('modal-compra');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'modal-compra';
-        modal.className = 'modal-overlay';
-        document.body.appendChild(modal);
-    }
+window.abrirZoomV2 = function(idProduto) {
+    const produto = produtosLoja.find(p => p.id === idProduto);
+    if (!produto) return;
 
-    modal.innerHTML = `
-        <div class="modal-content">
-            <button class="close-modal" onclick="fecharModal()">&times;</button>
-            
-            <div style="text-align:center;">
-                <img src="${product.img}" style="width:100%; max-height:300px; object-fit:contain; border-radius:10px;">
-            </div>
+    const overlay = document.getElementById('zoom-v2-overlay');
+    const imgPrincipal = document.getElementById('zoom-v2-img');
+    const containerMiniaturas = document.getElementById('zoom-v2-miniaturas');
+    const selectTamanho = document.getElementById('zoom-v2-tamanho');
 
-            <h3 style="margin-top:15px; font-size:22px; color:#DAA520;">${product.name}</h3>
-            <p style="color:#ffffff; font-weight:bold; font-size:20px; margin:10px 0;">R$ ${product.price}</p>
-            
-            <div style="text-align:left; margin-top:15px;">
-                <label style="font-weight:bold; display:block; margin-bottom:5px; color:#DAA520;">Tamanho:</label>
-                <select id="var-tamanho" style="width:100%; padding:12px; border-radius:5px; border:1px solid #DAA520; background:#000; color:#fff;">
-                    <option value="P">P</option>
-                    <option value="M">M</option>
-                    <option value="G">G</option>
-                    <option value="GG">GG</option>
-                </select>
-            </div>
+    // Reset
+    document.getElementById('zoom-v2-titulo').innerText = produto.name;
+    imgPrincipal.src = produto.img;
+    selectTamanho.value = "";
+    selectTamanho.style.boxShadow = "none";
 
-            <button onclick="finalizarPedido('${product.id}')" 
-                    style="width:100%; padding:15px; background:#DAA520; color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px; text-transform:uppercase;">
-                Adicionar ao Carrinho
-            </button>
-        </div>
-    `;
+    // Fotos (Principal + Extras)
+    const todasFotos = [produto.img, ...(produto.fotos || [])];
+    const fotosUnicas = [...new Set(todasFotos)]; // Remove duplicadas
 
-    modal.style.display = 'flex';
+    containerMiniaturas.innerHTML = fotosUnicas.map((foto, index) => `
+        <img src="${foto}" onclick="trocarImagemPrincipal('${foto}', this)" 
+             class="${index === 0 ? 'thumb-ativa' : ''}"
+             style="width:60px; height:60px; cursor:pointer; border:2px solid #333; object-fit:cover; border-radius:5px;">
+    `).join('');
+
+    // Configurar Botão de Compra
+    const btnAdd = document.getElementById('zoom-v2-btn-add');
+    btnAdd.onclick = function() {
+        if (!selectTamanho.value) {
+            selectTamanho.style.boxShadow = "0 0 10px #DAA520";
+            return;
+        }
+
+        const painelAtivo = document.getElementById('estado-painel');
+        if (!painelAtivo || painelAtivo.style.display !== 'block') {
+            const loginWin = document.getElementById('login-window');
+            if (loginWin) {
+                loginWin.style.display = 'block';
+                loginWin.style.zIndex = "999999";
+            }
+            return;
+        }
+
+        window.adicionarAoCarrinho(produto.id, selectTamanho.value);
+        window.fecharZoomV2();
+    };
+
+    overlay.style.display = 'flex';
 };
 
-window.fecharModal = function() {
-    document.getElementById('modal-compra').style.display = 'none';
+window.trocarImagemPrincipal = function(src, elemento) {
+    document.getElementById('zoom-v2-img').src = src;
+    document.querySelectorAll('#zoom-v2-miniaturas img').forEach(img => img.classList.remove('thumb-ativa'));
+    elemento.classList.add('thumb-ativa');
 };
 
-window.finalizarPedido = function(productId) {
-    alert("Produto adicionado com sucesso!");
-    fecharModal();
+window.fecharZoomV2 = function() {
+    document.getElementById('zoom-v2-overlay').style.display = 'none';
+};
+
+window.scrollCarrossel = function(direcao) {
+    const container = document.getElementById('zoom-v2-miniaturas');
+    container.scrollLeft += direcao * 70;
 };
