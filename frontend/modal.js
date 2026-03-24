@@ -1,41 +1,48 @@
-window.abrirModal = function(product) {
-    let modal = document.getElementById('modal-compra');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'modal-compra';
-        modal.className = 'modal-overlay';
-        document.body.appendChild(modal);
+window.abrirZoomV2 = function(idProduto) {
+    // 1. Busca o produto no array global que está no script.js
+    const produto = produtosLoja.find(p => p.id === idProduto);
+    
+    // Se o produto não for encontrado, o código para aqui e não dá erro "vermelho"
+    if (!produto) {
+        console.error("Produto não encontrado ID:", idProduto);
+        return;
     }
 
-    modal.innerHTML = `
-        <div class="modal-content">
-            <button class="close-modal" onclick="fecharModal()">&times;</button>
-            
-            <div style="text-align:center;">
-                <img src="${product.img}" style="width:100%; max-height:300px; object-fit:contain; border-radius:10px;">
-            </div>
+    const overlay = document.getElementById('zoom-v2-overlay');
+    const imgPrincipal = document.getElementById('zoom-v2-img');
+    const containerMiniaturas = document.getElementById('zoom-v2-miniaturas');
+    const selectTamanho = document.getElementById('zoom-v2-tamanho');
 
-            <h3 style="margin-top:15px; font-size:22px; color:#DAA520;">${product.name}</h3>
-            <p style="color:#ffffff; font-weight:bold; font-size:20px; margin:10px 0;">R$ ${product.price}</p>
-            
-            <div style="text-align:left; margin-top:15px;">
-                <label style="font-weight:bold; display:block; margin-bottom:5px; color:#DAA520;">Tamanho:</label>
-                <select id="var-tamanho" style="width:100%; padding:12px; border-radius:5px; border:1px solid #DAA520; background:#000; color:#fff;">
-                    <option value="P">P</option>
-                    <option value="M">M</option>
-                    <option value="G">G</option>
-                    <option value="GG">GG</option>
-                </select>
-            </div>
+    // 2. Preenche os dados usando o objeto encontrado
+    document.getElementById('zoom-v2-titulo').innerText = produto.name;
+    imgPrincipal.src = produto.img;
+    selectTamanho.value = ""; 
+    selectTamanho.style.boxShadow = "none";
 
-            <button onclick="finalizarPedido('${product.id}')" 
-                    style="width:100%; padding:15px; background:#DAA520; color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px; text-transform:uppercase;">
-                Adicionar ao Carrinho
-            </button>
-        </div>
-    `;
+    // 3. Carrossel de Miniaturas (Verifica se fotos existem para não quebrar)
+    let fotos = (produto.fotos && produto.fotos.length > 0) ? produto.fotos : [produto.img];
+    
+    containerMiniaturas.innerHTML = fotos.map((f, index) => `
+        <img src="${f}" onclick="trocarImagemPrincipal('${f}', this)" 
+             class="${index === 0 ? 'thumb-ativa' : ''}" 
+             style="width: 60px; height: 60px; cursor: pointer; border: 2px solid #333; object-fit: cover; border-radius: 5px;">
+    `).join('');
 
-    modal.style.display = 'flex';
+    // 4. Configura o botão de Adicionar ao Carrinho dentro do Modal
+    const btnAdd = document.getElementById('zoom-v2-btn-add');
+    if (btnAdd) {
+        btnAdd.onclick = function() {
+            if (!selectTamanho.value) {
+                selectTamanho.style.boxShadow = "0 0 10px #DAA520";
+                return;
+            }
+            // Chama a função de adicionar que já funciona no seu script.js
+            window.adicionarAoCarrinho(produto.name, produto.price, produto.img, selectTamanho.value);
+            window.fecharZoomV2();
+        };
+    }
+
+    overlay.style.display = 'flex';
 };
 
 window.fecharModal = function() {
