@@ -1,43 +1,55 @@
-window.abrirZoomV2 = function(id) {
-    const produto = produtosLoja.find(p => p.id === id);
-    if (!produto) return;
-
-    const modal = document.getElementById('zoom-v2-overlay');
-    document.getElementById('zoom-v2-titulo').innerText = produto.name;
-    document.getElementById('zoom-v2-img').src = produto.img;
-    document.getElementById('zoom-v2-tamanho').value = "";
-    document.getElementById('zoom-v2-qtd').value = 1;
-
-    // Gerar Carrossel
-    const fotos = [produto.img, ...(produto.fotos || [])];
-    const fotosUnicas = [...new Set(fotos)];
+window.abrirZoomV2 = function(idProduto) {
+    // 1. Busca o produto no array global que está no script.js
+    const produto = produtosLoja.find(p => p.id === idProduto);
     
-    document.getElementById('zoom-v2-miniaturas').innerHTML = fotosUnicas.map((f, i) => `
-        <img src="${f}" class="${i === 0 ? 'thumb-ativa' : ''}" onclick="window.trocarThumb('${f}', this)">
+    // Se o produto não for encontrado, o código para aqui e não dá erro "vermelho"
+    if (!produto) {
+        console.error("Produto não encontrado ID:", idProduto);
+        return;
+    }
+
+    const overlay = document.getElementById('zoom-v2-overlay');
+    const imgPrincipal = document.getElementById('zoom-v2-img');
+    const containerMiniaturas = document.getElementById('zoom-v2-miniaturas');
+    const selectTamanho = document.getElementById('zoom-v2-tamanho');
+
+    // 2. Preenche os dados usando o objeto encontrado
+    document.getElementById('zoom-v2-titulo').innerText = produto.name;
+    imgPrincipal.src = produto.img;
+    selectTamanho.value = ""; 
+    selectTamanho.style.boxShadow = "none";
+
+    // 3. Carrossel de Miniaturas (Verifica se fotos existem para não quebrar)
+    let fotos = (produto.fotos && produto.fotos.length > 0) ? produto.fotos : [produto.img];
+    
+    containerMiniaturas.innerHTML = fotos.map((f, index) => `
+        <img src="${f}" onclick="trocarImagemPrincipal('${f}', this)" 
+             class="${index === 0 ? 'thumb-ativa' : ''}" 
+             style="width: 60px; height: 60px; cursor: pointer; border: 2px solid #333; object-fit: cover; border-radius: 5px;">
     `).join('');
 
-    // Botão Adicionar
-    document.getElementById('zoom-v2-btn-add').onclick = () => {
-        const tam = document.getElementById('zoom-v2-tamanho').value;
-        const qtd = parseInt(document.getElementById('zoom-v2-qtd').value);
-        if (!tam) { alert("Selecione um tamanho!"); return; }
-        window.adicionarAoCarrinho(produto.id, tam, qtd);
-        window.fecharZoomV2();
-    };
+    // 4. Configura o botão de Adicionar ao Carrinho dentro do Modal
+    const btnAdd = document.getElementById('zoom-v2-btn-add');
+    if (btnAdd) {
+        btnAdd.onclick = function() {
+            if (!selectTamanho.value) {
+                selectTamanho.style.boxShadow = "0 0 10px #DAA520";
+                return;
+            }
+            // Chama a função de adicionar que já funciona no seu script.js
+            window.adicionarAoCarrinho(produto.name, produto.price, produto.img, selectTamanho.value);
+            window.fecharZoomV2();
+        };
+    }
 
-    modal.style.display = 'flex';
+    overlay.style.display = 'flex';
 };
 
-window.trocarThumb = (src, el) => {
-    document.getElementById('zoom-v2-img').src = src;
-    document.querySelectorAll('#zoom-v2-miniaturas img').forEach(img => img.classList.remove('thumb-ativa'));
-    el.classList.add('thumb-ativa');
+window.fecharModal = function() {
+    document.getElementById('modal-compra').style.display = 'none';
 };
 
-window.fecharZoomV2 = () => document.getElementById('zoom-v2-overlay').style.display = 'none';
-
-window.alterarQtd = (v) => {
-    const input = document.getElementById('zoom-v2-qtd');
-    let n = (parseInt(input.value) || 1) + v;
-    input.value = n < 1 ? 1 : n;
+window.finalizarPedido = function(productId) {
+    alert("Produto adicionado com sucesso!");
+    fecharModal();
 };
