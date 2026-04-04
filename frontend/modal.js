@@ -1,178 +1,103 @@
-// =============================================
-// MODAL DE PRODUTO COM CARROSSEL
-// Integrado com o carrinho existente (itensNoCarrinho)
-// =============================================
+const BASE = "https://raw.githubusercontent.com/lucvs5/Tzad-Store/main/";
 
-let fotoAtualIndex = 0;
-let fotosDoModal = [];
-let produtoAtualModal = null;
+const produtosModal = [
+  { id: 101, name: "Conjunto BAPE Laranja", price: "250,00", img: BASE+"img/cjbl.jpg", categoria: "promocoes", fotos: [BASE+"img/cjbl.jpg", BASE+"img/bape-2.jpg", BASE+"img/cjbl.jpg", BASE+"img/cjbl.jpg"] },
+  { id: 102, name: "Conjunto BAPE Laranja", price: "250,00", img: BASE+"img/cjbl.jpg", categoria: "promocoes", fotos: [BASE+"img/cjbl.jpg", BASE+"img/bape-2.jpg"] },
+  { id: 103, name: "Conjunto BAPE Laranja", price: "250,00", img: BASE+"img/cjbl.jpg", categoria: "promocoes", fotos: [BASE+"img/cjbl.jpg"] },
+  { id: 104, name: "Conjunto BAPE Laranja", price: "250,00", img: BASE+"img/cjbl.jpg", categoria: "promocoes", fotos: [BASE+"img/cjbl.jpg", BASE+"img/extra.jpg"] },
+  { id: 105, name: "Conjunto BAPE Laranja", price: "250,00", img: BASE+"img/cjbl.jpg", categoria: "promocoes", fotos: [BASE+"img/cjbl.jpg"] },
+  { id: 106, name: "Conjunto BAPE Laranja", price: "250,00", img: BASE+"img/cjbl.jpg", categoria: "promocoes", fotos: [BASE+"img/cjbl.jpg"] },
+  { id: 201, name: "Conjunto Nike x Nocta NNT Cinza", price: "450,00", img: BASE+"img/nntc.png", categoria: "nocta", fotos: [BASE+"img/nntc.png"] },
+  { id: 202, name: "Corta Vento Nike x Nocta Preto", price: "400,00", img: BASE+"img/nkcv.png", categoria: "nocta", fotos: [BASE+"img/nkcv.png"] },
+  { id: 203, name: "Conjunto Nike Nocta Tech Fleece Preto", price: "450,00", img: BASE+"img/nktc.jpg", categoria: "nocta", fotos: [BASE+"img/nktc.jpg"] },
+  { id: 204, name: "Pulseira Classic", price: "150,00", img: BASE+"img/PulseiraClassic.jpg", categoria: "nocta", fotos: [BASE+"img/PulseiraClassic.jpg"] },
+  { id: 205, name: "Pulseira Gold Line", price: "150,00", img: BASE+"img/PulseiraGoldLine.jpg", categoria: "nocta", fotos: [BASE+"img/PulseiraGoldLine.jpg"] },
+  { id: 206, name: "Pulseira Deluxe", price: "150,00", img: BASE+"img/PulseiraDeluxe.jpg", categoria: "nocta", fotos: [BASE+"img/PulseiraDeluxe.jpg"] },
+  { id: 301, name: "STÜSSY METALHEADZ (refletiva)", price: "150,00", img: BASE+"img/stmtb.jpg", categoria: "stussy", fotos: [BASE+"img/stmtb.jpg"] },
+  { id: 302, name: "Stüssy Logo Padrão P.", price: "150,00", img: BASE+"img/stlpp.jpg", categoria: "stussy", fotos: [BASE+"img/stlpp.jpg"] },
+  { id: 303, name: "Stüssy Veludo B", price: "150,00", img: BASE+"img/stvlb.jpg", categoria: "stussy", fotos: [BASE+"img/stvlb.jpg"] },
+  { id: 304, name: "Stüssy Veludo P", price: "150,00", img: BASE+"img/stvlp.jpg", categoria: "stussy", fotos: [BASE+"img/stvlp.jpg"] },
+  { id: 305, name: "Stüssy Logo Padrão B.", price: "150,00", img: BASE+"img/stlpb.jpg", categoria: "stussy", fotos: [BASE+"img/stlpb.jpg"] },
+  { id: 306, name: "Stüssy Bordada B", price: "150,00", img: BASE+"img/stbdb.jpg", categoria: "stussy", fotos: [BASE+"img/stbdb.jpg"] },
+];
+
 let tamanhoSelecionado = null;
 
-window.abrirModal = function(product) {
-  produtoAtualModal = product;
-  fotosDoModal = product.fotos && product.fotos.length > 0 ? product.fotos : [product.img];
-  fotoAtualIndex = 0;
-  tamanhoSelecionado = null;
+function abrirZoom(produtoId) {
+  const produto = produtosModal.find(p => p.id === produtoId);
+  if (!produto) return;
 
-  let modal = document.getElementById('modal-compra');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'modal-compra';
-    modal.className = 'modal-overlay';
-    document.body.appendChild(modal);
-  }
+  const overlay = document.getElementById("zoom-v2-overlay");
+  const imgPrincipal = document.getElementById("zoom-v2-img");
+  const miniaturas = document.getElementById("zoom-v2-miniaturas");
+  const nome = document.getElementById("zoom-v2-nome");
+  const preco = document.getElementById("zoom-v2-preco");
+  const btnAdd = document.getElementById("zoom-v2-btn-add");
 
-  modal.innerHTML = `
-    <div class="modal-caixa">
-      <span class="modal-fechar" onclick="fecharModal()">&times;</span>
+  imgPrincipal.src = produto.fotos[0] || produto.img;
+  nome.textContent = produto.name;
+  preco.textContent = "R$ " + produto.price;
 
-      <div class="modal-foto-principal-container">
-        <img id="modal-foto-principal" src="${fotosDoModal[0]}" alt="${product.name}" class="modal-foto-principal" />
-      </div>
-
-      ${fotosDoModal.length > 1 ? `
-      <div class="modal-carrossel-container">
-        <button class="modal-seta seta-esq" onclick="scrollMiniaturas('esq')">&lsaquo;</button>
-        <div class="modal-miniaturas" id="modal-miniaturas">
-          ${fotosDoModal.map((foto, i) => `
-            <img src="${foto}" alt="Foto ${i+1}" class="modal-thumb ${i === 0 ? 'thumb-ativa' : ''}" onclick="selecionarFoto(${i})" />
-          `).join('')}
-        </div>
-        <button class="modal-seta seta-dir" onclick="scrollMiniaturas('dir')">&rsaquo;</button>
-      </div>
-      ` : ''}
-
-      <h3 class="modal-nome">${product.name}</h3>
-      <p class="modal-preco">R$ ${product.price}</p>
-
-      <div class="modal-tamanhos">
-        <p class="modal-tamanho-label">Tamanho:</p>
-        <div class="modal-tamanho-opcoes">
-          <button class="modal-tam-btn" onclick="selecionarTamanho(this, 'P')">P</button>
-          <button class="modal-tam-btn" onclick="selecionarTamanho(this, 'M')">M</button>
-          <button class="modal-tam-btn" onclick="selecionarTamanho(this, 'G')">G</button>
-          <button class="modal-tam-btn" onclick="selecionarTamanho(this, 'GG')">GG</button>
-        </div>
-      </div>
-
-      <button class="modal-btn-carrinho" id="btn-add-carrinho" onclick="adicionarDoModal()" disabled>
-        Adicionar ao Carrinho
-      </button>
-    </div>
-  `;
-
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-};
-
-window.selecionarFoto = function(index) {
-  fotoAtualIndex = index;
-  document.getElementById('modal-foto-principal').src = fotosDoModal[index];
-  document.querySelectorAll('.modal-thumb').forEach((el, i) => {
-    el.classList.toggle('thumb-ativa', i === index);
+  miniaturas.innerHTML = "";
+  produto.fotos.forEach(function(foto, idx) {
+    const img = document.createElement("img");
+    img.src = foto;
+    img.alt = produto.name + " " + (idx + 1);
+    if (idx === 0) img.classList.add("ativo");
+    img.addEventListener("click", function() {
+      imgPrincipal.src = foto;
+      miniaturas.querySelectorAll("img").forEach(function(el) { el.classList.remove("ativo"); });
+      img.classList.add("ativo");
+    });
+    miniaturas.appendChild(img);
   });
-};
 
-window.scrollMiniaturas = function(direcao) {
-  const container = document.getElementById('modal-miniaturas');
-  if (!container) return;
-  const scrollAmount = direcao === 'esq' ? -80 : 80;
-  container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-};
+  tamanhoSelecionado = null;
+  document.querySelectorAll(".btn-tamanho").forEach(function(btn) { btn.classList.remove("tam-ativo"); });
+  btnAdd.className = "btn-add-carrinho inativo";
 
-window.selecionarTamanho = function(btn, tam) {
-  tamanhoSelecionado = tam;
-  document.querySelectorAll('.modal-tam-btn').forEach(b => b.classList.remove('tam-ativo'));
-  btn.classList.add('tam-ativo');
-  document.getElementById('btn-add-carrinho').disabled = false;
-};
+  document.querySelectorAll(".btn-tamanho").forEach(function(btn) {
+    btn.onclick = function() {
+      document.querySelectorAll(".btn-tamanho").forEach(function(b) { b.classList.remove("tam-ativo"); });
+      btn.classList.add("tam-ativo");
+      tamanhoSelecionado = btn.textContent;
+      btnAdd.className = "btn-add-carrinho ativo";
+    };
+  });
 
-window.adicionarDoModal = function() {
-  if (!produtoAtualModal || !tamanhoSelecionado) return;
-
-  const novoItem = {
-    name: produtoAtualModal.name,
-    price: produtoAtualModal.price,
-    img: produtoAtualModal.img,
-    size: tamanhoSelecionado
+  btnAdd.onclick = function() {
+    if (!tamanhoSelecionado) return;
+    if (typeof itensNoCarrinho !== "undefined") {
+      itensNoCarrinho.push({
+        nome: produto.name,
+        preco: produto.price,
+        img: produto.img,
+        tamanho: tamanhoSelecionado,
+        quantidade: 1
+      });
+      if (typeof atualizarCarrinhoVisual === "function") {
+        atualizarCarrinhoVisual();
+      }
+    }
+    overlay.classList.remove("ativo");
+    var loginWindow = document.querySelector(".login-window");
+    if (loginWindow) loginWindow.classList.add("ativo");
   };
 
-  if (typeof itensNoCarrinho !== 'undefined') {
-    itensNoCarrinho.push(novoItem);
-    if (typeof atualizarCarrinhoVisual === 'function') {
-      atualizarCarrinhoVisual();
-    }
-  }
+  overlay.classList.add("ativo");
+}
 
-  abrirCarrinhoSobreModal();
-};
+function fecharZoom() {
+  document.getElementById("zoom-v2-overlay").classList.remove("ativo");
+}
 
-window.abrirCarrinhoSobreModal = function() {
-  let cartModal = document.getElementById('modal-carrinho-sobre');
-  if (!cartModal) {
-    cartModal = document.createElement('div');
-    cartModal.id = 'modal-carrinho-sobre';
-    cartModal.className = 'cart-modal-overlay';
-    document.body.appendChild(cartModal);
-  }
+function scrollMiniaturas(direcao) {
+  var container = document.getElementById("zoom-v2-miniaturas");
+  var scroll = direcao === "esquerda" ? -80 : 80;
+  container.scrollBy({ left: scroll, behavior: "smooth" });
+}
 
-  let total = 0;
-  let listaHTML = '';
-
-  if (typeof itensNoCarrinho !== 'undefined' && itensNoCarrinho.length > 0) {
-    listaHTML = itensNoCarrinho.map((item, idx) => {
-      const preco = parseFloat(item.price.replace('.', '').replace(',', '.'));
-      total += preco;
-      return `
-        <div class="cart-item">
-          <img src="${item.img}" alt="${item.name}" class="cart-item-img" />
-          <div class="cart-item-info">
-            <p class="cart-item-nome">${item.name}</p>
-            <p class="cart-item-tam">Tam: ${item.size}</p>
-            <p class="cart-item-preco">R$ ${item.price}</p>
-          </div>
-          <span class="cart-item-remover" onclick="removerDoCarrinhoModal(${idx})">&times;</span>
-        </div>
-      `;
-    }).join('');
-  } else {
-    listaHTML = '<p class="cart-vazio">Carrinho vazio.</p>';
-  }
-
-  cartModal.innerHTML = `
-    <div class="cart-modal-caixa">
-      <span class="modal-fechar" onclick="fecharCarrinhoSobreModal()">&times;</span>
-      <h2 class="cart-titulo">CARRINHO</h2>
-      <div class="cart-lista">${listaHTML}</div>
-      <div class="cart-total">
-        <span>Total:</span>
-        <span class="cart-total-valor">R$ ${total.toFixed(2).replace('.', ',')}</span>
-      </div>
-    </div>
-  `;
-
-  cartModal.style.display = 'flex';
-};
-
-window.fecharCarrinhoSobreModal = function() {
-  const el = document.getElementById('modal-carrinho-sobre');
-  if (el) el.style.display = 'none';
-};
-
-window.removerDoCarrinhoModal = function(idx) {
-  if (typeof itensNoCarrinho !== 'undefined') {
-    itensNoCarrinho.splice(idx, 1);
-    if (typeof atualizarCarrinhoVisual === 'function') {
-      atualizarCarrinhoVisual();
-    }
-    abrirCarrinhoSobreModal();
-  }
-};
-
-window.fecharModal = function() {
-  const el = document.getElementById('modal-compra');
-  if (el) el.style.display = 'none';
-  document.body.style.overflow = '';
-  tamanhoSelecionado = null;
-  fecharCarrinhoSobreModal();
-};
+document.addEventListener("click", function(e) {
+  var overlay = document.getElementById("zoom-v2-overlay");
+  if (e.target === overlay) fecharZoom();
+});
