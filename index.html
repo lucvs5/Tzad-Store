@@ -8,6 +8,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="frontend/modal.css">
 </head>
+    
+    <div class="zoom-v2-overlay" id="zoom-v2-overlay">
+  <div class="zoom-v2-conteudo">
+    <button class="zoom-v2-fechar" onclick="fecharZoom()">&times;</button>
+    <img id="zoom-v2-img" class="zoom-v2-img-principal" src="" alt="Produto">
+    <div class="zoom-v2-carrossel">
+      <button class="zoom-v2-seta esquerda" onclick="scrollMiniaturas('esquerda')">&#8249;</button>
+      <div class="zoom-v2-miniaturas" id="zoom-v2-miniaturas"></div>
+      <button class="zoom-v2-seta direita" onclick="scrollMiniaturas('direita')">&#8250;</button>
+    </div>
+    <h3 class="zoom-v2-nome" id="zoom-v2-nome"></h3>
+    <p class="zoom-v2-preco" id="zoom-v2-preco"></p>
+    <div class="zoom-v2-tamanhos">
+      <p>Tamanho:</p>
+      <div class="opcoes">
+        <button class="btn-tamanho">P</button>
+        <button class="btn-tamanho">M</button>
+        <button class="btn-tamanho">G</button>
+        <button class="btn-tamanho">GG</button>
+      </div>
+    </div>
+    <button class="btn-add-carrinho inativo" id="zoom-v2-btn-add">Adicionar ao Carrinho</button>
+  </div>
+</div>
+<script src="frontend/modal.js"></script>
+
 <body>
 
 <header class="topo">
